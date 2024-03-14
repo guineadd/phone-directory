@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Directory containing internal telephone numbers" />
+  <title>Phone Directory</title>
+</head>
+
+<body class="font-electrolize">
+  <div class="container flex flex-col">
+    <div class="header h-14 px-2 flex justify-between items-center text-white text-2xl bg-general-bars">
+      <div>
+        <span>Telephone Catalog</span>
+      </div>
+      <div class="flex w-[450px] justify-evenly items-center">
+        <div class="w-[300px] bg-buttons-primary rounded-lg p-1">
+          <input type="text" class=" w-[250px] bg-transparent">
+          <button id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="w-[110px] bg-buttons-primary rounded-lg p-1">
+          <button id="login-button">Log In <i class="fa fa-right-from-bracket"></i></button>
+        </div>
+      </div>
+    </div>
+    <div id="main-container" class="main-container">
+      <div id="catalog-container" class="w-full h-full"></div>
+    </div>
+    <div class="footer text-sm bottom-0 w-[100%] flex fixed items-center h-9 text-white px-2 justify-end">
+      <span class="align-middle">
+        &copy;&nbsp;<span id="year">2024</span>&nbsp;Copyright&nbsp;|&nbsp;
+      </span>
+      <a class="hover:underline hover:text-bars-hover align-middle" target="_blank"
+        href="https://www.olympia-electronics.com/el">
+        Olympia Electronics
+      </a>
+    </div>
+  </div>
+  <div id="login-container"></div>
+  <div id="notification-bar" class="flex justify-center pointer-events-none"></div>
+  <script type="text/javascript" src="dist/bundle.js"></script>
+</body>
+
+</html>

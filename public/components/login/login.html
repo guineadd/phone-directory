@@ -1,0 +1,59 @@
+<!-- delete hidden to show login -->
+<div id="login-modal-container" class="hidden fixed inset-0 z-50 outline-none">
+  <div
+    class="bg fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-black/30"
+  >
+    <div
+      class="login-form relative form-before bg-black bg-opacity-50 shadow-custom rounded-[10px] text-white grid p-8 h-auto w-[330px]"
+    >
+      <div class="login-title flex flex-row text-center justify-center mb-8 text-3xl">
+        <span>Logical</span>
+        <span class="text-bars-element font-semibold">DOC</span>
+      </div>
+      <div class="input-group relative">
+        <input
+          class="w-full py-[10px] text-lg mb-8 border border-l-0 border-r-0 border-t-0 border-b-[1px] border-white outline-none bg-transparent"
+          type="text"
+          name="username"
+          id="username"
+          autocomplete="off"
+          autofocus
+          required="required"
+        />
+        <label
+          class="absolute top-0 left-0 py-[10px] text-lg pointer-events-none transition-all duration-300 ease-out"
+          for="username"
+          >Username</label
+        >
+      </div>
+      <div class="input-group relative">
+        <input
+          class="w-full py-[10px] text-lg mb-8 border border-l-0 border-r-0 border-t-0 border-b-[1px] border-white outline-none bg-transparent"
+          type="password"
+          name="password"
+          id="password"
+          autocomplete="off"
+          required="required"
+        />
+        <label
+          class="absolute top-0 left-0 py-[10px] text-lg pointer-events-none transition-all duration-300 ease-out"
+          for="password"
+          >Password</label
+        >
+      </div>
+      <div class="input-group">
+        <p
+          style="font-size: calc(0.6vw + 0.6vh); text-align: center; height: 50px"
+          class="text-bars-selection"
+          id="login-failed"
+        ></p>
+      </div>
+      <input
+        type="submit"
+        value="SIGN IN"
+        id="sign-in"
+        class="submit-btn disabled block mt-1 ml-auto border-none outline-none bg-bars-element hover:bg-bars-hover py-2 px-2 rounded-md cursor-pointer text-white"
+      />
+    </div>
+  </div>
+</div>

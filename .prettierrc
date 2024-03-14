@@ -1,0 +1,14 @@
+{
+  "printWidth": 130,
+  "tabWidth": 2,
+  "arrowParens": "avoid",
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "options": {
+        "printWidth": 130,
+        "parser": "html"
+      }
+    }
+  ]
+}
