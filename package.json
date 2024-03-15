@@ -13,8 +13,7 @@
     "test": "jest",
     "pretest": "eslint ."
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "author": "A. Kalogeras, D. Kyprianou",
   "license": "ISC",
   "dependencies": {

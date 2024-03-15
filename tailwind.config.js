@@ -8,7 +8,12 @@ export default {
           background: "rgba(124, 152, 133, 1)",
           bars: "rgba(40, 102, 110, 1)",
           tabs: "rgba(0, 0, 0, 0.5)",
-          details: "rgba(181, 182, 130, 1)",
+          details: "rgba(181, 182, 130)",
+        },
+        login: {
+          backdrop: "rgba(28, 33, 13, 0.5)",
+          background: "rgba(245, 248, 221)",
+          submit: "rgba(210, 147, 32, 1)",
         },
         bars: {
           notification: "rgba(217, 185, 155, .6)",
@@ -21,7 +26,7 @@ export default {
         },
       },
       fontFamily: {
-        electrolize: ['"Electrolize Regular"', "sans-serif"],
+        jetBrainsMono: ['"JetBrainsMono"', "sans-serif"],
       },
       boxShadow: {
         custom: "0 15px 25px rgba(0, 0, 0, 0.5)",
