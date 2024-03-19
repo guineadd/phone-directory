@@ -1,11 +1,11 @@
 const contacts = [
   {
     id: 0,
-    name: "ΠΑΝΑΓΙΩΤΗΣ",
+    firstName: "ΠΑΝΑΓΙΩΤΗΣ",
     lastName: "ΑΡΒΑΝΙΤΙΔΗΣ",
     comment: "",
     division: "ΔΙΕΥΘΥΝΣΗ",
-    telephoneNumber: "105",
-    telephoneNumberSec: "",
+    primaryTel: "105",
+    secondaryTel: "",
   },
 ];
