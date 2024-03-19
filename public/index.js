@@ -5,6 +5,7 @@ import loginTemplate from "./components/login/login.html";
 import Catalog from "./components/catalog/catalog.js";
 import catalogTemplate from "./components/catalog/catalog.html";
 import notificationsTemplate from "./components/notifications/notifications.html";
+import Notifications from "./components/notifications/notifications.js";
 
 // insert html templates into containers
 const loginElement = document.getElementById("login-container");
@@ -18,6 +19,9 @@ notificationsElement.innerHTML = notificationsTemplate;
 
 const login = new Login();
 const catalog = new Catalog();
+const notifications = new Notifications();
 
-catalog.setComponents(login);
-login.setComponents(catalog);
+catalog.render();
+login.render();
+catalog.setComponents(login, notifications);
+login.setComponents(catalog, notifications);
