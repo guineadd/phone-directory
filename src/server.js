@@ -97,6 +97,7 @@ app.delete("/delete-division", async (req, res) => {
 });
 
 app.post("/get-contacts/:id", async (req, res) => {
+app.post("/get-contacts/:id", async (req, res) => {
   try {
     const { id } = req.params;
 

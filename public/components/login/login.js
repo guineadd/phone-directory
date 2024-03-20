@@ -2,59 +2,76 @@ export default class Login {
   constructor() {
     this.username = null;
     this.password = null;
-    this.loginBtn = null;
+    this.signInBtn = null;
     this.cancelModalBtn = null;
     this.loginModalContainer = null;
-    // this.inputHandler = this.inputHandler.bind(this);
+    this.userManagementModalContainer = null;
     this.hideLoginModal = this.hideLoginModal.bind(this);
-    // this.validate = this.validate.bind(this);
-    // this.login = this.login.bind(this);
-    this.loginAttempts = null;
+    this.signIn = this.signIn.bind(this);
+    this.inputHandler = this.inputHandler.bind(this);
+    // this.loginAttempts = null;
   }
 
   setComponents(notifications) {
     this.notificationsComponent = notifications;
   }
 
-  showLoginModal() {
-    console.log("show me");
-    const loginModalContainer = document.getElementById("login-modal-container");
-    if (loginModalContainer) {
-      loginModalContainer.classList.remove("hidden");
-    }
-  }
-
   render() {
+    this.userManagementModalContainer = document.getElementById("user-management-modal-container");
+    this.loginModalContainer = document.getElementById("login-modal-container");
     this.username = document.getElementById("username");
     this.password = document.getElementById("password");
-    this.loginBtn = document.getElementById("sign-in");
-    this.loginModalContainer = document.getElementById("login-modal-container");
-
+    this.signInBtn = document.getElementById("sign-in-button");
     this.cancelModalBtn = document.getElementById("close-modal-button");
-    this.removeClickListener(this.cancelModalBtn, this.hideLoginModal);
-    this.addClickListener(this.cancelModalBtn, this.hideLoginModal);
 
-    // this.username.removeEventListener("input", this.validate);
-    // this.password.removeEventListener("input", this.validate);
-    // this.loginBtn.removeEventListener("click", this.login);
-    // this.username.addEventListener("input", this.validate);
-    // this.password.addEventListener("input", this.validate);
-    // this.loginBtn.addEventListener("click", this.login);
+    this.username.removeEventListener("keyup", this.inputHandler);
+    this.password.removeEventListener("keyup", this.inputHandler);
+    this.signInBtn.removeEventListener("click", this.signIn);
+    this.cancelModalBtn.removeEventListener("click", this.hideLoginModal);
 
-    // this.username.removeEventListener("keyup", this.inputHandler);
-    // this.password.removeEventListener("keyup", this.inputHandler);
-    // this.username.addEventListener("keyup", this.inputHandler);
-    // this.password.addEventListener("keyup", this.inputHandler);
-
-    // if (Number(sessionStorage.getItem("login-attempts")) >= 3) {
-    //   this.startCountdown(Number(sessionStorage.getItem("countdown")));
-    // }
+    this.username.addEventListener("keyup", this.inputHandler);
+    this.password.addEventListener("keyup", this.inputHandler);
+    this.signInBtn.addEventListener("click", this.signIn);
+    this.cancelModalBtn.addEventListener("click", this.hideLoginModal);
   }
 
   hideLoginModal() {
-    const loginModalContainer = document.getElementById("login-modal-container");
-    if (loginModalContainer) {
-      loginModalContainer.classList.add("hidden");
+    if (this.loginModalContainer) {
+      this.loginModalContainer.classList.add("hidden");
+    }
+  }
+
+  inputHandler(event) {
+    if (event.key === "Enter" && !this.signInBtn.classList.contains("disabled")) {
+      this.signInBtn.click();
+    }
+  }
+
+  signIn() {
+    if (this.username.value === "admin" && this.password.value === "admin") {
+      console.log("succesfully signed in as admin");
+      this.loginModalContainer.classList.add("hidden");
+
+      const buttonContainer = document.createElement("div");
+      buttonContainer.classList.add("w-[140px]");
+
+      const adminButton = document.createElement("button");
+      adminButton.innerHTML = `USERS <i class="fa-solid fa-user"></i>`;
+      adminButton.classList.add("bg-buttons-primary", "hover:bg-general-details", "w-full", "rounded-lg", "py-1", "px-2");
+
+      adminButton.addEventListener("click", () => {
+        this.userManagementModalContainer.classList.remove("hidden");
+      });
+
+      buttonContainer.appendChild(adminButton);
+
+      const headerButtons = document.getElementById("header-buttons");
+      headerButtons.insertBefore(buttonContainer, headerButtons.firstChild);
+    } else if (this.username.value === "user" && this.password.value === "user") {
+      console.log("succesfully signed in");
+      this.loginModalContainer.classList.add("hidden");
+    } else {
+      console.log("wrong credentials");
     }
   }
 
@@ -126,15 +143,6 @@ export default class Login {
   //     });
   // }
 
-  // validate() {
-  //   if (this.username.value === "" || this.password.value === "") {
-  //     this.loginBtn.classList.add("disabled");
-  //   } else {
-  //     if (Number(sessionStorage.getItem("login-attempts")) >= 3) return;
-  //     this.loginBtn.classList.remove("disabled");
-  //   }
-  // }
-
   // errorMessage(message) {
   //   const errorMessage = document.getElementById("login-failed");
   //   errorMessage.textContent = message;
@@ -161,16 +169,4 @@ export default class Login {
   //     sessionStorage.setItem("countdown", countdown);
   //   }, 1000);
   // }
-
-  addClickListener(element, handler) {
-    if (element) {
-      element.addEventListener("click", handler);
-    }
-  }
-
-  removeClickListener(element, handler) {
-    if (element) {
-      element.removeEventListener("click", handler);
-    }
-  }
 }
