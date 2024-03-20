@@ -1,32 +1,70 @@
-<div class="bg-general-tabs flex flex-col w-1/6 h-[100%] rounded-lg justify-evenly items-center">
-  <div class="division-list-item"><button> ΔΙΕΥΘΥΝΣΗ</div></button>
-  <div class="division-list-item"><button> ΥΠΕΥΘΥΝΟΣ ISO</div></button>
-  <div class="division-list-item"><button> ΤΜΗΜΑ ΜΗΧΑΝΟΓΡΑΓΗΣΗΣ</div></button>
-  <div class="division-list-item"><button> ΕΡΕΥΝΑ</div></button>
-  <div class="division-list-item"><button> INTERNATIONAL SALES DIRECTOR</div></button>
-  <div class="division-list-item"><button> ΤΜΗΜΑ D.MARKETING/ ΔΗΜΙΟΥΡΓΙΚΟ</div></button>
-  <div class="division-list-item"><button> ΔΙΕΥΘΥΝΣΗ</div></button>
-  <div class="division-list-item"><button> ΥΠΕΥΘΥΝΟΣ ISO</div></button>
-  <div class="division-list-item"><button> ΤΜΗΜΑ ΜΗΧΑΝΟΓΡΑΓΗΣΗΣ</div></button>
-  <div class="division-list-item"><button> ΕΡΕΥΝΑ</div></button>
-  <div class="division-list-item"><button> INTERNATIONAL SALES DIRECTOR</div></button>
-  <div class="division-list-item"><button> ΤΜΗΜΑ D.MARKETING/ ΔΗΜΙΟΥΡΓΙΚΟ</div></button>
+<div
+  id="catalog-divisions"
+  class="bg-general-tabs flex flex-col py-[5px] w-1/6 h-[100%] rounded-lg items-center overflow-auto"
+></div>
+
+<div id="catalog-contacts" class="contact-tab-container w-5/6 pl-8 flex flex-wrap overflow-auto">
+  <!-- <div class="flex w-full">
+    <div class="card relative rounded-lg shadow-custom flex flex-col bg-general-tabs mx-auto w-11/12 h-4/6">
+      <div class="rounded-lg font-semibold text-center h-fit p-3 w-full bg-general-tabs">ΔΙΕΥΘΥΝΣΗ</div>
+      <button class="absolute top-2 right-2"><i class="hover:text-login-submit fa-solid fa-edit text-2xl"></i></button>
+      <div class="flex flex-row justify-between p-3">
+        <p class="underline font-semibold">ΟΝΟΜΑΤΕΠΩΝΥΜΟ</p>
+        <p class="underline font-semibold">ΤΗΛΕΦΩΝΟ</p>
+      </div>
+      <div class="flex flex-col justify-between overflow-auto">
+        <div class="odd flex flex-row justify-between px-3 py-2">
+          <p>ΠΑΝΑΓΙΩΤΗΣ ΑΡΒΑΝΙΤΙΔΗΣ</p>
+          <p>105</p>
+        </div>
+        <div class="flex flex-row justify-between px-3 py-2">
+          <p>ΠΑΝΑΓΙΩΤΗΣ ΑΡΒΑΝΙΤΙΔΗΣ</p>
+          <p>105</p>
+        </div>
+        <div class="odd flex flex-row justify-between px-3 py-2">
+          <p>ΠΑΝΑΓΙΩΤΗΣ ΑΡΒΑΝΙΤΙΔΗΣ</p>
+          <p>105</p>
+        </div>
+        <div class="flex flex-row justify-between px-3 py-2">
+          <p>ΠΑΝΑΓΙΩΤΗΣ ΑΡΒΑΝΙΤΙΔΗΣ</p>
+          <p>105</p>
+        </div>
+      </div>
+    </div>
+  </div> -->
 </div>
 
-<div class="contact-tab-container w-5/6 pl-8 flex flex-wrap">
-  <div class="card rounded-lg shadow-custom bg-general-tabs flex flex-col items-center justify-evenly w-1/4">
-    <div class="flex h-5 justify-center text-xl ">
-      <h2>ΔΙΕΥΘΥΝΣΗ</h2>
-    </div>
-  </div>
-  <div class="card rounded-lg shadow-custom bg-general-tabs flex flex-col items-center justify-evenly w-1/4">
-    <div class="flex h-5 justify-center text-xl ">
-      <h2>ΔΙΕΥΘΥΝΣΗ</h2>
-    </div>
-  </div>
-  <div class="card rounded-lg shadow-custom bg-general-tabs flex flex-col items-center justify-evenly w-1/4">
-    <div class="flex h-5 justify-center text-xl ">
-      <h2>ΔΙΕΥΘΥΝΣΗ</h2>
+<div id="division-edit-modal-container" class="hidden fixed inset-0 z-50 outline-none">
+  <div
+    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50"
+  >
+    <div
+      class="edit-division relative form-before bg-login-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[450px]"
+    >
+      <button id="close-edit-button" class="absolute top-0 right-0 m-4 text-xl cursor-pointer focus:outline-none">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="flex flex-row text-center justify-center mb-8 text-3xl">
+        <span class="text-bars-element font-semibold">Edit Division</span>
+      </div>
+      <div class="division-details flex flex-col">
+        <label for="division-name">Division Name</label>
+        <input id="division-name" type="text" />
+        <label for="division-order">Order</label>
+        <input id="division-order" type="number" />
+        <button>Add Contact</button>
+        <div class="flex flex-col">
+          <label for="contact-first-name">First Name</label>
+          <input id="contact-first-name" type="text" />
+          <label for="contact-last-name">Last Name</label>
+          <input id="contact-last-name" type="text" />
+          <label for="contact-primary-tel">Primary Telephone Number</label>
+          <input id="contact-primary-tel" type="number" />
+          <label for="contact-secondary-tel">Secondary Telephone Number</label>
+          <input id="contact-secondary-tel" type="number" />
+        </div>
+        <button>Delete Division</button>
+      </div>
     </div>
   </div>
 </div>

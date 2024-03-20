@@ -8,6 +8,8 @@ export default {
           background: "rgba(124, 152, 133, 1)",
           bars: "rgba(40, 102, 110, 1)",
           tabs: "rgba(0, 0, 0, 0.5)",
+          headerTabs: "rgba(0, 0, 0, 0.8)",
+          hoverTabs: "rgba(0, 0, 0, 0.35)",
           details: "rgba(181, 182, 130)",
         },
         login: {
