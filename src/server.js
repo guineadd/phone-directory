@@ -3,9 +3,8 @@ import path from "path";
 import http from "http";
 // import https from "https";
 import { Op } from "sequelize";
-import { sequelize } from "../database/db.js";
-import { Divisions } from "../database/db.js";
-import { Contacts } from "../database/db.js";
+// import { sequelize } from "../database/db.js";
+import db from "../database/models/index.js";
 
 const app = express();
 app.use(express.static("public"));
@@ -21,9 +20,13 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(path.resolve(), "/public/index.html"));
 });
 
+const { Contact, Division, Telephone, ContactTelephone } = db;
+const { sequelize } = db.sequelize;
+console.log(Contact);
+
 app.get("/get-divisions", async (req, res) => {
   try {
-    const divisions = await Divisions.findAll();
+    const divisions = await Division.findAll();
     res.json(divisions);
   } catch (error) {
     res.status(500).json(`Error fetching divisions: ${error}`);
@@ -37,7 +40,7 @@ app.post("/search-divisions", async (req, res) => {
 
     const filter = { name: { [Op.like]: `%${query}%` } };
 
-    const divisions = await Divisions.findAll({ where: filter });
+    const divisions = await Division.findAll({ where: filter });
 
     res.json(divisions);
   } catch (error) {
@@ -49,7 +52,7 @@ app.post("/add-division", async (req, res) => {
   try {
     const { name } = req.body;
 
-    const maxOrderDivision = await Divisions.findOne({
+    const maxOrderDivision = await Division.findOne({
       attributes: [[sequelize.fn("max", sequelize.col("order")), "maxOrder"]],
     });
 
@@ -61,7 +64,7 @@ app.post("/add-division", async (req, res) => {
       order = 1;
     }
 
-    const newDivision = await Divisions.create({ name, order });
+    const newDivision = await Division.create({ name, order });
 
     res.json(newDivision);
   } catch (error) {
@@ -73,7 +76,7 @@ app.put("/update-division", async (req, res) => {
   try {
     const { id, name, order } = req.body;
 
-    const updatedDivision = await Divisions.update({ name, order }, { where: { id } });
+    const updatedDivision = await Division.update({ name, order }, { where: { id } });
 
     res.json(updatedDivision);
   } catch (error) {
@@ -85,7 +88,7 @@ app.delete("/delete-division", async (req, res) => {
   try {
     const { id } = req.body;
 
-    const deletedDivision = await Divisions.destroy({ where: { id } });
+    const deletedDivision = await Division.destroy({ where: { id } });
 
     res.json(deletedDivision);
   } catch (error) {
@@ -93,10 +96,13 @@ app.delete("/delete-division", async (req, res) => {
   }
 });
 
-app.get("/get-contacts", async (req, res) => {
+app.post("/get-contacts/:id", async (req, res) => {
   try {
-    const contacts = await Contacts.findAll();
-    res.json(contacts);
+    const { id } = req.params;
+
+    const division = await Division.findOne({ where: { id } });
+    const contacts = await Contact.findAll({ where: { divisionId: id } });
+    res.json({ division, contacts });
   } catch (error) {
     res.status(500).json(`Error fetching contacts: ${error}`);
   }
@@ -111,7 +117,7 @@ app.post("/search-contacts", async (req, res) => {
       [Op.or]: [{ firstName: { [Op.like]: `%${query}%` } }, { lastName: { [Op.like]: `%${query}%` } }],
     };
 
-    const contacts = await Contacts.findAll({ where: filter });
+    const contacts = await Contact.findAll({ where: filter });
     res.json(contacts);
   } catch (error) {
     res.status(500).json(`Error finding contact: ${error}`);
@@ -122,11 +128,11 @@ app.post("/add-contact", async (req, res) => {
   try {
     const { divisionName, firstName, lastName, comment, primaryTel, secondaryTel } = req.body;
 
-    const division = await Divisions.findOne({ where: { name: divisionName } });
+    const division = await Division.findOne({ where: { name: divisionName } });
 
     const divisionId = division.id;
 
-    const newContact = await Contacts.create({
+    const newContact = await Contact.create({
       divisionId,
       firstName,
       lastName,
@@ -145,11 +151,11 @@ app.put("/update-contact", async (req, res) => {
   try {
     const { id, divisionName, firstName, lastName, comment, primaryTel, secondaryTel } = req.body;
 
-    const division = await Divisions.findOne({ where: { name: divisionName } });
+    const division = await Division.findOne({ where: { name: divisionName } });
 
     const divisionId = division.id;
 
-    const updatedContact = await Contacts.update(
+    const updatedContact = await Contact.update(
       {
         divisionId,
         firstName,
@@ -171,7 +177,7 @@ app.delete("/delete-contact", async (req, res) => {
   try {
     const { id } = req.body;
 
-    const deletedContact = await Contacts.destroy({ where: { id } });
+    const deletedContact = await Contact.destroy({ where: { id } });
 
     res.json(deletedContact);
   } catch (error) {
