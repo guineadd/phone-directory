@@ -93,9 +93,11 @@ app.delete("/delete-division", async (req, res) => {
   }
 });
 
-app.get("/get-contacts", async (req, res) => {
+app.post("/get-contacts/:id", async (req, res) => {
   try {
-    const contacts = await Contacts.findAll();
+    const { id } = req.params;
+
+    const contacts = await Contacts.findAll({ where: { divisionId: id } });
     res.json(contacts);
   } catch (error) {
     res.status(500).json(`Error fetching contacts: ${error}`);

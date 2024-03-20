@@ -4,7 +4,7 @@ import divisionsModel from "./models/divisions.js";
 
 const sequelize = new Sequelize({
   dialect: "sqlite",
-  storage: "catalog.sqlite",
+  storage: "database/catalog.sqlite",
 });
 
 const Divisions = divisionsModel(sequelize);
