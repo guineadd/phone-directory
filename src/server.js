@@ -7,6 +7,7 @@ import { Op } from "sequelize";
 import db from "../database/models/index.js";
 
 const app = express();
+app.use(express.json());
 app.use(express.static("public"));
 app.use("/assets/webfonts", express.static("../assets/webfonts"));
 app.use("/assets", express.static("assets"));
@@ -20,9 +21,8 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(path.resolve(), "/public/index.html"));
 });
 
-const { Contact, Division, Telephone, ContactTelephone } = db;
+const { Contact, Division, Telephone } = db;
 const { sequelize } = db.sequelize;
-console.log(Contact);
 
 app.get("/get-divisions", async (req, res) => {
   try {
@@ -96,13 +96,47 @@ app.delete("/delete-division", async (req, res) => {
   }
 });
 
-app.post("/get-contacts/:id", async (req, res) => {
+app.get("/get-all-contacts", async (req, res) => {
+  try {
+    const contacts = await Division.findAll({
+      include: [
+        {
+          model: Contact,
+          include: [
+            {
+              model: Telephone,
+              through: {
+                attributes: [],
+              },
+            },
+          ],
+        },
+      ],
+    });
+
+    res.json(contacts);
+  } catch (error) {
+    res.status(500).json(`Error fetching contacts: ${error}`);
+  }
+});
+
 app.post("/get-contacts/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
     const division = await Division.findOne({ where: { id } });
-    const contacts = await Contact.findAll({ where: { divisionId: id } });
+    const contacts = await Contact.findAll({
+      where: { divisionId: id },
+      include: [
+        {
+          model: Telephone,
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+    });
+
     res.json({ division, contacts });
   } catch (error) {
     res.status(500).json(`Error fetching contacts: ${error}`);
@@ -113,12 +147,37 @@ app.post("/get-contacts/:id", async (req, res) => {
 app.post("/search-contacts", async (req, res) => {
   try {
     const { query } = req.body;
+    const words = query.split(" ");
+
+    const wordConditions = words.map(word => ({
+      [Op.or]: [
+        { firstName: { [Op.like]: `%${word}%` } },
+        { lastName: { [Op.like]: `%${word}%` } },
+        { "$Division.name$": { [Op.like]: `%${word}%` } },
+        { "$Telephones.tel$": { [Op.like]: `%${word}%` } },
+      ],
+    }));
 
     const filter = {
-      [Op.or]: [{ firstName: { [Op.like]: `%${query}%` } }, { lastName: { [Op.like]: `%${query}%` } }],
+      [Op.and]: [wordConditions],
     };
 
-    const contacts = await Contact.findAll({ where: filter });
+    const contacts = await Contact.findAll({
+      where: filter,
+      include: [
+        {
+          model: Division,
+          as: "Division",
+        },
+        {
+          model: Telephone,
+          as: "Telephones",
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+    });
     res.json(contacts);
   } catch (error) {
     res.status(500).json(`Error finding contact: ${error}`);

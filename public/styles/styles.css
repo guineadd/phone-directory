@@ -32,6 +32,10 @@ body {
   font-size: 1rem;
 }
 
+body > div:last-child > span + img {
+  display: inline !important;
+}
+
 .main-container {
   height: calc(100vh - 84px);
 }
