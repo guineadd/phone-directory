@@ -6,6 +6,7 @@ module.exports = {
     return queryInterface.bulkInsert(
       "Divisions",
       [
+        { name: "ΧΩΡΙΣ ΚΑΤΗΓΟΡΙΑ", order: -1, createdAt: new Date(), updatedAt: new Date() },
         { name: "ΔΙΕΥΘΥΝΣΗ", order: 1, createdAt: new Date(), updatedAt: new Date() },
         { name: "ΥΠΕΥΘΥΝΟΣ ISO", order: 2, createdAt: new Date(), updatedAt: new Date() },
         { name: "ΤΜΗΜΑ ΜΗΧΑΝΟΓΡΑΦΗΣΗΣ", order: 3, createdAt: new Date(), updatedAt: new Date() },
