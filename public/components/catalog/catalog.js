@@ -100,6 +100,7 @@ export default class Catalog {
 
   async createPdf() {
     const pdfDivisions = document.getElementById("pdf-divisions");
+    pdfDivisions.innerHTML = "";
 
     const response = await fetch(`/get-all-contacts`, {
       method: "GET",
@@ -113,7 +114,7 @@ export default class Catalog {
 
     data.forEach(division => {
       const div = document.createElement("div");
-      div.classList.add("w-[49%]", "flex", "flex-col");
+      div.classList.add("w-[32%]", "flex", "flex-col");
       div.innerHTML = `
         <div>
           <div
@@ -121,7 +122,7 @@ export default class Catalog {
             ${division.name}
           </div>
           <div class="flex flex-col">
-            <table id="tab-table-${division.id}" class="w-full border border-collapse text-xs">
+            <table id="tab-table-${division.id}" class="w-full border border-collapse text-sm">
               <tbody id="tab-body-${division.id}"></tbody>
             </table>
           </div>
@@ -133,7 +134,7 @@ export default class Catalog {
       division.Contacts.forEach((contact, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td class="border-collapse border-y-[1px] border-l-[1px] border-r-[0px] border-black ">${contact.lastName} ${contact.firstName}</td>
+          <td class="border-collapse border-y-[1px] border-l-[1px] border-r-[0px] border-black pl-1">${contact.lastName} ${contact.firstName}</td>
           <td class="border-collapse border-y-[1px] border-x-0 border-black ">${contact.comment.length > 0 ? "(" + contact.comment + ")" : ""}</td>
           <td class="border-collapse border border-black text-center font-bold w-[70px]">
           ${contact.Telephones[0].tel}
@@ -149,13 +150,14 @@ export default class Catalog {
     const pdf = new jsPDF({
       unit: "mm",
       format: "a4",
-      orientation: "portrait",
+      orientation: "landscape",
     });
     const pdfContainer = document.getElementById("pdf-container");
 
     html2canvas(pdfContainer, { scale: 4 }).then(canvas => {
       const imgData = canvas.toDataURL("image/jpeg");
-      pdf.addImage(imgData, "JPEG", 1, 5, 210, 290);
+      pdf.addImage(imgData, "JPEG", 0, 5, 300, 200);
+      // pdf.addImage(imgData, "JPEG", 0, 5, 210, 290);
       pdf.save("ΤΗΛΕΦΩΝΙΚΟΣ ΚΑΤΑΛΟΓΟΣ.pdf");
     });
   }
