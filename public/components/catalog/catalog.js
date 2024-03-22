@@ -151,15 +151,10 @@ export default class Catalog {
       unit: "mm",
       format: "a4",
       orientation: "landscape",
-      orientation: "landscape",
     });
     const pdfContainer = document.getElementById("pdf-container");
 
     html2canvas(pdfContainer, { scale: 4 }).then(canvas => {
-      const imgData = canvas.toDataURL("image/jpeg");
-      pdf.addImage(imgData, "JPEG", 0, 5, 300, 200);
-      // pdf.addImage(imgData, "JPEG", 0, 5, 210, 290);
-      pdf.save("ΤΗΛΕΦΩΝΙΚΟΣ ΚΑΤΑΛΟΓΟΣ.pdf");
       const imgData = canvas.toDataURL("image/jpeg");
       pdf.addImage(imgData, "JPEG", 0, 5, 300, 200);
       // pdf.addImage(imgData, "JPEG", 0, 5, 210, 290);
