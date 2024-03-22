@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(path.resolve(), "/public/index.html"));
 });
 
-const { Contact, Division, Telephone, ContactTelephone } = db;
+const { Contact, Division, Telephone } = db;
 const { sequelize } = db.sequelize;
 
 app.get("/get-divisions", async (req, res) => {
@@ -111,6 +111,30 @@ app.delete("/delete-division/:id", async (req, res) => {
     res.send(`Division with name ${deletedDivision.dataValues.name} deleted.`);
   } catch (error) {
     res.status(500).json(`Error deleting division: ${error}`);
+  }
+});
+
+app.get("/get-all-contacts", async (req, res) => {
+  try {
+    const contacts = await Division.findAll({
+      include: [
+        {
+          model: Contact,
+          include: [
+            {
+              model: Telephone,
+              through: {
+                attributes: [],
+              },
+            },
+          ],
+        },
+      ],
+    });
+
+    res.json(contacts);
+  } catch (error) {
+    res.status(500).json(`Error fetching contacts: ${error}`);
   }
 });
 
