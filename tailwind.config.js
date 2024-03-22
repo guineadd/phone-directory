@@ -11,6 +11,8 @@ export default {
           headerTabs: "rgba(0, 0, 0, 0.8)",
           hoverTabs: "rgba(0, 0, 0, 0.35)",
           details: "rgba(181, 182, 130)",
+          zebraEven: "rgba(244, 222, 222)",
+          zebraOdd: "rgba(242, 242, 242)",
         },
         login: {
           backdrop: "rgba(28, 33, 13, 0.5)",
@@ -38,6 +40,16 @@ export default {
         black: "0 0 15px #000000",
         white: "0 0 15px #ffffff",
       },
+    },
+    fontSize: {
+      xs: "0.8rem",
+      sm: "0.85rem",
+      base: "1rem",
+      xl: "1.25rem",
+      "2xl": "1.5rem",
+      "3xl": "1.875rem",
+      "4xl": "2.25rem",
+      "5xl": "3rem",
     },
     screens: {
       xl: { max: "1280px" },
