@@ -1,7 +1,9 @@
-<div id="catalog-divisions"
-  class="bg-general-tabs flex flex-col py-[5px] w-1/6 h-[100%] rounded-lg items-center overflow-auto"></div>
+<div
+  id="catalog-divisions"
+  class="bg-general-tabs flex flex-col py-[5px] w-2/6 h-[100%] rounded-lg items-center overflow-auto"
+></div>
 
-<div id="catalog-contacts" class="contact-tab-container w-5/6 pl-8 flex flex-wrap overflow-auto">
+<div id="catalog-contacts" class="contact-tab-container w-4/6 pl-8 flex flex-wrap">
   <!-- <div class="flex w-full">
     <div class="card relative rounded-lg shadow-custom flex flex-col bg-general-tabs mx-auto w-11/12 h-4/6">
       <div class="rounded-lg font-semibold text-center h-fit p-3 w-full bg-general-tabs">ΔΙΕΥΘΥΝΣΗ</div>
@@ -31,45 +33,117 @@
     </div>
   </div> -->
 </div>
+
 <div id="division-edit-modal-container" class="hidden fixed inset-0 z-50 outline-none">
   <div
-    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50">
+    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50"
+  >
     <div
-      class="edit-division relative form-before bg-login-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[450px]">
+      class="edit-division relative form-before bg-login-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[450px]"
+    >
       <button id="close-edit-button" class="absolute top-0 right-0 m-4 text-xl cursor-pointer focus:outline-none">
         <i class="fa-solid fa-xmark"></i>
       </button>
-      <div class="flex flex-row text-center justify-center mb-8 text-3xl">
+      <div class="flex flex-row text-center justify-center my-4 text-2xl">
         <span class="text-bars-element font-semibold">Edit Division</span>
       </div>
       <div class="division-details flex flex-col">
-        <label for="division-name">Division Name</label>
-        <input id="division-name" type="text" />
-        <label for="division-order">Order</label>
-        <input id="division-order" type="number" />
-        <button>Add Contact</button>
-        <div class="flex flex-col">
-          <label for="contact-first-name">First Name</label>
-          <input id="contact-first-name" type="text" />
-          <label for="contact-last-name">Last Name</label>
-          <input id="contact-last-name" type="text" />
-          <label for="contact-primary-tel">Primary Telephone Number</label>
-          <input id="contact-primary-tel" type="number" />
-          <label for="contact-secondary-tel">Secondary Telephone Number</label>
-          <input id="contact-secondary-tel" type="number" />
+        <label for="division-name" class="font-semibold hover:cursor-pointer">Division Name</label>
+        <input
+          id="division-name"
+          type="text"
+          class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
+        />
+        <label for="division-order" class="font-semibold hover:cursor-pointer">Order</label>
+        <input
+          id="division-order"
+          type="text"
+          class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
+        />
+        <div class="my-4 flex flex-row justify-between">
+          <button class="bg-general-bars hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" id="save-division-button">
+            Save changes&nbsp;<i class="fa-regular fa-circle-check"></i>
+          </button>
+          <button class="bg-red-700 hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" id="delete-division-button">
+            Delete division&nbsp;<i class="fa-solid fa-trash-can"></i>
+          </button>
         </div>
-        <button>Delete Division</button>
+        <div class="flex flex-row text-center justify-center my-4 text-2xl">
+          <span class="text-bars-element font-semibold">Add Contact</span>
+        </div>
+        <div class="flex flex-col">
+          <label for="contact-first-name" class="font-semibold hover:cursor-pointer">First name</label>
+          <input
+            id="contact-first-name"
+            type="text"
+            class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
+          />
+          <label for="contact-last-name" class="font-semibold hover:cursor-pointer">Last name</label>
+          <input
+            id="contact-last-name"
+            type="text"
+            class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
+          />
+          <label for="contact-comment" class="font-semibold hover:cursor-pointer">Comment</label>
+          <input
+            id="contact-comment"
+            type="text"
+            class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
+            placeholder="Optional comment..."
+          />
+          <label for="contact-tel" class="font-semibold hover:cursor-pointer">Telephone numbers</label>
+          <input
+            id="contact-tel"
+            type="text"
+            class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
+            placeholder="Separate different numbers with a comma..."
+          />
+        </div>
+        <div class="flex flex-row justify-center">
+          <button
+            class="disabled mt-4 bg-login-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white"
+            id="add-contact-button"
+          >
+            Add contact&nbsp;<i class="fa-solid fa-user-plus"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<div id="confirmation-modal-container" class="hidden fixed inset-0 z-50 outline-none">
+  <div
+    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50"
+  >
+    <div class="relative form-before bg-login-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[450px]">
+      <button id="close-confirm-button" class="absolute top-0 right-0 m-4 text-xl cursor-pointer focus:outline-none">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="flex flex-row text-center justify-center mb-8 text-lg">
+        <span class="text-bars-element font-semibold"
+          >Are you sure you want to delete this division? All contacts will be moved to the last division.
+        </span>
+      </div>
+      <div class="flex flex-row justify-evenly">
+        <button class="bg-red-700 hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" id="confirm-delete-button">
+          Confirm&nbsp;<i class="fa-solid fa-trash-can"></i>
+        </button>
+        <button class="bg-gray-500 hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" id="cancel-delete-button">
+          Cancel&nbsp;<i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!--  pdf's html container -->
 <!-- <div id="preview-container" class="absolute top-5 left-25"> -->
 <div id="preview-container" class="absolute top-[-9999px] left-[-9999px]">
   <div id="pdf-container" class="flex flex-col bg-white text-black p-5 w-[775px] h-[1120px] mb-[10px]">
     <div class="w-[100%] h-[60px] flex justify-between">
       <div class="">
-        <img src="../../../assets/images/olylogo.png" width="110" height="60">
+        <img src="../../../assets/images/olylogo.png" width="110" height="60" />
       </div>
       <div class="flex flex-col items-end">
         <span class="font-semibold text-sm">Ενημερώθηκε 02/02/2024</span>
@@ -80,39 +154,40 @@
       <div class="w-[49%] flex flex-col">
         <div class="">
           <div
-            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black"
+          >
             ΔΙΕΥΘΥΝΣΗ
           </div>
           <div class="flex flex-col tab-content">
             <table class="w-full border border-collapse text-xs">
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CE0)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CE0)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CEO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CEO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
             </table>
@@ -122,39 +197,40 @@
       <div class="w-[49%] flex flex-col">
         <div class="">
           <div
-            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black"
+          >
             ΔΙΕΥΘΥΝΣΗ
           </div>
           <div class="flex flex-col tab-content">
             <table class="w-full border border-collapse text-xs">
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CE0)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CE0)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CEO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CEO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
             </table>
@@ -164,39 +240,40 @@
       <div class="w-[49%] flex flex-col">
         <div class="">
           <div
-            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black"
+          >
             ΔΙΕΥΘΥΝΣΗ
           </div>
           <div class="flex flex-col tab-content">
             <table class="w-full border border-collapse text-xs">
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CE0)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CE0)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CEO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CEO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
             </table>
@@ -206,39 +283,40 @@
       <div class="w-[49%] flex flex-col">
         <div class="">
           <div
-            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black"
+          >
             ΔΙΕΥΘΥΝΣΗ
           </div>
           <div class="flex flex-col tab-content">
             <table class="w-full border border-collapse text-xs">
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CE0)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CE0)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CEO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CEO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
             </table>
@@ -248,39 +326,40 @@
       <div class="w-[49%] flex flex-col">
         <div class="">
           <div
-            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black"
+          >
             ΔΙΕΥΘΥΝΣΗ
           </div>
           <div class="flex flex-col tab-content">
             <table class="w-full border border-collapse text-xs">
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CE0)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CE0)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CEO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CEO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
             </table>
@@ -290,39 +369,40 @@
       <div class="w-[49%] flex flex-col">
         <div class="">
           <div
-            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black"
+          >
             ΔΙΕΥΘΥΝΣΗ
           </div>
           <div class="flex flex-col tab-content">
             <table class="w-full border border-collapse text-xs">
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CE0)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CE0)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CEO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CEO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
             </table>
@@ -332,39 +412,40 @@
       <div class="w-[49%] flex flex-col">
         <div class="">
           <div
-            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black"
+          >
             ΔΙΕΥΘΥΝΣΗ
           </div>
           <div class="flex flex-col tab-content">
             <table class="w-full border border-collapse text-xs">
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CE0)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CE0)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CEO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CEO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
             </table>
@@ -374,39 +455,40 @@
       <div class="w-[49%] flex flex-col">
         <div class="">
           <div
-            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black"
+          >
             ΔΙΕΥΘΥΝΣΗ
           </div>
           <div class="flex flex-col tab-content">
             <table class="w-full border border-collapse text-xs">
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CE0)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CE0)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CEO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CEO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
             </table>
@@ -416,39 +498,40 @@
       <div class="w-[49%] flex flex-col">
         <div class="">
           <div
-            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black"
+          >
             ΔΙΕΥΘΥΝΣΗ
           </div>
           <div class="flex flex-col tab-content">
             <table class="w-full border border-collapse text-xs">
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CE0)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CE0)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CEO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CEO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
             </table>
@@ -458,39 +541,40 @@
       <div class="w-[49%] flex flex-col">
         <div class="">
           <div
-            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black"
+          >
             ΔΙΕΥΘΥΝΣΗ
           </div>
           <div class="flex flex-col tab-content">
             <table class="w-full border border-collapse text-xs">
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CE0)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CE0)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CEO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CEO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
             </table>
@@ -500,39 +584,40 @@
       <div class="w-[49%] flex flex-col">
         <div class="">
           <div
-            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black"
+          >
             ΔΙΕΥΘΥΝΣΗ
           </div>
           <div class="flex flex-col tab-content">
             <table class="w-full border border-collapse text-xs">
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CE0)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CE0)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CEO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CEO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
             </table>
@@ -542,39 +627,40 @@
       <div class="w-[49%] flex flex-col">
         <div class="">
           <div
-            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="tab-header flex justify-center bg-red-700 text-white text-sm border-x-[1px] border-t-[1px] border-b-[0px] border-black"
+          >
             ΔΙΕΥΘΥΝΣΗ
           </div>
           <div class="flex flex-col tab-content">
             <table class="w-full border border-collapse text-xs">
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black "></td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΝΙΚΟΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black"></td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CE0)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΛΑΚΑΣΑΣ ΔΗΜΗΤΡΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CE0)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CEO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΤΑΚΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CEO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΠΕΤΡΟΣ ΠΑΝΑΓΙΩΤΗΣ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
               <tr>
-                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black ">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
-                <td class="border-y-[1px] border-x-0 border-black ">(CTO)</td>
+                <td class="border-y-[1px] border-l-[1px] border-r-[0px] border-black">ΑΡΒΑΝΙΤΙΔΗΣ ΠΑΝΑΓΙ</td>
+                <td class="border-y-[1px] border-x-0 border-black">(CTO)</td>
                 <td class="border border-black text-center font-bold">105</td>
               </tr>
             </table>

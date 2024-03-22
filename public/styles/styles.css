@@ -50,15 +50,15 @@ body {
 }
 
 .success {
-  background-color: rgba(75, 181, 67, 0.6);
+  background-color: rgba(75, 181, 67, 0.8);
 }
 
 .error {
-  background-color: rgba(232, 49, 85, 0.6);
+  background-color: rgba(232, 49, 85, 0.8);
 }
 
 .warning {
-  background-color: rgba(255, 153, 0, 0.6);
+  background-color: rgba(255, 153, 0, 0.8);
 }
 /* LOGIN */
 .input-group:focus-within .login-labels {
@@ -80,6 +80,11 @@ body {
 .division-list-item:hover {
   cursor: pointer;
   background-color: rgba(181, 182, 130, 1);
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .selected {
