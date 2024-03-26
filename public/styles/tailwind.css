@@ -1114,6 +1114,10 @@ video {
   text-decoration-line: underline;
 }
 
+.opacity-50 {
+  opacity: 0.5;
+}
+
 .shadow-custom {
   --tw-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
   --tw-shadow-colored: 0 15px 25px var(--tw-shadow-color);
@@ -1256,16 +1260,21 @@ body > div:last-child > span + img {
 
 /* CONTACTS */
 
-.tab-item {
-  font-size: 12px;
-  padding: 6px;
+.draggable {
+  padding: 10px;
+  cursor: grab;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 30px;
-  width: 90%;
+  flex-direction: column;
+  justify-content: space-evenly;
   background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 0.5rem;
+  width: 90%;
+  margin-bottom: 1rem;
+}
+
+.dragging {
+  opacity: 0.5;
 }
 
 .hover\:cursor-pointer:hover {

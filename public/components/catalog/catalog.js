@@ -4,6 +4,7 @@ export default class Catalog {
     this.cancelModalBtn = null;
     this.closeConfirmBtn = null;
     this.saveDivisionBtn = null;
+    this.rearrangeDivisionBtn = null;
     this.deleteDivisionBtn = null;
     this.confirmDeleteBtn = null;
     this.cancelDeleteBtn = null;
@@ -15,13 +16,13 @@ export default class Catalog {
     this.loginBtn = document.getElementById("login-button");
     this.saveDivisionBtn = document.getElementById("save-division-button");
     this.deleteDivisionBtn = document.getElementById("delete-division-button");
+    this.rearrangeDivisionBtn = document.getElementById("edit-division-order-button");
     this.confirmDeleteBtn = document.getElementById("confirm-delete-button");
     this.cancelDeleteBtn = document.getElementById("cancel-delete-button");
     this.searchContactsInput = document.getElementById("search-contacts");
     this.cancelModalBtn = document.getElementById("close-edit-button");
     this.closeConfirmBtn = document.getElementById("close-confirm-button");
     this.addContactBtn = document.getElementById("add-contact-button");
-
     this.buildDivisions();
 
     this.searchContactsInput.removeEventListener("input", () => this.searchContacts());
@@ -47,6 +48,9 @@ export default class Catalog {
       // trigger the validation function
       this.validateAddContact();
     });
+
+    this.removeClickListener(this.rearrangeDivisionBtn, () => this.editDivisions());
+    this.addClickListener(this.rearrangeDivisionBtn, () => this.editDivisions());
 
     this.removeClickListener(this.deleteDivisionBtn, () =>
       this.showModal("confirmation-modal-container", "division-edit-modal-container"),
@@ -123,6 +127,53 @@ export default class Catalog {
     }
   }
 
+  editDivisions() {
+    console.log("Edit");
+    const draggables = document.querySelectorAll(".division-list-item");
+    const dragContainer = document.querySelectorAll(".catalog-divisions");
+    console.log("draggables", draggables);
+
+    draggables.forEach(draggable => {
+      draggable.addEventListener("dragstart", () => {
+        draggable.classList.add("dragging");
+      });
+
+      draggable.addEventListener("dragend", () => {
+        draggable.classList.remove("dragging");
+      });
+    });
+
+    dragContainer.forEach(container => {
+      container.addEventListener("dragover", event => {
+        event.preventDefault();
+        const afterElement = this.getDrafAfterElement(container, event.clientY);
+        const draggable = document.querySelector(".dragging");
+        if (afterElement === null) {
+          container.appendChild(draggable);
+        } else {
+          container.insertBefore(draggable, afterElement);
+        }
+      });
+    });
+  }
+
+  getDrafAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll(".division-list-item:not(.dragging)")];
+
+    return draggableElements.reduce(
+      (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset, element: child };
+        }
+
+        return closest;
+      },
+      { offset: Number.NEGATIVE_INFINITY },
+    ).element;
+  }
+
   async buildDivisions() {
     const response = await fetch("/get-divisions");
     const data = await response.json();
@@ -136,6 +187,7 @@ export default class Catalog {
     for (const division of data) {
       const divisionListItem = document.createElement("div");
       divisionListItem.classList.add("division-list-item");
+      divisionListItem.setAttribute("draggable", true);
       divisionListItem.id = `division-${division.id}`;
 
       const button = document.createElement("button");
