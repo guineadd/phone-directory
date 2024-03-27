@@ -1114,10 +1114,6 @@ video {
   text-decoration-line: underline;
 }
 
-.opacity-50 {
-  opacity: 0.5;
-}
-
 .shadow-custom {
   --tw-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
   --tw-shadow-colored: 0 15px 25px var(--tw-shadow-color);
@@ -1240,6 +1236,10 @@ body > div:last-child > span + img {
   border-radius: 0.5rem;
 }
 
+.dragging {
+  opacity: 0.5;
+}
+
 .division-list-item:hover {
   cursor: pointer;
   background-color: rgba(181, 182, 130, 1);
@@ -1256,25 +1256,6 @@ body > div:last-child > span + img {
 
 .odd {
   background-color: rgba(0, 0, 0, 0.3);
-}
-
-/* CONTACTS */
-
-.draggable {
-  padding: 10px;
-  cursor: grab;
-  border-radius: 0.75rem;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 90%;
-  margin-bottom: 1rem;
-}
-
-.dragging {
-  opacity: 0.5;
 }
 
 .hover\:cursor-pointer:hover {

@@ -5,11 +5,16 @@ export default class Catalog {
     this.closeConfirmBtn = null;
     this.saveDivisionBtn = null;
     this.rearrangeDivisionBtn = null;
+    this.editingDivisionOrder = null;
     this.deleteDivisionBtn = null;
     this.confirmDeleteBtn = null;
     this.cancelDeleteBtn = null;
     this.searchContactsInput = null;
     this.addContactBtn = null;
+    this.dragStartListener = null;
+    this.dragEndListener = null;
+    this.dragOverListener = null;
+    this.divisionContainer = null;
   }
 
   render() {
@@ -23,6 +28,7 @@ export default class Catalog {
     this.cancelModalBtn = document.getElementById("close-edit-button");
     this.closeConfirmBtn = document.getElementById("close-confirm-button");
     this.addContactBtn = document.getElementById("add-contact-button");
+    this.divisionContainer = document.getElementById("catalog-divisions");
     this.buildDivisions();
 
     this.searchContactsInput.removeEventListener("input", () => this.searchContacts());
@@ -49,8 +55,42 @@ export default class Catalog {
       this.validateAddContact();
     });
 
-    this.removeClickListener(this.rearrangeDivisionBtn, () => this.editDivisions());
-    this.addClickListener(this.rearrangeDivisionBtn, () => this.editDivisions());
+    this.editingDivisionOrder = true;
+    this.rearrangeDivisionBtn.addEventListener("click", () => {
+      if (this.editingDivisionOrder) {
+        this.editDivisionOrder();
+        this.rearrangeDivisionBtn.textContent = "Save order";
+      } else {
+        this.saveDivisionOrder();
+        this.rearrangeDivisionBtn.textContent = "Edit order";
+      }
+
+      this.editingDivisionOrder = !this.editingDivisionOrder;
+    });
+
+    this.dragStartListener = event => {
+      const draggable = event.target;
+      draggable.classList.add("dragging");
+    };
+
+    this.dragEndListener = event => {
+      const draggable = event.target;
+      draggable.classList.remove("dragging");
+    };
+
+    this.dragOverListener = event => {
+      event.preventDefault();
+      const afterElement = this.getDrafAfterElement(this.divisionContainer, event.clientY);
+      const draggable = document.querySelector(".dragging");
+      if (afterElement === null) {
+        this.divisionContainer.appendChild(draggable);
+      } else {
+        this.divisionContainer.insertBefore(draggable, afterElement);
+      }
+    };
+
+    this.removeClickListener(this.rearrangeDivisionBtn, () => this.editDivisionOrder());
+    this.addClickListener(this.rearrangeDivisionBtn, () => this.editDivisionOrder());
 
     this.removeClickListener(this.deleteDivisionBtn, () =>
       this.showModal("confirmation-modal-container", "division-edit-modal-container"),
@@ -127,34 +167,64 @@ export default class Catalog {
     }
   }
 
-  editDivisions() {
-    console.log("Edit");
+  editDivisionOrder() {
     const draggables = document.querySelectorAll(".division-list-item");
-    const dragContainer = document.querySelectorAll(".catalog-divisions");
-    console.log("draggables", draggables);
 
     draggables.forEach(draggable => {
-      draggable.addEventListener("dragstart", () => {
-        draggable.classList.add("dragging");
+      draggable.style.cursor = "grab";
+      const buttons = draggable.querySelectorAll("button");
+      buttons.forEach(button => {
+        button.style.cursor = "grab";
       });
-
-      draggable.addEventListener("dragend", () => {
-        draggable.classList.remove("dragging");
-      });
+      draggable.addEventListener("dragstart", this.dragStartListener);
+      draggable.addEventListener("dragend", this.dragEndListener);
     });
 
-    dragContainer.forEach(container => {
-      container.addEventListener("dragover", event => {
-        event.preventDefault();
-        const afterElement = this.getDrafAfterElement(container, event.clientY);
-        const draggable = document.querySelector(".dragging");
-        if (afterElement === null) {
-          container.appendChild(draggable);
-        } else {
-          container.insertBefore(draggable, afterElement);
-        }
-      });
+    this.divisionContainer.addEventListener("dragover", this.dragOverListener);
+  }
+
+  async saveDivisionOrder() {
+    const divisionList = document.querySelectorAll(".division-list-item");
+    const divisionObjectsArray = [];
+
+    divisionList.forEach((division, index) => {
+      const button = division.querySelector("button");
+      const buttonText = button.textContent;
+      const divId = division.getAttribute("id").split("-");
+      const idNumber = divId[1].trim();
+
+      if (buttonText.trim() !== "ΧΩΡΙΣ ΚΑΤΗΓΟΡΙΑ") {
+        const divisionObject = {
+          id: idNumber,
+          name: buttonText,
+          order: index + 1,
+        };
+        divisionObjectsArray.push(divisionObject);
+      }
     });
+
+    await fetch("/update-division-order", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(divisionObjectsArray),
+    });
+
+    const draggables = document.querySelectorAll(".division-list-item");
+
+    draggables.forEach(draggable => {
+      draggable.style.cursor = "pointer";
+      const buttons = draggable.querySelectorAll("button");
+      buttons.forEach(button => {
+        button.style.cursor = "pointer";
+      });
+
+      draggable.removeEventListener("dragstart", this.dragStartListener);
+      draggable.removeEventListener("dragend", this.dragEndListener);
+    });
+
+    this.divisionContainer.removeEventListener("dragover", this.dragOverListener);
   }
 
   getDrafAfterElement(container, y) {
@@ -177,12 +247,11 @@ export default class Catalog {
   async buildDivisions() {
     const response = await fetch("/get-divisions");
     const data = await response.json();
-
+    data.sort((a, b) => a.order - b.order);
     const uncategorized = data.shift();
     data.push(uncategorized);
 
-    const divisions = document.getElementById("catalog-divisions");
-    divisions.innerHTML = "";
+    this.divisionContainer.innerHTML = "";
 
     for (const division of data) {
       const divisionListItem = document.createElement("div");
@@ -194,7 +263,7 @@ export default class Catalog {
       button.textContent = division.name;
 
       divisionListItem.appendChild(button);
-      divisions.appendChild(divisionListItem);
+      this.divisionContainer.appendChild(divisionListItem);
 
       divisionListItem.addEventListener("click", () => {
         if (divisionListItem.classList.contains("selected")) {
