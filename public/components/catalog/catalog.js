@@ -1,16 +1,25 @@
 export default class Catalog {
   constructor() {
     this.loginBtn = null;
+    this.cancelDivisionModalBtn = null;
+    this.cancelContactModalBtn = null;
     this.cancelModalBtn = null;
+    this.closeAddBtn = null;
     this.closeConfirmBtn = null;
+    this.addDivisionModalBtn = null;
+    this.addDivisionBtn = null;
     this.saveDivisionBtn = null;
     this.rearrangeDivisionBtn = null;
     this.editingDivisionOrder = null;
     this.deleteDivisionBtn = null;
     this.confirmDeleteBtn = null;
+    this.cancelAddBtn = null;
     this.cancelDeleteBtn = null;
     this.searchContactsInput = null;
     this.addContactBtn = null;
+    this.saveContactBtn = null;
+    this.deleteContactBtn = null;
+    this.activeModal = null;
     this.dragStartListener = null;
     this.dragEndListener = null;
     this.dragOverListener = null;
@@ -19,23 +28,30 @@ export default class Catalog {
 
   render() {
     this.loginBtn = document.getElementById("login-button");
+    this.createPdfBtn = document.getElementById("export-button");
+    this.addDivisionModalBtn = document.getElementById("add-division-modal-button");
+    this.addDivisionBtn = document.getElementById("add-division-button");
     this.saveDivisionBtn = document.getElementById("save-division-button");
     this.deleteDivisionBtn = document.getElementById("delete-division-button");
     this.rearrangeDivisionBtn = document.getElementById("edit-division-order-button");
     this.confirmDeleteBtn = document.getElementById("confirm-delete-button");
+    this.cancelAddBtn = document.getElementById("cancel-add-button");
     this.cancelDeleteBtn = document.getElementById("cancel-delete-button");
     this.searchContactsInput = document.getElementById("search-contacts");
-    this.cancelModalBtn = document.getElementById("close-edit-button");
+    this.cancelDivisionModalBtn = document.getElementById("close-edit-button");
+    this.cancelContactModalBtn = document.getElementById("close-contact-button");
+    this.closeAddBtn = document.getElementById("close-add-button");
     this.closeConfirmBtn = document.getElementById("close-confirm-button");
     this.addContactBtn = document.getElementById("add-contact-button");
+    this.saveContactBtn = document.getElementById("save-contact-button");
+    this.deleteContactBtn = document.getElementById("delete-contact-button");
     this.divisionContainer = document.getElementById("catalog-divisions");
     this.buildDivisions();
 
     this.searchContactsInput.removeEventListener("input", () => this.searchContacts());
     this.searchContactsInput.addEventListener("input", () => this.searchContacts());
 
-    const contactTel = document.getElementById("contact-tel");
-    contactTel.addEventListener("input", event => {
+    const telInputHandler = event => {
       const telephonesInput = event.target;
       const telephonesValue = telephonesInput.value;
 
@@ -52,7 +68,94 @@ export default class Catalog {
       telephonesInput.value = sanitizedValue;
 
       // trigger the validation function
-      this.validateAddContact();
+      this.validateContactDetails();
+    };
+
+    const divisionName = document.getElementById("add-division-name");
+
+    const contactTel = document.getElementById("contact-tel");
+    const selectedContactTel = document.getElementById("selected-contact-tel");
+    const contactFirstName = document.getElementById("contact-first-name");
+    const selectedContactFirstName = document.getElementById("selected-contact-first-name");
+    const contactLastName = document.getElementById("contact-last-name");
+    const selectedContactLastName = document.getElementById("selected-contact-last-name");
+
+    divisionName.addEventListener("input", () => this.validateDivisionDetails());
+    // divisionOrder.addEventListener("input", () => this.validateDivisionDetails());
+
+    contactTel.addEventListener("input", event => telInputHandler(event));
+    selectedContactTel.addEventListener("input", event => telInputHandler(event));
+    contactFirstName.addEventListener("input", () => this.validateContactDetails());
+    selectedContactFirstName.addEventListener("input", () => this.validateContactDetails());
+    contactLastName.addEventListener("input", () => this.validateContactDetails());
+    selectedContactLastName.addEventListener("input", () => this.validateContactDetails());
+
+    this.removeClickListener(this.addDivisionModalBtn, () => {
+      this.activeModal = "addDivisionModal";
+      this.showModal("division-add-modal-container", "", "addDivisionModal");
+    });
+    this.addClickListener(this.addDivisionModalBtn, () => {
+      this.activeModal = "addDivisionModal";
+      this.showModal("division-add-modal-container", "", "addDivisionModal");
+    });
+
+    this.removeClickListener(this.cancelAddBtn, () => {
+      divisionName.value = "";
+      this.addDivisionBtn.classList.add("disabled");
+      this.hideModal("division-add-modal-container");
+    });
+    this.addClickListener(this.cancelAddBtn, () => {
+      divisionName.value = "";
+      this.addDivisionBtn.classList.add("disabled");
+      this.hideModal("division-add-modal-container");
+    });
+
+    this.editingDivisionOrder = true;
+    this.rearrangeDivisionBtn.addEventListener("click", () => {
+      if (this.editingDivisionOrder) {
+        this.editDivisionOrder();
+        this.rearrangeDivisionBtn.textContent = "Save order";
+      } else {
+        this.saveDivisionOrder();
+        this.rearrangeDivisionBtn.textContent = "Edit order";
+      }
+
+      this.editingDivisionOrder = !this.editingDivisionOrder;
+    });
+
+    this.dragStartListener = event => {
+      const draggable = event.target;
+      draggable.classList.add("dragging");
+    };
+
+    this.dragEndListener = event => {
+      const draggable = event.target;
+      draggable.classList.remove("dragging");
+    };
+
+    this.dragOverListener = event => {
+      event.preventDefault();
+      const afterElement = this.getDrafAfterElement(this.divisionContainer, event.clientY);
+      const draggable = document.querySelector(".dragging");
+      if (afterElement === null) {
+        this.divisionContainer.appendChild(draggable);
+      } else {
+        this.divisionContainer.insertBefore(draggable, afterElement);
+      }
+    };
+
+    this.removeClickListener(this.rearrangeDivisionBtn, () => this.editDivisionOrder());
+    this.addClickListener(this.rearrangeDivisionBtn, () => this.editDivisionOrder());
+
+    this.removeClickListener(this.closeAddBtn, () => {
+      divisionName.value = "";
+      this.addDivisionBtn.classList.add("disabled");
+      this.hideModal("division-add-modal-container");
+    });
+    this.addClickListener(this.closeAddBtn, () => {
+      divisionName.value = "";
+      this.addDivisionBtn.classList.add("disabled");
+      this.hideModal("division-add-modal-container");
     });
 
     this.editingDivisionOrder = true;
@@ -93,64 +196,167 @@ export default class Catalog {
     this.addClickListener(this.rearrangeDivisionBtn, () => this.editDivisionOrder());
 
     this.removeClickListener(this.deleteDivisionBtn, () =>
-      this.showModal("confirmation-modal-container", "division-edit-modal-container"),
+      this.showModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
     );
     this.addClickListener(this.deleteDivisionBtn, () =>
-      this.showModal("confirmation-modal-container", "division-edit-modal-container"),
+      this.showModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
+    );
+    this.removeClickListener(this.deleteContactBtn, () =>
+      this.showModal("confirmation-modal-container", "contact-edit-modal-container", "editContactModal"),
+    );
+    this.addClickListener(this.deleteContactBtn, () =>
+      this.showModal("confirmation-modal-container", "contact-edit-modal-container", "editContactModal"),
+    );
+    this.removeClickListener(this.closeConfirmBtn, () =>
+      this.hideModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
+    );
+    this.addClickListener(this.closeConfirmBtn, () =>
+      this.hideModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
     );
 
     this.removeClickListener(this.closeConfirmBtn, () =>
-      this.hideModal("confirmation-modal-container", "division-edit-modal-container"),
+      this.hideModal("confirmation-modal-container", "contact-edit-modal-container", "editContactModal"),
     );
     this.addClickListener(this.closeConfirmBtn, () =>
-      this.hideModal("confirmation-modal-container", "division-edit-modal-container"),
+      this.hideModal("confirmation-modal-container", "contact-edit-modal-container", "editContactModal"),
+    );
+
+    this.removeClickListener(this.closeConfirmBtn, () =>
+      this.hideModal("confirmation-modal-container", "user-management-modal-container", "userManagementModal"),
+    );
+    this.addClickListener(this.closeConfirmBtn, () =>
+      this.hideModal("confirmation-modal-container", "user-management-modal-container", "userManagementModal"),
     );
 
     this.removeClickListener(this.cancelDeleteBtn, () =>
-      this.hideModal("confirmation-modal-container", "division-edit-modal-container"),
+      this.hideModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
     );
     this.addClickListener(this.cancelDeleteBtn, () =>
-      this.hideModal("confirmation-modal-container", "division-edit-modal-container"),
+      this.hideModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
     );
 
-    this.removeClickListener(this.cancelModalBtn, () => this.hideModal("division-edit-modal-container"));
-    this.addClickListener(this.cancelModalBtn, () => this.hideModal("division-edit-modal-container"));
+    this.removeClickListener(this.cancelDeleteBtn, () =>
+      this.hideModal("confirmation-modal-container", "user-management-modal-container", "userManagementModal"),
+    );
+    this.addClickListener(this.cancelDeleteBtn, () =>
+      this.hideModal("confirmation-modal-container", "user-management-modal-container", "userManagementModal"),
+    );
+
+    this.removeClickListener(this.cancelAddBtn, () => this.hideModal("division-add-modal-container"));
+    this.addClickListener(this.cancelAddBtn, () => this.hideModal("division-add-modal-container"));
+
+    this.removeClickListener(this.cancelDeleteBtn, () =>
+      this.hideModal("confirmation-modal-container", "contact-edit-modal-container", "editContactModal"),
+    );
+    this.addClickListener(this.cancelDeleteBtn, () =>
+      this.hideModal("confirmation-modal-container", "contact-edit-modal-container", "editContactModal"),
+    );
+
+    this.removeClickListener(this.cancelDivisionModalBtn, () => {
+      document.getElementById("contact-first-name").value = "";
+      document.getElementById("contact-last-name").value = "";
+      document.getElementById("contact-comment").value = "";
+      document.getElementById("contact-tel").value = "";
+
+      this.hideModal("division-edit-modal-container");
+    });
+    this.addClickListener(this.cancelDivisionModalBtn, () => {
+      document.getElementById("contact-first-name").value = "";
+      document.getElementById("contact-last-name").value = "";
+      document.getElementById("contact-comment").value = "";
+      document.getElementById("contact-tel").value = "";
+
+      this.hideModal("division-edit-modal-container");
+    });
+
+    this.removeClickListener(this.cancelContactModalBtn, () => this.hideModal("contact-edit-modal-container"));
+    this.addClickListener(this.cancelContactModalBtn, () => this.hideModal("contact-edit-modal-container"));
+
+    this.removeClickListener(this.addDivisionBtn, () => this.addDivision());
+    this.addClickListener(this.addDivisionBtn, () => this.addDivision());
 
     this.removeClickListener(this.saveDivisionBtn, () => this.saveDivision());
     this.addClickListener(this.saveDivisionBtn, () => this.saveDivision());
 
-    this.removeClickListener(this.confirmDeleteBtn, () => this.deleteDivision());
-    this.addClickListener(this.confirmDeleteBtn, () => this.deleteDivision());
+    this.removeClickListener(this.confirmDeleteBtn, () => {
+      if (this.activeModal === "editDivisionModal") {
+        this.deleteDivision();
+      } else if (this.activeModal === "editContactModal") {
+        this.deleteContact();
+      } else {
+        this.userManagementComponent.deleteUser(this.userManagementComponent.selectedUserId);
+      }
+    });
+    this.addClickListener(this.confirmDeleteBtn, () => {
+      if (this.activeModal === "editDivisionModal") {
+        this.deleteDivision();
+      } else if (this.activeModal === "editContactModal") {
+        this.deleteContact();
+      } else {
+        this.userManagementComponent.deleteUser(this.userManagementComponent.selectedUserId);
+      }
+    });
 
     this.removeClickListener(this.addContactBtn, () => this.addContact());
     this.addClickListener(this.addContactBtn, () => this.addContact());
+
+    this.removeClickListener(this.saveContactBtn, () => this.editContact());
+    this.addClickListener(this.saveContactBtn, () => this.editContact());
 
     this.removeClickListener(this.loginBtn, () => this.showModal("login-modal-container"));
     this.addClickListener(this.loginBtn, () => this.showModal("login-modal-container"));
   }
 
-  setComponents(login, notifications) {
+  setComponents(login, notifications, userManagement) {
     this.notificationsComponent = notifications;
+    this.userManagementComponent = userManagement;
   }
 
-  showModal(modal1Id, modal2Id) {
+  showModal(modal1Id, modal2Id, activeModal) {
     const modal1 = document.getElementById(modal1Id);
     if (modal1) {
+      if (modal1Id === "login-modal-container" && sessionStorage.getItem("loggedUserType")) {
+        return;
+      }
+
       modal1.classList.remove("hidden");
-      if (modal2Id) {
+
+      if (modal1Id === "login-modal-container") {
+        const username = document.getElementById("username");
+        username.focus();
+      } else if (modal1Id === "division-add-modal-container") {
+        const divisionName = document.getElementById("add-division-name");
+        divisionName.focus();
+      }
+
+      const message = document.getElementById("confirmation-message");
+      if (activeModal === "editDivisionModal") {
+        message.textContent = "Are you sure you want to delete this division? All contacts will be moved to the last division.";
+      } else if (activeModal === "editContactModal") {
+        message.textContent = "Are you sure you want to delete this contact? This action cannot be undone.";
+      } else if (activeModal === "userManagementModal") {
+        message.textContent = "Are you sure you want to delete this user? This action cannot be undone.";
+      }
+
+      if (modal2Id && activeModal === this.activeModal) {
         const modal2 = document.getElementById(modal2Id);
         modal2.classList.add("hidden");
       }
     }
   }
 
-  hideModal(modal1Id, modal2Id) {
+  hideModal(modal1Id, modal2Id, activeModal) {
     const modal1 = document.getElementById(modal1Id);
     if (modal1) {
       modal1.classList.add("hidden");
-      if (modal2Id) {
+
+      if (modal2Id && activeModal === this.activeModal) {
         const modal2 = document.getElementById(modal2Id);
         modal2.classList.remove("hidden");
+
+        if (activeModal === "userManagementModal") {
+          document.getElementById("new-username").focus();
+        }
       }
     }
   }
@@ -294,6 +500,28 @@ export default class Catalog {
     this.buildContacts(firstId);
   }
 
+  async addDivision() {
+    const divisionName = document.getElementById("add-division-name");
+
+    const response = await fetch("/add-division", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: divisionName.value.toUpperCase() }),
+    });
+
+    const data = await response.text();
+    console.log(data);
+
+    this.buildDivisions();
+
+    divisionName.value = "";
+
+    this.hideModal("division-add-modal-container");
+    this.notificationsComponent.render(200, "The division has been added");
+  }
+
   async saveDivision() {
     const selectedDivision = document.querySelector(".division-list-item.selected");
     const divisionId = selectedDivision.id.split("-")[1];
@@ -307,10 +535,14 @@ export default class Catalog {
 
     const data = await response.json();
 
-    const divisionName = document.getElementById("division-name").value;
-    const divisionOrder = document.getElementById("division-order").value;
+    const divisionName = document.getElementById("division-name").value.toUpperCase();
 
-    if (divisionName === data.division.name && Number(divisionOrder) === data.division.order) {
+    if (divisionName === data.division.name) {
+      document.getElementById("contact-first-name").value = "";
+      document.getElementById("contact-last-name").value = "";
+      document.getElementById("contact-comment").value = "";
+      document.getElementById("contact-tel").value = "";
+
       this.hideModal("division-edit-modal-container");
       return this.notificationsComponent.render(500, "No changes have been made");
     }
@@ -320,7 +552,7 @@ export default class Catalog {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: divisionId, name: divisionName, order: divisionOrder }),
+      body: JSON.stringify({ id: divisionId, name: divisionName }),
     });
 
     const saveData = await saveResponse.text();
@@ -331,6 +563,11 @@ export default class Catalog {
 
     const cardDivisionName = document.getElementById("card-division-name");
     cardDivisionName.textContent = divisionName;
+
+    document.getElementById("contact-first-name").value = "";
+    document.getElementById("contact-last-name").value = "";
+    document.getElementById("contact-comment").value = "";
+    document.getElementById("contact-tel").value = "";
 
     this.hideModal("division-edit-modal-container");
     this.notificationsComponent.render(200, "The changes have been saved");
@@ -354,7 +591,9 @@ export default class Catalog {
     division.remove();
 
     this.buildDivisions();
+
     this.hideModal("confirmation-modal-container");
+    this.notificationsComponent.render(200, "The division has been deleted");
   }
 
   async buildContacts(divisionId) {
@@ -392,7 +631,16 @@ export default class Catalog {
     );
 
     const division = document.createElement("div");
-    division.classList.add("rounded-lg", "font-semibold", "text-center", "h-fit", "p-3", "w-full", "bg-general-tabs");
+    division.classList.add(
+      "rounded-tl-lg",
+      "rounded-tr-lg",
+      "font-semibold",
+      "text-center",
+      "h-fit",
+      "p-3",
+      "w-full",
+      "bg-general-tabs",
+    );
     division.id = "card-division-name";
     division.textContent = data.division.name;
 
@@ -414,13 +662,18 @@ export default class Catalog {
       const divisionName = document.getElementById("division-name");
       divisionName.value = divisionData.name;
 
-      const divisionOrder = document.getElementById("division-order");
-      divisionOrder.value = divisionData.order;
+      document.getElementById("add-contact-button").classList.add("disabled");
 
+      this.activeModal = "editDivisionModal";
       this.showModal("division-edit-modal-container");
     });
 
     editButton.appendChild(editIcon);
+    if (sessionStorage.getItem("loggedUserType")) {
+      editButton.classList.remove("hidden");
+    } else {
+      editButton.classList.add("hidden");
+    }
 
     const contactInfoHeaders = document.createElement("div");
     contactInfoHeaders.classList.add("card-headers", "flex", "flex-row", "justify-between", "p-3");
@@ -454,7 +707,7 @@ export default class Catalog {
 
       const contactRow = document.createElement("div");
       contactRow.classList.add(
-        "contact-row",
+        sessionStorage.getItem("loggedUserType") ? "contact-row-edit" : "contact-row",
         "flex",
         "flex-row",
         "justify-between",
@@ -479,6 +732,47 @@ export default class Catalog {
       contactInfo.appendChild(contactRow);
 
       contactInfoContainer.appendChild(contactInfo);
+
+      if (sessionStorage.getItem("loggedUserType")) {
+        contactRow.addEventListener("click", async () => {
+          const contactId = document.getElementById("selected-contact-id");
+          contactId.value = contact.id;
+
+          const contactFirstName = document.getElementById("selected-contact-first-name");
+          contactFirstName.value = contact.firstName;
+
+          const contactLastName = document.getElementById("selected-contact-last-name");
+          contactLastName.value = contact.lastName;
+
+          const contactTel = document.getElementById("selected-contact-tel");
+          contactTel.value =
+            contact.Telephones.length === 1 ? contact.Telephones[0].tel : contact.Telephones.map(item => item.tel).join(", ");
+
+          const contactEditComment = document.getElementById("selected-contact-comment");
+          contactEditComment.value = contact.comment;
+
+          const response = await fetch("/get-divisions");
+          const data = await response.json();
+
+          const divisionSelection = document.getElementById("selected-contact-division");
+          divisionSelection.innerHTML = "";
+
+          for (const division of data) {
+            const option = document.createElement("option");
+            option.value = division.id;
+            option.textContent = division.name;
+
+            if (Number(divisionId) === division.id) {
+              option.selected = true;
+            }
+
+            divisionSelection.appendChild(option);
+          }
+
+          this.activeModal = "editContactModal";
+          this.showModal("contact-edit-modal-container");
+        });
+      }
     }
 
     card.appendChild(contactInfoContainer);
@@ -533,15 +827,28 @@ export default class Catalog {
     const contactInfoHeaders = document.createElement("div");
     contactInfoHeaders.classList.add("card-headers", "flex", "flex-row", "justify-between", "p-3");
 
+    const detailsHeader = document.createElement("div");
+    detailsHeader.classList.add("flex", "flex-row", "justify-between", "w-full");
+
     const nameHeader = document.createElement("p");
     nameHeader.classList.add("underline", "font-semibold");
+    nameHeader.style = "text-align: left; width: 40%;";
     nameHeader.textContent = "ΟΝΟΜΑΤΕΠΩΝΥΜΟ";
+
+    const divisionHeader = document.createElement("p");
+    divisionHeader.classList.add("underline", "font-semibold");
+    divisionHeader.style = "text-align: center; width: 30%;";
+    divisionHeader.textContent = "ΤΜΗΜΑ";
+
+    detailsHeader.appendChild(nameHeader);
+    detailsHeader.appendChild(divisionHeader);
 
     const telHeader = document.createElement("p");
     telHeader.classList.add("underline", "font-semibold");
+    telHeader.style = "width: 30%; text-align: right;";
     telHeader.textContent = "ΤΗΛΕΦΩΝΟ";
 
-    contactInfoHeaders.appendChild(nameHeader);
+    contactInfoHeaders.appendChild(detailsHeader);
     contactInfoHeaders.appendChild(telHeader);
 
     card.appendChild(division);
@@ -557,7 +864,7 @@ export default class Catalog {
 
       const contactRow = document.createElement("div");
       contactRow.classList.add(
-        "contact-row",
+        sessionStorage.getItem("loggedUserType") ? "contact-row-edit" : "contact-row",
         "flex",
         "flex-row",
         "justify-between",
@@ -566,22 +873,76 @@ export default class Catalog {
         index % 2 === 0 ? "odd" : "even",
       );
 
+      const detailsInfo = document.createElement("div");
+      detailsInfo.classList.add("flex", "flex-row", "justify-between", "w-full", "text-center");
+
       const name = document.createElement("p");
+      name.style = "text-align: left; width: 40%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;";
       name.textContent = contact.comment
         ? `${contact.firstName} ${contact.lastName} (${contact.comment})`
         : `${contact.firstName} ${contact.lastName}`;
 
+      const division = document.createElement("p");
+      division.id = `search-division-${contact.Division.id}`;
+      division.style = "text-align: center; width: 30%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;";
+      division.textContent = contact.Division.name;
+
+      detailsInfo.appendChild(name);
+      detailsInfo.appendChild(division);
+
       const tel = document.createElement("p");
+      tel.style = "width: 30%; text-align: right;";
       tel.textContent =
         contact.Telephones.length === 1
           ? `${contact.Telephones[0].tel}`
           : `${contact.Telephones.map(item => item.tel).join("/")}`;
 
-      contactRow.appendChild(name);
+      contactRow.appendChild(detailsInfo);
       contactRow.appendChild(tel);
       contactInfo.appendChild(contactRow);
 
       contactInfoContainer.appendChild(contactInfo);
+
+      if (sessionStorage.getItem("loggedUserType")) {
+        contactRow.addEventListener("click", async () => {
+          const contactId = document.getElementById("selected-contact-id");
+          contactId.value = contact.id;
+
+          const contactFirstName = document.getElementById("selected-contact-first-name");
+          contactFirstName.value = contact.firstName;
+
+          const contactLastName = document.getElementById("selected-contact-last-name");
+          contactLastName.value = contact.lastName;
+
+          const contactTel = document.getElementById("selected-contact-tel");
+          contactTel.value =
+            contact.Telephones.length === 1 ? contact.Telephones[0].tel : contact.Telephones.map(item => item.tel).join(", ");
+
+          const contactEditComment = document.getElementById("selected-contact-comment");
+          contactEditComment.value = contact.comment;
+
+          const response = await fetch("/get-divisions");
+          const data = await response.json();
+
+          const divisionSelection = document.getElementById("selected-contact-division");
+          divisionSelection.innerHTML = "";
+
+          for (const division of data) {
+            const option = document.createElement("option");
+            option.value = division.id;
+            option.textContent = division.name;
+
+            if (contact.Division.id === division.id) {
+              option.selected = true;
+            }
+
+            divisionSelection.appendChild(option);
+          }
+
+          this.activeModal = "editContactModal";
+          this.showModal("contact-edit-modal-container");
+        });
+      }
     }
 
     card.appendChild(contactInfoContainer);
@@ -592,9 +953,9 @@ export default class Catalog {
   async addContact() {
     const selectedDivision = document.querySelector(".division-list-item.selected");
     const divisionId = selectedDivision.id.split("-")[1];
-    const firstName = document.getElementById("contact-first-name").value;
-    const lastName = document.getElementById("contact-last-name").value;
-    const comment = document.getElementById("contact-comment").value;
+    const firstName = document.getElementById("contact-first-name").value.toUpperCase();
+    const lastName = document.getElementById("contact-last-name").value.toUpperCase();
+    const comment = document.getElementById("contact-comment").value.toUpperCase();
     const telephones = document
       .getElementById("contact-tel")
       .value.split(",")
@@ -610,19 +971,146 @@ export default class Catalog {
 
     const data = await response.text();
     console.log(data);
+
+    this.buildContacts(divisionId);
+
+    document.getElementById("contact-first-name").value = "";
+    document.getElementById("contact-last-name").value = "";
+    document.getElementById("contact-comment").value = "";
+    document.getElementById("contact-tel").value = "";
+
+    this.hideModal("division-edit-modal-container");
+    this.notificationsComponent.render(200, "The contact has been added");
   }
 
-  validateAddContact() {
-    const firstName = document.getElementById("contact-first-name").value;
-    const lastName = document.getElementById("contact-last-name").value;
-    const telephones = document.getElementById("contact-tel").value;
+  async deleteContact() {
+    const contactId = document.getElementById("selected-contact-id").value;
 
-    const validTel = telephones.split(",").every(tel => tel.trim().length === 3);
+    const response = await fetch("/delete-contact", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: Number(contactId) }),
+    });
 
-    if (firstName.length > 0 && lastName.length > 0 && validTel) {
-      this.addContactBtn.classList.remove("disabled");
+    const data = await response.text();
+    console.log(data);
+
+    const selectedDivision = document.querySelector(".division-list-item.selected");
+    const divisionId = selectedDivision.id.split("-")[1];
+
+    this.buildContacts(divisionId);
+
+    this.hideModal("confirmation-modal-container");
+    this.notificationsComponent.render(200, "The contact has been deleted");
+  }
+
+  async editContact() {
+    const contactId = document.getElementById("selected-contact-id").value;
+    const selectedDivision = document.querySelector(".division-list-item.selected");
+    const selectedDivisionId = selectedDivision.id.split("-")[1];
+    const divisionId = document.getElementById("selected-contact-division").value;
+    const firstName = document.getElementById("selected-contact-first-name").value.toUpperCase();
+    const lastName = document.getElementById("selected-contact-last-name").value.toUpperCase();
+    const comment = document.getElementById("selected-contact-comment").value.toUpperCase();
+    const telephones = document
+      .getElementById("selected-contact-tel")
+      .value.split(",")
+      .map(tel => tel.trim());
+
+    const response = await fetch(`/get-contact/${contactId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+    const dataTelephones = data.Telephones.map(item => item.tel);
+
+    const searchDivision = document.getElementById(`search-division-${data.divisionId}`);
+    const searchDivisionId = searchDivision?.id.split("-")[2];
+
+    if (
+      firstName === data.firstName &&
+      lastName === data.lastName &&
+      comment === data.comment &&
+      (selectedDivisionId === divisionId || searchDivisionId === divisionId) &&
+      JSON.stringify(telephones) === JSON.stringify(dataTelephones)
+    ) {
+      this.hideModal("contact-edit-modal-container");
+      return this.notificationsComponent.render(500, "No changes have been made");
+    }
+
+    const saveResponse = await fetch("/update-contact", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ contactId, divisionId, firstName, lastName, comment, telephones }),
+    });
+
+    const saveData = await saveResponse.text();
+    console.log(saveData);
+
+    this.buildContacts(selectedDivisionId);
+
+    this.hideModal("contact-edit-modal-container");
+    this.notificationsComponent.render(200, "The contact has been updated");
+  }
+
+  validateDivisionDetails() {
+    const divisionName = document.getElementById("add-division-name").value;
+
+    if (divisionName.trim().length === 0) {
+      this.addDivisionBtn.classList.add("disabled");
     } else {
-      this.addContactBtn.classList.add("disabled");
+      this.addDivisionBtn.classList.remove("disabled");
+    }
+  }
+
+  validateContactDetails() {
+    let startingSelector;
+    let activeBtn;
+
+    const editDivisionModal = document.getElementById("division-edit-modal-container");
+    const editContactModal = document.getElementById("contact-edit-modal-container");
+
+    if (!editDivisionModal.classList.contains("hidden") && editContactModal.classList.contains("hidden")) {
+      startingSelector = "contact";
+      activeBtn = this.addContactBtn;
+    } else if (editDivisionModal.classList.contains("hidden") && !editContactModal.classList.contains("hidden")) {
+      startingSelector = "selected";
+      activeBtn = this.saveContactBtn;
+    }
+
+    const elements = Array.from(document.querySelectorAll(`[id^="${startingSelector}"]`));
+
+    let isValid = true;
+
+    elements.forEach(element => {
+      if (element.id.includes("first-name") || element.id.includes("last-name") || element.id.includes("tel")) {
+        const { value } = document.getElementById(element.id);
+
+        // Specific validation for telephone numbers
+        if (element.id.includes("tel")) {
+          const validTel = value.split(",").every(tel => tel.trim().length === 3);
+          if (!validTel) {
+            isValid = false;
+          }
+        } else if (value.trim().length === 0) {
+          // General validation for other inputs
+          isValid = false;
+        }
+      }
+    });
+
+    // Enable/disable add contact button based on overall validity
+    if (isValid) {
+      activeBtn.classList.remove("disabled");
+    } else {
+      activeBtn.classList.add("disabled");
     }
   }
 }

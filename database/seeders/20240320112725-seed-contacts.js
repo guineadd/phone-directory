@@ -61,7 +61,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 4,
+        divisionId: 14,
         firstName: "ΠΑΝΑΓΙΩΤΗΣ",
         lastName: "ΚΟΣΜΙΔΗΣ",
         comment: "",
@@ -69,7 +69,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 4,
+        divisionId: 14,
         firstName: "ΒΑΛΕΡΙΟΣ",
         lastName: "ΚΡΙΣΙΟΥΚ",
         comment: "",
@@ -77,7 +77,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 4,
+        divisionId: 14,
         firstName: "ΚΥΡΙΑΚΟΣ",
         lastName: "ΓΕΩΡΓΙΑΔΗΣ",
         comment: "",
@@ -157,7 +157,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 9,
+        divisionId: 18,
         firstName: "ΔΩΡΑ",
         lastName: "ΓΕΡΟΝΤΙΔΟΥ",
         comment: "",
@@ -165,7 +165,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 9,
+        divisionId: 18,
         firstName: "ΕΛΙΣΑΒΕΤ",
         lastName: "ΠΑΛΑΙΟΛΟΓΟΥ",
         comment: "",
@@ -173,7 +173,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 9,
+        divisionId: 18,
         firstName: "ΕΛΕΝΑ",
         lastName: "ΤΟΠΑΛΙΔΟΥ",
         comment: "",
@@ -181,7 +181,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 10,
+        divisionId: 17,
         firstName: "ΘΑΝΑΣΗΣ",
         lastName: "ΕΛΕΥΘΕΡΟΥΔΗΣ",
         comment: "",
@@ -189,7 +189,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 10,
+        divisionId: 17,
         firstName: "ΑΝΑΣΤΑΣΙΟΣ",
         lastName: "ΚΟΠΤΕΡΙΔΗΣ",
         comment: "",
@@ -197,7 +197,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 10,
+        divisionId: 17,
         firstName: "ΠΕΡΣΕΦΟΝΗ",
         lastName: "ΜΠΕΤΣΙΟΥ",
         comment: "",
@@ -205,7 +205,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΑΣΤΕΡΙΟΣ",
         lastName: "ΘΕΟΔΩΡΟΥ",
         comment: "",
@@ -213,7 +213,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΑΣΤΕΡΙΟΣ",
         lastName: "ΚΑΛΟΓΕΡΑΣ",
         comment: "",
@@ -221,7 +221,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΧΡΗΣΤΟΣ",
         lastName: "ΚΑΠΟΥΡΑΝΗΣ",
         comment: "",
@@ -229,7 +229,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΙΩΑΝΝΗΣ",
         lastName: "ΚΑΡΑΓΙΑΝΝΗΣ",
         comment: "",
@@ -237,7 +237,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΠΩΛΙΝΑ",
         lastName: "ΚΑΡΑΓΙΑΝΝΙΔΟΥ",
         comment: "",
@@ -245,7 +245,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΘΕΟΔΩΡΟΣ",
         lastName: "ΚΛΕΙΣΙΑΡΗΣ",
         comment: "",
@@ -253,7 +253,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΜΑΡΙΑ",
         lastName: "ΚΟΣΙΒΑ",
         comment: "",
@@ -261,7 +261,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΒΑΣΙΛΗΣ",
         lastName: "ΚΩΤΟΥΛΑΣ",
         comment: "",
@@ -269,7 +269,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΔΗΜΗΤΡΗΣ",
         lastName: "ΜΑΝΤΑΓΚΙΩΖΗΣ",
         comment: "",
@@ -277,7 +277,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΓΙΩΡΓΟΣ",
         lastName: "ΜΑΝΤΗΣ",
         comment: "",
@@ -285,7 +285,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΔΗΜΗΤΡΗΣ",
         lastName: "ΜΗΤΣΙΤΣΙΚΑΣ",
         comment: "",
@@ -293,7 +293,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΑΠΟΣΤΟΛΗΣ",
         lastName: "ΝΕΤΣΙΟΣ",
         comment: "",
@@ -301,7 +301,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΣΤΑΜΑΤΗΣ",
         lastName: "ΝΙΚΟΛΟΠΟΥΛΟΣ",
         comment: "",
@@ -309,7 +309,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΧΑΡΗΣ",
         lastName: "ΑΝΑΝΙΑΔΗΣ",
         comment: "",
@@ -317,7 +317,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΙΩΑΝΝΗΣ",
         lastName: "ΠΑΥΛΟΥ",
         comment: "",
@@ -325,7 +325,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΒΑΣΙΛΗΣ",
         lastName: "ΤΣΑΡΟΥΧΑΣ",
         comment: "",
@@ -333,7 +333,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΗΛΙΑΣ",
         lastName: "ΤΣΟΛΟΓΙΑΝΝΗΣ",
         comment: "",
@@ -341,7 +341,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΓΡΗΓΟΡΗΣ",
         lastName: "ΦΟΥΝΤΟΠΟΥΛΟΣ",
         comment: "",
@@ -349,7 +349,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΓΙΑΝΝΗΣ",
         lastName: "ΧΑΡΙΤΟΥΔΗΣ",
         comment: "",
@@ -357,7 +357,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 11,
+        divisionId: 19,
         firstName: "ΧΑΡΑΞΗ",
         lastName: "ΠΛΑΚΕΤΩΝ",
         comment: "LPKF 3ος ΟΡΟΦΟΣ",
@@ -365,7 +365,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 12,
+        divisionId: 20,
         firstName: "ΓΙΩΡΓΟΣ",
         lastName: "ΒΟΥΤΣΗΣ",
         comment: "",
@@ -373,7 +373,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 12,
+        divisionId: 20,
         firstName: "ΟΡΕΣΤΗΣ",
         lastName: "ΓΕΩΡΓΙΑΔΗΣ",
         comment: "",
@@ -381,7 +381,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 12,
+        divisionId: 20,
         firstName: "ΔΗΜΗΤΡΗΣ",
         lastName: "ΚΥΠΡΙΑΝΟΥ",
         comment: "",
@@ -389,7 +389,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 12,
+        divisionId: 20,
         firstName: "ΛΕΝΑ",
         lastName: "ΜΑΡΑΒΕΛΙΑ",
         comment: "ΑΝΑΠΤΥΞΙΑΚΑ ΠΡΟΓΡΑΜΜΑΤΑ",
@@ -397,7 +397,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 12,
+        divisionId: 20,
         firstName: "ΚΩΣΤΑΣ",
         lastName: "ΧΑΡΑΛΑΜΠΙΔΗΣ",
         comment: "",
@@ -405,7 +405,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 13,
+        divisionId: 12,
         firstName: "ΓΙΑΝΝΗΣ",
         lastName: "ΑΛΕΞΟΠΟΥΛΟΣ",
         comment: "ΟΙΚ. ΔΙΕΥΘΥΝΤΗΣ",
@@ -413,7 +413,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 13,
+        divisionId: 12,
         firstName: "ΕΝΤΟΥΑΡΝΤ",
         lastName: "ΓΚΙΟΚΧΙΛΑΪ",
         comment: "",
@@ -421,7 +421,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 13,
+        divisionId: 12,
         firstName: "ΧΡΥΣΟΥΛΑ",
         lastName: "ΕΛΕΥΘΕΡΟΧΩΡΙΝΟΥ",
         comment: "",
@@ -429,7 +429,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 13,
+        divisionId: 12,
         firstName: "ΔΗΜΗΤΡΗΣ",
         lastName: "ΚΑΡΡΑΣ",
         comment: "ΠΡΟΪΣΤΑΜΕΝΟΣ",
@@ -437,7 +437,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 13,
+        divisionId: 12,
         firstName: "ΠΟΠΗ",
         lastName: "ΛΑΚΑΣΑ",
         comment: "",
@@ -445,7 +445,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 13,
+        divisionId: 12,
         firstName: "ΘΑΝΑΣΗΣ",
         lastName: "ΣΤΕΡΓΙΟΥΛΑΣ",
         comment: "",
@@ -453,7 +453,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 13,
+        divisionId: 12,
         firstName: "ΧΡΗΣΤΟΣ",
         lastName: "ΚΟΥΝΑΤΙΔΗΣ",
         comment: "",
@@ -461,7 +461,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 14,
+        divisionId: 15,
         firstName: "ΑΝΤΩΝΗΣ",
         lastName: "ΚΟΜΠΑΤΣΙΑΡΗΣ",
         comment: "",
@@ -469,7 +469,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 14,
+        divisionId: 15,
         firstName: "ΚΩΣΤΑΣ",
         lastName: "ΙΩΑΝΝΙΔΗΣ",
         comment: "ΗΛΕΚΤΡΟΛΟΓΟΣ/ΥΔΡΑΥΛΙΚΟΣ",
@@ -477,7 +477,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 15,
+        divisionId: 21,
         firstName: "ΚΩΣΤΑΣ",
         lastName: "ΔΡΑΜΑΛΗΣ",
         comment: "",
@@ -485,7 +485,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 15,
+        divisionId: 21,
         firstName: "ΙΣΑΑΚ",
         lastName: "ΠΑΥΛΙΔΗΣ",
         comment: "",
@@ -501,7 +501,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 17,
+        divisionId: 4,
         firstName: "ΠΟΛΥΚΑΡΠΟΣ",
         lastName: "ΠΑΠΑΔΟΠΟΥΛΟΣ",
         comment: "",
@@ -509,7 +509,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 18,
+        divisionId: 11,
         firstName: "ΣΟΦΙΑ",
         lastName: "ΧΑΤΖΗΦΩΤΗ",
         comment: "",
@@ -517,7 +517,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 18,
+        divisionId: 11,
         firstName: "ΙΣΙΔΩΡΑ",
         lastName: "ΓΙΑΤΣΙΔΟΥ",
         comment: "",
@@ -525,7 +525,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 19,
+        divisionId: 9,
         firstName: "ΓΙΩΡΓΟΣ",
         lastName: "ΛΑΜΠΡΙΑΝΙΔΗΣ",
         comment: "",
@@ -533,7 +533,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 19,
+        divisionId: 9,
         firstName: "ΝΙΚΟΣ",
         lastName: "ΑΡΒΑΝΙΤΙΔΗΣ",
         comment: "",
@@ -541,7 +541,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 19,
+        divisionId: 9,
         firstName: "ΑΝΤΩΝΗΣ",
         lastName: "ΜΑΝΤΟΥΛΙΔΗΣ",
         comment: "",
@@ -549,7 +549,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 19,
+        divisionId: 9,
         firstName: "ΕΛΕΝΑ",
         lastName: "ΒΑΛΕΝΤΙΝΑ",
         comment: "",
@@ -557,7 +557,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 20,
+        divisionId: 27,
         firstName: "ΘΕΟΔΩΡΟΣ",
         lastName: "ΜΠΑΜΙΧΑΣ",
         comment: "",
@@ -565,7 +565,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 21,
+        divisionId: 28,
         firstName: "ΣΙΜΟΣ",
         lastName: "ΣΤΥΛΙΑΝΙΔΗΣ",
         comment: "",
@@ -573,7 +573,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 22,
+        divisionId: 29,
         firstName: "ΓΙΑΝΝΗΣ",
         lastName: "ΑΡΑΜΠΑΤΖΗΣ",
         comment: "",
@@ -581,7 +581,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 22,
+        divisionId: 29,
         firstName: "ΚΩΣΤΑΣ",
         lastName: "ΓΡΗΓΟΡΙΑΔΗΣ",
         comment: "",
@@ -589,7 +589,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 22,
+        divisionId: 29,
         firstName: "ΜΑΡΙΑ",
         lastName: "ΝΑΝΑΚΟΥ",
         comment: "",
@@ -597,7 +597,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 23,
+        divisionId: 31,
         firstName: "ΧΑΡΗΣ",
         lastName: "ΒΑΒΥΛΑΣ",
         comment: "",
@@ -605,7 +605,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 23,
+        divisionId: 31,
         firstName: "ΚΟΙΝΟ",
         lastName: "ΤΗΛΕΦΩΝΟ",
         comment: "",
@@ -613,7 +613,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 23,
+        divisionId: 31,
         firstName: "ΗΛΙΑΣ",
         lastName: "ΜΟΥΧΤΑΡΟΠΟΥΛΟΣ",
         comment: "",
@@ -621,7 +621,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 23,
+        divisionId: 31,
         firstName: "ΓΙΩΡΓΟΣ",
         lastName: "ΤΟΠΤΣΗΣ",
         comment: "",
@@ -629,7 +629,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 24,
+        divisionId: 32,
         firstName: "ΓΙΩΡΓΟΣ",
         lastName: "ΜΠΑΜΠΑΝΗΣ",
         comment: "",
@@ -637,7 +637,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 24,
+        divisionId: 32,
         firstName: "ΑΝΤΩΝΗΣ",
         lastName: "ΛΑΚΑΣΑΣ",
         comment: "",
@@ -645,7 +645,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 25,
+        divisionId: 30,
         firstName: "ΔΗΜΗΤΡΗΣ",
         lastName: "ΤΣΑΛΑΜΠΑΝΑΣ",
         comment: "",
@@ -653,7 +653,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 25,
+        divisionId: 30,
         firstName: "ΓΙΑΝΝΗΣ",
         lastName: "ΚΑΡΙΨΙΑΔΗΣ",
         comment: "ΣΥΣΚΕΥΑΣΙΑ",
@@ -661,7 +661,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 25,
+        divisionId: 30,
         firstName: "ΗΛΙΑΣ",
         lastName: "ΜΠΑΚΑΛΙΔΗΣ",
         comment: "",
@@ -669,7 +669,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 26,
+        divisionId: 22,
         firstName: "ΗΛΙΑΣ",
         lastName: "ΛΟΤΖΑΝΙΩΤΗΣ",
         comment: "",
@@ -677,7 +677,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 26,
+        divisionId: 22,
         firstName: "ΤΑΣΟΣ",
         lastName: "ΓΙΟΥΒΑΝΙΔΗΣ",
         comment: "",
@@ -685,7 +685,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 26,
+        divisionId: 22,
         firstName: "ΚΩΝΣΤΑΝΤΙΝΟΣ",
         lastName: "ΔΕΛΗΓΙΑΝΝΗΣ",
         comment: "",
@@ -693,7 +693,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 26,
+        divisionId: 22,
         firstName: "ΒΑΓΓΕΛΗΣ",
         lastName: "ΘΕΟΧΑΡΟΠΟΥΛΟΣ",
         comment: "",
@@ -701,7 +701,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 26,
+        divisionId: 22,
         firstName: "ΜΑΚΗΣ",
         lastName: "ΣΑΛΙΑΡΑΣ",
         comment: "",
@@ -709,7 +709,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 26,
+        divisionId: 22,
         firstName: "ΕΥΓΕΝΙΑ",
         lastName: "ΣΑΛΑΜΑΝΙΩΤΗ",
         comment: "",
@@ -717,7 +717,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 26,
+        divisionId: 22,
         firstName: "ΚΑΛΥΨΩ",
         lastName: "ΤΣΙΝΙΚΟΥ",
         comment: "",
@@ -725,7 +725,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 27,
+        divisionId: 25,
         firstName: "ΑΘΑΝΑΣΙΟΣ",
         lastName: "ΛΑΚΑΣΑΣ",
         comment: "",
@@ -733,7 +733,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 28,
+        divisionId: 26,
         firstName: "ΠΑΝΑΓΙΩΤΑ",
         lastName: "ΠΑΝΑΓΙΩΤΟΠΟΥΛΟΥ",
         comment: "",
@@ -741,7 +741,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΑΝΘΗ",
         lastName: "ΒΑΡΣΑΜΟΠΟΥΛΟΥ",
         comment: "",
@@ -749,7 +749,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΓΙΩΡΓΟΣ",
         lastName: "ΒΟΥΛΤΣΙΔΗΣ",
         comment: "ΤΜΗΜΑ CBS",
@@ -757,7 +757,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΠΑΝΑΓΙΩΤΗΣ",
         lastName: "ΓΚΟΡΙΔΗΣ",
         comment: "LASER",
@@ -765,7 +765,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΑΙΜΙΛΙΟΣ",
         lastName: "ΜΟΥΧΤΑΡΟΠΟΥΛΟΣ",
         comment: "LASER",
@@ -773,7 +773,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΣΑΚΗΣ",
         lastName: "ΔΟΥΝΑΒΗΣ",
         comment: "",
@@ -781,7 +781,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΔΗΜΟΣ",
         lastName: "ΔΩΡΟΚΙΔΗΣ",
         comment: "ΤΜΗΜΑ SMD",
@@ -789,7 +789,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΒΑΣΩ",
         lastName: "ΙΩΣΙΦΙΔΟΥ",
         comment: "",
@@ -797,7 +797,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΓΙΩΡΓΟΣ",
         lastName: "ΚΕΜΕΡΙΔΗΣ",
         comment: "SMD ΠΙΛΟΤΙΚΗΣ ΠΑΡΑΓΩΓΗΣ",
@@ -805,7 +805,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΕΛΠΙΔΑ",
         lastName: "ΚΟΜΠΑΤΣΙΑΡΗ",
         comment: "",
@@ -813,7 +813,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΚΟΙΝΟ",
         lastName: "ΤΗΛΕΦΩΝΟ",
         comment: "1ος ΟΡΟΦΟΣ",
@@ -821,7 +821,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΚΛΕΑΡΧΟΣ",
         lastName: "ΛΑΚΑΣΑΣ",
         comment: "",
@@ -829,7 +829,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΚΩΣΤΑΣ",
         lastName: "ΛΑΚΑΣΑΣ",
         comment: "",
@@ -837,7 +837,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΔΗΜΗΤΡΗΣ",
         lastName: "ΛΑΝΤΖΑΣ",
         comment: "",
@@ -845,7 +845,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΔΗΜΗΤΡΗΣ",
         lastName: "ΘΕΟΧΑΡΟΠΟΥΛΟΣ",
         comment: "ΑΛΟΥΜΙΝΙΑ",
@@ -853,7 +853,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΘΩΜΑΣ",
         lastName: "ΜΟΥΧΤΑΡΟΠΟΥΛΟΣ",
         comment: "",
@@ -861,7 +861,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΣΩΤΗΡΗΣ",
         lastName: "ΜΠΟΥΡΑΣ",
         comment: "",
@@ -869,7 +869,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΓΙΩΡΓΟΣ",
         lastName: "ΠΑΠΑΪΩΑΝΝΟΥ",
         comment: "",
@@ -877,7 +877,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΔΗΜΗΤΡΗΣ",
         lastName: "ΠΑΠΑΪΩΑΝΝΟΥ",
         comment: "",
@@ -885,7 +885,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΣΥΣΤΗΜΑΤΑ",
         lastName: "",
         comment: "",
@@ -893,7 +893,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΚΩΣΤΑΣ",
         lastName: "ΣΙΔΗΡΟΠΟΥΛΟΣ",
         comment: "",
@@ -901,7 +901,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΚΩΣΤΑΣ",
         lastName: "ΣΤΕΦΑΝΗΣ",
         comment: "",
@@ -909,7 +909,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΜΙΧΑΛΗΣ",
         lastName: "ΤΖΑΝΙΔΑΚΗΣ",
         comment: "ADDRESS",
@@ -917,7 +917,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΓΙΑΝΝΗΣ",
         lastName: "ΤΖΙΟΚΑΣ",
         comment: "ΤΜΗΜΑ ΠΛΑΣΤΙΚΩΝ",
@@ -925,7 +925,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΣΑΚΗΣ",
         lastName: "ΤΟΛΙΟΣ",
         comment: "ΜΠΑΝΙΟ SMD",
@@ -933,7 +933,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΤΟΥΝΕΛ",
         lastName: "",
         comment: "",
@@ -941,7 +941,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΑΝΔΡΕΑΣ",
         lastName: "ΧΑΛΚΙΑΣ",
         comment: "ΤΥΠΟΠΟΙΗΤΗΡΙΟ",
@@ -949,7 +949,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 29,
+        divisionId: 23,
         firstName: "ΜΑΝΩΛΗΣ",
         lastName: "ΨΑΡΡΑΣ",
         comment: "",
@@ -957,7 +957,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 30,
+        divisionId: 24,
         firstName: "ΕΥΡΙΠΙΔΗΣ",
         lastName: "ΘΕΟΔΟΣΙΟΥ",
         comment: "",
@@ -965,7 +965,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 31,
+        divisionId: 13,
         firstName: "ΔΗΜΗΤΡΑ",
         lastName: "ΚΑΡΑΓΙΑΝΝΗ",
         comment: "",
@@ -973,7 +973,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 31,
+        divisionId: 13,
         firstName: "ΓΙΩΡΓΟΣ - ΜΠΕΧΑΡ",
         lastName: "ΝΤΟΞΑΝΙ",
         comment: "",
@@ -981,7 +981,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 32,
+        divisionId: 10,
         firstName: "ΝΙΚΟΣ",
         lastName: "ΑΓΓΕΛΟΠΟΥΛΟΣ",
         comment: "",
@@ -989,7 +989,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 32,
+        divisionId: 10,
         firstName: "ΑΣΤΕΡΗΣ",
         lastName: "ΑΣΤΕΡΙΟΥ",
         comment: "",
@@ -997,7 +997,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 32,
+        divisionId: 10,
         firstName: "ΑΘΑΝΑΣΙΟΣ",
         lastName: "ΑΣΤΕΡΙΟΥ",
         comment: "",
@@ -1005,7 +1005,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 32,
+        divisionId: 10,
         firstName: "ΑΛΕΞΑΝΔΡΑ",
         lastName: "ΜΑΝΤΖΟΥΤΣΟΥ",
         comment: "",
@@ -1013,7 +1013,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        divisionId: 32,
+        divisionId: 10,
         firstName: "ΤΑΣΟΣ",
         lastName: "ΔΗΜΑΚΟΠΟΥΛΟΣ",
         comment: "",

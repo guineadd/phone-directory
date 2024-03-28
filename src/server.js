@@ -2,9 +2,10 @@ import express from "express";
 import path from "path";
 import http from "http";
 // import https from "https";
-import { Op } from "sequelize";
+import { Op, fn, col } from "sequelize";
 // import { sequelize } from "../database/db.js";
 import db from "../database/models/index.js";
+import argon2 from "argon2";
 
 const app = express();
 app.use(express.json());
@@ -21,8 +22,65 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(path.resolve(), "/public/index.html"));
 });
 
-const { Contact, Division, Telephone } = db;
+const { Contact, Division, Telephone, ContactTelephone, UserType, User } = db;
 const { sequelize } = db.sequelize;
+
+app.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    const user = await User.findOne({ where: { username }, include: UserType });
+
+    if (user) {
+      const validPassword = await argon2.verify(user.password, password);
+
+      if (validPassword) {
+        res.json(user);
+      } else {
+        res.status(400).json({ message: "Invalid username or password." });
+      }
+    } else {
+      res.status(400).json({ message: "Invalid username or password." });
+    }
+  } catch (error) {
+    res.status(500).json(`Error logging in: ${error}`);
+  }
+});
+
+app.get("/get-users", async (req, res) => {
+  try {
+    const users = await User.findAll({ include: UserType });
+    res.json(users);
+  } catch (error) {
+    res.status(500).json(`Error fetching users: ${error}`);
+  }
+});
+
+app.post("/add-user", async (req, res) => {
+  try {
+    const { username, password, userTypeId } = req.body;
+
+    const hashedPassword = await argon2.hash(password);
+
+    await User.create({ userTypeId, username, password: hashedPassword });
+
+    res.send(`User with username ${username} successfully added.`);
+  } catch (error) {
+    res.status(500).json(`Error adding user: ${error}`);
+  }
+});
+
+app.delete("/delete-user/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    await User.destroy({ where: { id } });
+
+    res.send("User successfully deleted.");
+  } catch (error) {
+    res.status(500).json(`Error deleting user: ${error}`);
+  }
+});
 
 app.get("/get-divisions", async (req, res) => {
   try {
@@ -63,20 +121,20 @@ app.post("/add-division", async (req, res) => {
     const { name } = req.body;
 
     const maxOrderDivision = await Division.findOne({
-      attributes: [[sequelize.fn("max", sequelize.col("order")), "maxOrder"]],
+      attributes: [[fn("max", col("order")), "maxOrder"]],
     });
 
     let order;
 
-    if (maxOrderDivision && maxOrderDivision.maxOrder !== null) {
-      order = maxOrderDivision.maxOrder + 1;
+    if (maxOrderDivision && maxOrderDivision.dataValues.maxOrder !== null) {
+      order = maxOrderDivision.dataValues.maxOrder + 1;
     } else {
       order = 1;
     }
 
-    const newDivision = await Division.create({ name, order });
+    await Division.create({ name, order });
 
-    res.json(newDivision);
+    res.send(`Division with name ${name} successfully added.`);
   } catch (error) {
     res.status(500).json(`Error adding division: ${error}`);
   }
@@ -164,6 +222,28 @@ app.get("/get-all-contacts", async (req, res) => {
   }
 });
 
+app.post("/get-contact/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const contact = await Contact.findOne({
+      where: { id },
+      include: [
+        {
+          model: Telephone,
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+    });
+
+    res.json(contact);
+  } catch (error) {
+    res.status(500).json(`Error fetching contact: ${error}`);
+  }
+});
+
 app.post("/get-contacts/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -193,7 +273,7 @@ app.post("/search-contacts", async (req, res) => {
     const { query } = req.body;
     const words = query.split(" ");
 
-    const wordConditions = words.map(word => ({
+    const conditions = words.map(word => ({
       [Op.or]: [
         { firstName: { [Op.like]: `%${word}%` } },
         { lastName: { [Op.like]: `%${word}%` } },
@@ -202,12 +282,10 @@ app.post("/search-contacts", async (req, res) => {
       ],
     }));
 
-    const filter = {
-      [Op.and]: [wordConditions],
-    };
-
     const contacts = await Contact.findAll({
-      where: filter,
+      where: {
+        [Op.or]: [conditions],
+      },
       include: [
         {
           model: Division,
@@ -222,7 +300,15 @@ app.post("/search-contacts", async (req, res) => {
         },
       ],
     });
-    res.json(contacts);
+
+    const results = await Promise.all(
+      contacts.map(async contact => {
+        const telephones = await contact.getTelephones();
+        return { ...contact.dataValues, Telephones: telephones };
+      }),
+    );
+
+    res.json(results);
   } catch (error) {
     res.status(500).json(`Error finding contact: ${error}`);
   }
@@ -263,25 +349,57 @@ app.post("/add-contact", async (req, res) => {
 
 app.put("/update-contact", async (req, res) => {
   try {
-    const { id, divisionName, firstName, lastName, comment, primaryTel, secondaryTel } = req.body;
+    const { contactId, divisionId, firstName, lastName, comment, telephones } = req.body;
 
-    const division = await Division.findOne({ where: { name: divisionName } });
+    console.log("Division ID: ", divisionId);
 
-    const divisionId = division.id;
+    const contact = await Contact.findByPk(contactId);
 
-    const updatedContact = await Contact.update(
-      {
-        divisionId,
-        firstName,
-        lastName,
-        comment,
-        primaryTel,
-        secondaryTel,
-      },
-      { where: { id } },
+    await contact.update({ divisionId, firstName, lastName, comment });
+
+    const promises = telephones.map(async tel => {
+      let telephone = await Telephone.findOne({ where: { tel } });
+
+      if (!telephone) {
+        telephone = await Telephone.create({ tel });
+      }
+
+      return telephone;
+    });
+
+    const updatedTelephones = await Promise.all(promises);
+    const currentTelephones = await contact.getTelephones();
+
+    await contact.removeTelephones(currentTelephones);
+
+    await Promise.all(
+      currentTelephones.map(async currentTelephone => {
+        console.log("Current telephone: ", currentTelephone.dataValues.id);
+        // updatedTelephones.map(t => t.dataValues.id);
+        console.log(
+          "Updated telephones: ",
+          updatedTelephones.map(t => t.dataValues.id),
+        );
+        if (updatedTelephones.map(t => t.dataValues.id).includes(currentTelephone.dataValues.id)) {
+          console.log("YES");
+          return;
+        }
+
+        await Telephone.destroy({ where: { id: currentTelephone.id } });
+      }),
     );
 
-    res.json(updatedContact);
+    // console.log("Current telephones: ", currentTelephones);
+    // console.log("Updated telephones: ", updatedTelephones);
+
+    await Promise.all(
+      updatedTelephones.map(async updatedTelephone =>
+        contact.addTelephone(updatedTelephone, { through: { contactId, telephoneId: updatedTelephone.id } }),
+      ),
+    );
+    // await contact.addTelephones(updatedTelephones, { through: { contactId, telephoneId: updatedTelephones.map(t => t.id) } });
+
+    res.send(`Contact with name ${firstName} ${lastName} successfully updated.`);
   } catch (error) {
     res.status(500).json(`Error updating contact: ${error}`);
   }
@@ -290,10 +408,12 @@ app.put("/update-contact", async (req, res) => {
 app.delete("/delete-contact", async (req, res) => {
   try {
     const { id } = req.body;
+    console.log(id);
 
-    const deletedContact = await Contact.destroy({ where: { id } });
+    await ContactTelephone.destroy({ where: { contactId: id } });
+    await Contact.destroy({ where: { id } });
 
-    res.json(deletedContact);
+    res.send("Contact and associated telephones successfully deleted.");
   } catch (error) {
     res.status(500).json(`Error deleting contact: ${error}`);
   }

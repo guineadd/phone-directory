@@ -7,6 +7,8 @@ export default {
         general: {
           background: "rgba(124, 152, 133, 1)",
           bars: "rgba(40, 102, 110, 1)",
+          barsPrimary: "rgba(124, 152, 133, 1)",
+          barsSecondary: "rgba(124, 152, 133, 0.7)",
           tabs: "rgba(0, 0, 0, 0.5)",
           headerTabs: "rgba(0, 0, 0, 0.8)",
           hoverTabs: "rgba(0, 0, 0, 0.35)",
@@ -45,6 +47,7 @@ export default {
       xs: "0.8rem",
       sm: "0.85rem",
       base: "1rem",
+      lg: "1.125rem",
       xl: "1.25rem",
       "2xl": "1.5rem",
       "3xl": "1.875rem",
