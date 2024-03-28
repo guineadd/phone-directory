@@ -1,64 +1,63 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Directory containing internal telephone numbers" />
-    <title>Phone Directory</title>
-  </head>
 
-  <body class="font-electrolize">
-    <div class="container flex flex-col">
-      <div class="header h-16 px-2 flex justify-between items-center text-white bg-general-bars">
-        <div class="w-[300px] text-2xl">
-          <span>Telephone Catalog</span>
-        </div>
-        <div id="header-buttons" class="flex w-[950px] justify-evenly items-center">
-          <div class="w-[460px] bg-buttons-primary rounded-lg p-1 flex justify-between">
-            <input
-              id="search-contacts"
-              type="text"
-              class="w-full bg-transparent rounded-lg px-2 text-lg focus:outline-none hover:bg-general-details"
-            />
-            <button id="search-button">
-              <i class="fa-solid fa-magnifying-glass rounded-lg py-1 px-2 hover:bg-general-details"></i>
-            </button>
-          </div>
-          <div class="w-[140px]">
-            <button
-              id="export-button"
-              class="bg-buttons-primary hover:bg-general-details text-lg font-bold w-full rounded-lg py-1 px-2"
-            >
-              EXPORT <i class="fa-solid fa-file-pdf"></i>
-            </button>
-          </div>
-          <div class="w-[140px]">
-            <button
-              id="login-button"
-              class="bg-buttons-primary hover:bg-general-details text-lg font-bold w-full rounded-lg py-1 px-2"
-            >
-              LOG IN <i class="fa fa-right-from-bracket"></i>
-            </button>
-          </div>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Directory containing internal telephone numbers" />
+  <title>Phone Directory</title>
+</head>
+
+<body>
+  <div class="container flex flex-col">
+    <div class="header h-16 px-2 flex justify-between items-center text-white bg-general-bars">
+      <div class="w-[300px] text-2xl">
+        <span>Telephone Catalog</span>
       </div>
-      <div id="main-container" class="main-container">
-        <div id="catalog-container" class="p-8 w-full h-full flex flex-row justify-evenly"></div>
-      </div>
-      <div class="footer text-sm bottom-0 w-[100%] flex fixed items-center h-9 text-white px-2 justify-end">
-        <span class="align-middle"> &copy;&nbsp;<span id="year">2024</span>&nbsp;Copyright&nbsp;|&nbsp; </span>
-        <a
-          class="hover:underline hover:text-bars-hover align-middle"
-          target="_blank"
-          href="https://www.olympia-electronics.com/el"
-        >
-          Olympia Electronics
-        </a>
+      <div id="header-buttons" class="flex w-[950px] justify-evenly items-center">
+        <div class="">
+          <button id="edit-division-order-button"
+            class="bg-buttons-primary hover:bg-general-details text-lg font-bold w-full rounded-lg py-1 px-2">
+            Edit order <i class="fa-solid fa-edit"></i>
+          </button>
+        </div>
+        <div class="w-[460px] bg-buttons-primary rounded-lg p-1 flex justify-between">
+          <input id="search-contacts" type="text"
+            class="w-full bg-transparent rounded-lg px-2 text-lg focus:outline-none hover:bg-general-details" />
+          <button id="search-button">
+            <i class="fa-solid fa-magnifying-glass rounded-lg py-1 px-2 hover:bg-general-details"></i>
+          </button>
+        </div>
+        <div class="w-[140px]">
+          <button id="show-division-selection-modal"
+            class="bg-buttons-primary hover:bg-general-details text-lg font-bold w-full rounded-lg py-1 px-2">
+            EXPORT <i class="fa-solid fa-file-pdf"></i>
+          </button>
+        </div>
+        <div class="w-[140px]">
+          <button id="login-button"
+            class="bg-buttons-primary hover:bg-general-details text-lg font-bold w-full rounded-lg py-1 px-2">
+            LOG IN <i class="fa fa-right-from-bracket"></i>
+          </button>
+        </div>
       </div>
     </div>
-    <div id="login-container"></div>
-    <div id="user-management-container"></div>
-    <div id="notification-bar" class="flex justify-center pointer-events-none"></div>
-    <script type="text/javascript" src="dist/bundle.js"></script>
-  </body>
+    <div id="main-container" class="main-container">
+      <div id="catalog-container" class="p-8 w-full h-full flex flex-row justify-evenly"></div>
+    </div>
+    <div class="footer text-sm bottom-0 w-[100%] flex fixed items-center h-9 text-white px-2 justify-end">
+      <span class="align-middle"> &copy;&nbsp;<span id="year">2024</span>&nbsp;Copyright&nbsp;|&nbsp; </span>
+      <a class="hover:underline hover:text-bars-hover align-middle" target="_blank"
+        href="https://www.olympia-electronics.com/el">
+        Olympia Electronics
+      </a>
+    </div>
+  </div>
+  <div id="login-container"></div>
+  <div id="user-management-container"></div>
+  <div id="export-pdf-container"></div>
+  <div id="notification-bar" class="flex justify-center pointer-events-none"></div>
+  <script type="text/javascript" src="dist/bundle.js"></script>
+</body>
+
 </html>

@@ -94,6 +94,32 @@ app.put("/update-division", async (req, res) => {
   }
 });
 
+app.put("/update-division-order", async (req, res) => {
+  try {
+    const divisionsToUpdate = req.body;
+
+    const updates = divisionsToUpdate.map(async divisionData => {
+      const { id, order } = divisionData;
+      const division = await Division.findByPk(id);
+
+      if (!division) {
+        console.log(`Division with ID ${id} not found.`);
+        return null;
+      }
+
+      division.order = order;
+
+      return division.save();
+    });
+
+    await Promise.all(updates);
+
+    res.send(`Divisions successfully updated.`);
+  } catch (error) {
+    res.status(500).json(`Error updating divisions: ${error}`);
+  }
+});
+
 app.delete("/delete-division/:id", async (req, res) => {
   try {
     const { id } = req.params;

@@ -1,37 +1,35 @@
-import { jsPDF } from "jspdf";
-import html2canvas from "html2canvas";
-
 export default class Catalog {
   constructor() {
     this.loginBtn = null;
-    this.createPdfBtn = null;
-    this.createPdf = this.createPdf.bind(this);
     this.cancelModalBtn = null;
     this.closeConfirmBtn = null;
     this.saveDivisionBtn = null;
+    this.rearrangeDivisionBtn = null;
+    this.editingDivisionOrder = null;
     this.deleteDivisionBtn = null;
     this.confirmDeleteBtn = null;
     this.cancelDeleteBtn = null;
     this.searchContactsInput = null;
     this.addContactBtn = null;
+    this.dragStartListener = null;
+    this.dragEndListener = null;
+    this.dragOverListener = null;
+    this.divisionContainer = null;
   }
 
   render() {
     this.loginBtn = document.getElementById("login-button");
-    this.createPdfBtn = document.getElementById("export-button");
     this.saveDivisionBtn = document.getElementById("save-division-button");
     this.deleteDivisionBtn = document.getElementById("delete-division-button");
+    this.rearrangeDivisionBtn = document.getElementById("edit-division-order-button");
     this.confirmDeleteBtn = document.getElementById("confirm-delete-button");
     this.cancelDeleteBtn = document.getElementById("cancel-delete-button");
     this.searchContactsInput = document.getElementById("search-contacts");
     this.cancelModalBtn = document.getElementById("close-edit-button");
     this.closeConfirmBtn = document.getElementById("close-confirm-button");
     this.addContactBtn = document.getElementById("add-contact-button");
-
+    this.divisionContainer = document.getElementById("catalog-divisions");
     this.buildDivisions();
-
-    this.removeClickListener(this.createPdfBtn, this.createPdf);
-    this.addClickListener(this.createPdfBtn, this.createPdf);
 
     this.searchContactsInput.removeEventListener("input", () => this.searchContacts());
     this.searchContactsInput.addEventListener("input", () => this.searchContacts());
@@ -56,6 +54,43 @@ export default class Catalog {
       // trigger the validation function
       this.validateAddContact();
     });
+
+    this.editingDivisionOrder = true;
+    this.rearrangeDivisionBtn.addEventListener("click", () => {
+      if (this.editingDivisionOrder) {
+        this.editDivisionOrder();
+        this.rearrangeDivisionBtn.textContent = "Save order";
+      } else {
+        this.saveDivisionOrder();
+        this.rearrangeDivisionBtn.textContent = "Edit order";
+      }
+
+      this.editingDivisionOrder = !this.editingDivisionOrder;
+    });
+
+    this.dragStartListener = event => {
+      const draggable = event.target;
+      draggable.classList.add("dragging");
+    };
+
+    this.dragEndListener = event => {
+      const draggable = event.target;
+      draggable.classList.remove("dragging");
+    };
+
+    this.dragOverListener = event => {
+      event.preventDefault();
+      const afterElement = this.getDrafAfterElement(this.divisionContainer, event.clientY);
+      const draggable = document.querySelector(".dragging");
+      if (afterElement === null) {
+        this.divisionContainer.appendChild(draggable);
+      } else {
+        this.divisionContainer.insertBefore(draggable, afterElement);
+      }
+    };
+
+    this.removeClickListener(this.rearrangeDivisionBtn, () => this.editDivisionOrder());
+    this.addClickListener(this.rearrangeDivisionBtn, () => this.editDivisionOrder());
 
     this.removeClickListener(this.deleteDivisionBtn, () =>
       this.showModal("confirmation-modal-container", "division-edit-modal-container"),
@@ -98,70 +133,6 @@ export default class Catalog {
     this.notificationsComponent = notifications;
   }
 
-  async createPdf() {
-    const pdfDivisions = document.getElementById("pdf-divisions");
-    pdfDivisions.innerHTML = "";
-
-    const response = await fetch(`/get-all-contacts`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await response.json();
-    console.log("data", data);
-
-    data.forEach(division => {
-      const div = document.createElement("div");
-      div.classList.add("w-[32%]", "flex", "flex-col");
-      div.innerHTML = `
-        <div>
-          <div
-            class="flex justify-center bg-red-700 text-white font-semibold text-base border-x-[1px] border-t-[1px] border-b-[0px] border-black">
-            ${division.name}
-          </div>
-          <div class="flex flex-col">
-            <table id="tab-table-${division.id}" class="w-full border border-collapse text-sm">
-              <tbody id="tab-body-${division.id}"></tbody>
-            </table>
-          </div>
-        </div>
-      `;
-
-      const tableBody = div.querySelector(`#tab-body-${division.id}`);
-
-      division.Contacts.forEach((contact, index) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td class="border-collapse border-y-[1px] border-l-[1px] border-r-[0px] border-black pl-1">${contact.lastName} ${contact.firstName}</td>
-          <td class="border-collapse border-y-[1px] border-x-0 border-black ">${contact.comment.length > 0 ? "(" + contact.comment + ")" : ""}</td>
-          <td class="border-collapse border border-black text-center font-bold w-[70px]">
-          ${contact.Telephones[0].tel}
-          ${contact.Telephones.length > 1 ? "/" + contact.Telephones[1].tel : ""}
-          </td>
-        `;
-        row.classList.add(index % 2 === 0 ? "bg-general-zebraOdd" : "bg-general-zebraEven");
-        tableBody.appendChild(row);
-      });
-      pdfDivisions.appendChild(div);
-    });
-
-    const pdf = new jsPDF({
-      unit: "mm",
-      format: "a4",
-      orientation: "landscape",
-    });
-    const pdfContainer = document.getElementById("pdf-container");
-
-    html2canvas(pdfContainer, { scale: 4 }).then(canvas => {
-      const imgData = canvas.toDataURL("image/jpeg");
-      pdf.addImage(imgData, "JPEG", 0, 5, 300, 200);
-      // pdf.addImage(imgData, "JPEG", 0, 5, 210, 290);
-      pdf.save("ΤΗΛΕΦΩΝΙΚΟΣ ΚΑΤΑΛΟΓΟΣ.pdf");
-    });
-  }
-
   showModal(modal1Id, modal2Id) {
     const modal1 = document.getElementById(modal1Id);
     if (modal1) {
@@ -196,26 +167,108 @@ export default class Catalog {
     }
   }
 
+  editDivisionOrder() {
+    const draggables = document.querySelectorAll(".division-list-item");
+    this.divisionContainer.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
+    this.divisionContainer.style.boxShadow = "0 0 10px 3px rgba(255, 255, 255)";
+
+    draggables.forEach(draggable => {
+      draggable.style.cursor = "grab";
+      const buttons = draggable.querySelectorAll("button");
+      buttons.forEach(button => {
+        button.style.cursor = "grab";
+      });
+      draggable.addEventListener("dragstart", this.dragStartListener);
+      draggable.addEventListener("dragend", this.dragEndListener);
+    });
+
+    this.divisionContainer.addEventListener("dragover", this.dragOverListener);
+  }
+
+  async saveDivisionOrder() {
+    const divisionList = document.querySelectorAll(".division-list-item");
+    const divisionObjectsArray = [];
+
+    divisionList.forEach((division, index) => {
+      const button = division.querySelector("button");
+      const buttonText = button.textContent;
+      const divId = division.getAttribute("id").split("-");
+      const idNumber = divId[1].trim();
+
+      if (buttonText.trim() !== "ΧΩΡΙΣ ΚΑΤΗΓΟΡΙΑ") {
+        const divisionObject = {
+          id: idNumber,
+          name: buttonText,
+          order: index + 1,
+        };
+        divisionObjectsArray.push(divisionObject);
+      }
+    });
+
+    await fetch("/update-division-order", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(divisionObjectsArray),
+    });
+
+    const draggables = document.querySelectorAll(".division-list-item");
+
+    draggables.forEach(draggable => {
+      draggable.style.cursor = "pointer";
+      const buttons = draggable.querySelectorAll("button");
+      buttons.forEach(button => {
+        button.style.cursor = "pointer";
+      });
+
+      draggable.removeEventListener("dragstart", this.dragStartListener);
+      draggable.removeEventListener("dragend", this.dragEndListener);
+      this.divisionContainer.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+      this.divisionContainer.style.boxShadow = "none";
+    });
+
+    this.divisionContainer.removeEventListener("dragover", this.dragOverListener);
+    this.notificationsComponent.render(200, "Successfully updated divisions' order.");
+  }
+
+  getDrafAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll(".division-list-item:not(.dragging)")];
+
+    return draggableElements.reduce(
+      (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset, element: child };
+        }
+
+        return closest;
+      },
+      { offset: Number.NEGATIVE_INFINITY },
+    ).element;
+  }
+
   async buildDivisions() {
     const response = await fetch("/get-divisions");
     const data = await response.json();
-
+    data.sort((a, b) => a.order - b.order);
     const uncategorized = data.shift();
     data.push(uncategorized);
 
-    const divisions = document.getElementById("catalog-divisions");
-    divisions.innerHTML = "";
+    this.divisionContainer.innerHTML = "";
 
     for (const division of data) {
       const divisionListItem = document.createElement("div");
       divisionListItem.classList.add("division-list-item");
+      divisionListItem.setAttribute("draggable", true);
       divisionListItem.id = `division-${division.id}`;
 
       const button = document.createElement("button");
       button.textContent = division.name;
 
       divisionListItem.appendChild(button);
-      divisions.appendChild(divisionListItem);
+      this.divisionContainer.appendChild(divisionListItem);
 
       divisionListItem.addEventListener("click", () => {
         if (divisionListItem.classList.contains("selected")) {

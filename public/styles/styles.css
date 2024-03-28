@@ -81,6 +81,10 @@ body > div:last-child > span + img {
   border-radius: 0.5rem;
 }
 
+.dragging {
+  opacity: 0.5;
+}
+
 .division-list-item:hover {
   cursor: pointer;
   background-color: rgba(181, 182, 130, 1);
@@ -97,17 +101,4 @@ body > div:last-child > span + img {
 
 .odd {
   background-color: rgba(0, 0, 0, 0.3);
-}
-
-/* CONTACTS */
-.tab-item {
-  font-size: 12px;
-  padding: 6px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 30px;
-  width: 90%;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 0.5rem;
 }
