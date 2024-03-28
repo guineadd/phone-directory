@@ -1,37 +1,62 @@
 <!-- delete hidden to show login -->
 <div id="login-modal-container" class="hidden fixed inset-0 z-50 outline-none">
   <div
-    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50">
+    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50"
+  >
     <div
-      class="login-form relative form-before bg-login-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[330px]">
-      <button id="close-modal-button" class="absolute top-0 right-0 m-4 text-xl cursor-pointer focus:outline-none"><i
-          class="fa-solid fa-xmark"></i></button>
+      class="login-form relative form-before bg-login-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[330px]"
+    >
+      <button id="close-modal-button" class="absolute top-0 right-0 m-4 text-xl cursor-pointer focus:outline-none">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
       <div class="flex flex-row text-center justify-center mb-8 text-3xl">
         <span class="text-bars-element font-semibold">Sign In</span>
       </div>
       <div class="input-group relative">
         <input
           class="w-full py-[10px] text-lg mb-8 border border-l-0 border-r-0 border-t-0 border-b-stone-600 text-stone-600 outline-none bg-transparent"
-          type="text" name="username" id="username" autocomplete="off" autofocus required="required" />
+          type="text"
+          name="username"
+          id="username"
+          autocomplete="off"
+          autofocus
+          required="required"
+        />
         <label
           class="login-labels absolute top-0 left-0 py-[10px] text-lg pointer-events-none transition-all duration-300 ease-out"
-          for="username">Username</label>
+          for="username"
+          >Username</label
+        >
       </div>
       <div class="input-group relative">
         <input
           class="w-full py-[10px] text-lg mb-8 border border-l-0 border-r-0 border-t-0 border-b-stone-600 text-stone-600 outline-none bg-transparent"
-          type="password" name="password" id="password" autocomplete="off" required="required" />
+          type="password"
+          name="password"
+          id="password"
+          autocomplete="off"
+          required="required"
+        />
         <label
           class="login-labels absolute top-0 left-0 py-[10px] text-lg pointer-events-none transition-all duration-300 ease-out"
-          for="password">Password</label>
+          for="password"
+          >Password</label
+        >
       </div>
       <div class="input-group">
-        <p style="font-size: calc(0.6vw + 0.6vh); text-align: center; height: 50px" class="text-bars-selection"
-          id="login-failed"></p>
+        <p
+          style="font-size: calc(0.6vw + 0.6vh); text-align: center; height: 50px"
+          class="text-bars-selection"
+          id="login-failed"
+        ></p>
       </div>
       <div>
-        <input type="submit" value="SIGN IN" id="sign-in-button"
-          class="block ml-auto outline-none bg-login-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" />
+        <input
+          type="submit"
+          value="SIGN IN"
+          id="sign-in-button"
+          class="disabled block ml-auto outline-none bg-login-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white"
+        />
       </div>
     </div>
   </div>

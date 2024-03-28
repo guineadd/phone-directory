@@ -28,9 +28,22 @@ const catalog = new Catalog();
 const notifications = new Notifications();
 const userManagement = new UserManagement();
 
+if (sessionStorage.getItem("loggedUserType")) {
+  const headerUsers = document.getElementById("header-users");
+  document.getElementById("add-division-modal-button").classList.remove("hidden");
+  document.getElementById("edit-division-order-button").classList.remove("hidden");
+
+  const loginBtn = document.getElementById("login-button");
+  loginBtn.innerHTML = `LOG OUT <i class="fa fa-right-from-bracket"></i>`;
+
+  if (sessionStorage.getItem("loggedUserType") === "admin") {
+    headerUsers.classList.remove("hidden");
+  }
+}
+
 catalog.render();
 login.render();
 userManagement.render();
-catalog.setComponents(login, notifications);
-login.setComponents(catalog, notifications);
-userManagement.setComponents(login, notifications);
+catalog.setComponents(login, notifications, userManagement);
+login.setComponents(catalog, userManagement, notifications);
+userManagement.setComponents(catalog, login, notifications);
