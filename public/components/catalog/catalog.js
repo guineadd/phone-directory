@@ -155,9 +155,6 @@ export default class Catalog {
       }
     };
 
-    this.removeClickListener(this.rearrangeDivisionBtn, () => this.editDivisionOrder());
-    this.addClickListener(this.rearrangeDivisionBtn, () => this.editDivisionOrder());
-
     this.removeClickListener(this.closeAddBtn, () => {
       divisionName.value = "";
       this.addDivisionBtn.classList.add("disabled");
@@ -168,43 +165,6 @@ export default class Catalog {
       this.addDivisionBtn.classList.add("disabled");
       this.hideModal("division-add-modal-container");
     });
-
-    this.editingDivisionOrder = true;
-    this.rearrangeDivisionBtn.addEventListener("click", () => {
-      if (this.editingDivisionOrder) {
-        this.editDivisionOrder();
-        this.rearrangeDivisionBtn.textContent = "Save order";
-      } else {
-        this.saveDivisionOrder();
-        this.rearrangeDivisionBtn.textContent = "Edit order";
-      }
-
-      this.editingDivisionOrder = !this.editingDivisionOrder;
-    });
-
-    this.dragStartListener = event => {
-      const draggable = event.target;
-      draggable.classList.add("dragging");
-    };
-
-    this.dragEndListener = event => {
-      const draggable = event.target;
-      draggable.classList.remove("dragging");
-    };
-
-    this.dragOverListener = event => {
-      event.preventDefault();
-      const afterElement = this.getDrafAfterElement(this.divisionContainer, event.clientY);
-      const draggable = document.querySelector(".dragging");
-      if (afterElement === null) {
-        this.divisionContainer.appendChild(draggable);
-      } else {
-        this.divisionContainer.insertBefore(draggable, afterElement);
-      }
-    };
-
-    this.removeClickListener(this.rearrangeDivisionBtn, () => this.editDivisionOrder());
-    this.addClickListener(this.rearrangeDivisionBtn, () => this.editDivisionOrder());
 
     this.removeClickListener(this.deleteDivisionBtn, () =>
       this.showModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
