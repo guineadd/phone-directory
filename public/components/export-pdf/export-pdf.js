@@ -43,6 +43,8 @@ export default class ExportPdf {
     });
 
     const data = await response.json();
+    data.sort((a, b) => a.order - b.order);
+
     const filteredData = data.filter(item => item.name !== "ΧΩΡΙΣ ΚΑΤΗΓΟΡΙΑ");
 
     const modal = document.getElementById("division-selection-modal-container");
@@ -124,7 +126,7 @@ export default class ExportPdf {
 
   createPdfPage() {
     const div = document.createElement("div");
-    div.classList.add("h-[1550px]", "w-[1000px]", "mb-[10px]", "flex", "flex-col", "bg-white", "items-center", "text-black");
+    div.classList.add("h-[1400px]", "w-[1000px]", "mb-[10px]", "flex", "flex-col", "bg-white", "items-center", "text-black");
     div.setAttribute("id", `pdf-container-${this.pageIndex}`);
     div.innerHTML = `
       <div class="w-[90%] h-[60px] flex justify-between pb-4">
@@ -132,11 +134,13 @@ export default class ExportPdf {
           <img src="../../../assets/images/olylogo.png" width="110" height="60">
         </div>
         <div class="flex flex-col justify-center items-end">
+          <span class="font-semibold text-base">ΕΝΗΜΕΡΩΘΗΚΕ: ${document.getElementById("updated-at").innerHTML}</span>
           <span class="font-semibold text-base">ΚΑΤΑΛΟΓΟΣ ΕΣΩΤΕΡΙΚΩΝ ΤΗΛΕΦΩΝΩΝ</span>
         </div>
       </div>
-      <div id="pdf-divisions-${this.pageIndex}" class="h-[1450px] flex flex-wrap flex-col"></div>
+      <div id="pdf-divisions-${this.pageIndex}" class="h-[1300px] flex flex-wrap flex-col"></div>
     `;
+
     document.getElementById("preview-container").appendChild(div);
   }
 
@@ -180,12 +184,12 @@ export default class ExportPdf {
       divisionContainer.appendChild(divisionDiv);
       totalHeight += divisionDiv.clientHeight;
 
-      if (totalHeight > 1450) {
+      if (totalHeight > 1200) {
         secondColHeight += divisionDiv.clientHeight;
         document.getElementById(`pdf-container-1`).classList.remove("w-[1000px]");
       }
 
-      if (secondColHeight > 1450 && divisionContainer.clientWidth === 1000) {
+      if (secondColHeight > 1200 && divisionContainer.clientWidth === 1000) {
         this.pageIndex++;
         this.createPdfPage();
       }

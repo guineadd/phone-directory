@@ -1,72 +1,107 @@
 <!-- delete hidden to show login -->
 <div id="user-management-modal-container" class="hidden fixed inset-0 z-50 outline-none">
   <div
-    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50">
+    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50"
+  >
     <div
-      class="login-form relative form-before bg-login-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[700px]">
-      <button id="close-user-modal-button"
-        class="absolute top-0 right-0 m-4 text-xl cursor-pointer focus:outline-none"><i class="fa-solid fa-xmark"></i>
+      class="login-form relative form-before bg-login-background shadow-custom rounded-[10px] text-stone-600 grid p-8 max-h-[700px] w-[800px]"
+    >
+      <button id="close-user-modal-button" class="absolute top-0 right-0 m-4 text-xl cursor-pointer focus:outline-none">
+        <i class="fa-solid fa-xmark"></i>
       </button>
-      <div class="flex flex-row text-center justify-center mb-8 text-3xl">
+      <div class="flex flex-row text-center justify-center my-4 text-2xl">
         <span class="text-bars-element font-semibold">User Management</span>
       </div>
       <div class="flex flex-row justify-between">
-        <div class="w-[400px]">
-          <table class="w-full">
-            <tr>
-              <th>ID</th>
-              <th>Username</th>
-              <th>Password</th>
-              <th>Type</th>
-              <th>Actions</th>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Asterios</td>
-              <td>****</td>
-              <td>Admin</td>
-              <td>edit</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Dimitris</td>
-              <td>****</td>
-              <td>User</td>
-              <td>edit</td>
-            </tr>
-          </table>
+        <div class="w-[500px]">
+          <div class="users-table w-full text-lg flex flex-col">
+            <div class="users-table-head">
+              <div class="bg-general-tabs text-white text-xl py-3 flex flex-row justify-evenly rounded-lg">
+                <p class="w-2/12 text-center">ID</p>
+                <p class="w-4/12 text-center">Username</p>
+                <p class="w-3/12 text-center">Type</p>
+                <p class="w-3/12 text-center">Actions</p>
+              </div>
+            </div>
+            <div id="users-table-body" class="users-table-body my-2 flex flex-col max-h-[400px] overflow-auto">
+              <!-- <div class="text-xl py-1 my-1 flex flex-row bg-general-barsSecondary text-white rounded-lg">
+                <p class="w-2/12 text-center">1</p>
+                <p class="w-4/12 text-center">akalogeras</p>
+                <p class="w-3/12 text-center">admin</p>
+                <div class="w-3/12 flex justify-center">
+                  <button
+                    class="px-3 bg-white hover:opacity-50 hover:bg-red-700 hover:text-white rounded-lg cursor-pointer text-lg text-stone-600 font-semibold"
+                  >
+                    Delete&nbsp;<i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="text-xl py-1 my-1 flex flex-row bg-general-barsPrimary text-white rounded-lg">
+                <p class="w-2/12 text-center text-white">2</p>
+                <p class="w-4/12 text-center">dkyprianou</p>
+                <p class="w-3/12 text-center">admin</p>
+                <div class="w-3/12 px-2 flex justify-center">
+                  <button class="px-3 bg-white hover:opacity-50 rounded-lg cursor-pointer text-lg text-stone-600 font-semibold">
+                    Delete&nbsp;<i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div> -->
+            </div>
+          </div>
         </div>
-        <div class="w-[2px] bg-stone-600 mx-4"></div>
+        <div class="w-[1px] bg-stone-600 mx-4"></div>
         <div>
-          <h1 class="font-bold mb-4">Create new user</h1>
+          <h1 class="font-bold text-xl mb-4">Create new user</h1>
           <div class="input-group relative">
             <input
               class="w-full py-[10px] text-lg mb-8 border border-l-0 border-r-0 border-t-0 border-b-stone-600 text-stone-600 outline-none bg-transparent"
-              type="text" name="username" id="new-username" autocomplete="off" autofocus required="required" />
+              type="text"
+              name="username"
+              id="new-username"
+              autocomplete="off"
+              autofocus
+              required="required"
+            />
             <label
               class="login-labels absolute top-0 left-0 py-[10px] text-lg pointer-events-none transition-all duration-300 ease-out"
-              for="username">Username</label>
+              for="username"
+              >Username</label
+            >
           </div>
           <div class="input-group relative">
             <input
               class="w-full py-[10px] text-lg mb-8 border border-l-0 border-r-0 border-t-0 border-b-stone-600 text-stone-600 outline-none bg-transparent"
-              type="password" name="password" id="new-password" autocomplete="off" required="required" />
+              type="password"
+              name="password"
+              id="new-password"
+              autocomplete="off"
+              required="required"
+            />
             <label
               class="login-labels absolute top-0 left-0 py-[10px] text-lg pointer-events-none transition-all duration-300 ease-out"
-              for="password">Password</label>
+              for="password"
+              >Password</label
+            >
           </div>
           <div class="input-group relative">
-            <select name="user-type" id="new-user-type"
-              class="w-full py-[10px] text-lg mb-8 border border-l-0 border-r-0 border-t-0 border-b-stone-600 text-stone-600 outline-none bg-transparent">
-              <option value="none" selected>User type</option>
-              <option value="male">Admin</option>
-              <option value="female">Editor</option>
+            <select
+              name="user-type"
+              id="new-user-type"
+              class="hover:cursor-pointer w-full py-[10px] text-lg mb-8 border border-l-0 border-r-0 border-t-0 border-b-stone-600 text-stone-600 outline-none bg-transparent"
+            >
+              <option value="" selected>Select a user type</option>
+              <option value="1">Admin</option>
+              <option value="2">Editor</option>
               <!-- <option value="female">User</option> -->
             </select>
           </div>
           <div>
-            <input type="submit" value="CREATE" id="create-user"
-              class="block ml-auto outline-none bg-login-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" />
+            <input
+              type="submit"
+              value="CREATE"
+              id="create-user-button"
+              class="disabled block ml-auto outline-none bg-login-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white"
+            />
           </div>
         </div>
       </div>

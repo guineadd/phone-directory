@@ -2,7 +2,9 @@ export default class Login {
   constructor() {
     this.username = null;
     this.password = null;
+    this.loginBtn = null;
     this.signInBtn = null;
+    this.headerUsers = null;
     this.cancelModalBtn = null;
     this.loginModalContainer = null;
     this.userManagementModalContainer = null;
@@ -12,7 +14,9 @@ export default class Login {
     // this.loginAttempts = null;
   }
 
-  setComponents(notifications) {
+  setComponents(catalog, userManagement, notifications) {
+    this.catalogComponent = catalog;
+    this.userManagementComponent = userManagement;
     this.notificationsComponent = notifications;
   }
 
@@ -21,7 +25,9 @@ export default class Login {
     this.loginModalContainer = document.getElementById("login-modal-container");
     this.username = document.getElementById("username");
     this.password = document.getElementById("password");
+    this.loginBtn = document.getElementById("login-button");
     this.signInBtn = document.getElementById("sign-in-button");
+    this.headerUsers = document.getElementById("header-users");
     this.cancelModalBtn = document.getElementById("close-modal-button");
 
     this.username.removeEventListener("keyup", this.inputHandler);
@@ -31,48 +37,99 @@ export default class Login {
 
     this.username.addEventListener("keyup", this.inputHandler);
     this.password.addEventListener("keyup", this.inputHandler);
+    this.loginBtn.addEventListener("click", () => {
+      if (sessionStorage.getItem("loggedUserType")) {
+        this.signOut();
+      }
+    });
     this.signInBtn.addEventListener("click", this.signIn);
     this.cancelModalBtn.addEventListener("click", this.hideLoginModal);
+
+    this.headerUsers.addEventListener("click", async () => {
+      this.userManagementModalContainer.classList.remove("hidden");
+      this.catalogComponent.activeModal = "userManagementModal";
+      await this.userManagementComponent.buildUsers();
+
+      document.getElementById("new-username").focus();
+    });
   }
 
   hideLoginModal() {
     if (this.loginModalContainer) {
+      this.username.value = "";
+      this.password.value = "";
       this.loginModalContainer.classList.add("hidden");
     }
   }
 
   inputHandler(event) {
+    if (this.username.value === "" || this.password.value === "") {
+      this.signInBtn.classList.add("disabled");
+    } else {
+      this.signInBtn.classList.remove("disabled");
+    }
+
     if (event.key === "Enter" && !this.signInBtn.classList.contains("disabled")) {
       this.signInBtn.click();
     }
   }
 
-  signIn() {
-    if (this.username.value === "admin" && this.password.value === "admin") {
-      console.log("succesfully signed in as admin");
-      this.loginModalContainer.classList.add("hidden");
+  async signIn() {
+    const response = await fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.username.value,
+        password: this.password.value,
+      }),
+    });
 
-      const buttonContainer = document.createElement("div");
-      buttonContainer.classList.add("w-[140px]");
+    const data = await response.json();
+    this.username.value = "";
+    this.password.value = "";
 
-      const adminButton = document.createElement("button");
-      adminButton.innerHTML = `USERS <i class="fa-solid fa-user"></i>`;
-      adminButton.classList.add("bg-buttons-primary", "hover:bg-general-details", "w-full", "rounded-lg", "py-1", "px-2");
+    if (response.status !== 200) {
+      console.log(data?.message);
+      this.username.focus();
 
-      adminButton.addEventListener("click", () => {
-        this.userManagementModalContainer.classList.remove("hidden");
-      });
-
-      buttonContainer.appendChild(adminButton);
-
-      const headerButtons = document.getElementById("header-buttons");
-      headerButtons.insertBefore(buttonContainer, headerButtons.firstChild);
-    } else if (this.username.value === "user" && this.password.value === "user") {
-      console.log("succesfully signed in");
-      this.loginModalContainer.classList.add("hidden");
-    } else {
-      console.log("wrong credentials");
+      return this.notificationsComponent.render(500, data?.message);
     }
+
+    if (data.userTypeId === 1) {
+      this.headerUsers.classList.remove("hidden");
+    }
+
+    sessionStorage.setItem("loggedUserType", data.UserType.type);
+    this.loginBtn.innerHTML = `LOG OUT <i class="fa fa-right-from-bracket"></i>`;
+
+    await this.catalogComponent.buildDivisions();
+
+    document.getElementById("add-division-modal-button").classList.remove("hidden");
+    document.getElementById("edit-division-order-button").classList.remove("hidden");
+
+    this.loginModalContainer.classList.add("hidden");
+
+    document.getElementById("search-contacts").focus();
+    this.notificationsComponent.render(200, `Successfully signed in as ${data.UserType.type}`);
+    console.log(`Succesfully signed in as ${data.message}.`);
+  }
+
+  async signOut() {
+    this.headerUsers.classList.add("hidden");
+
+    sessionStorage.removeItem("loggedUserType");
+    await this.catalogComponent.buildDivisions();
+
+    document.getElementById("add-division-modal-button").classList.add("hidden");
+    document.getElementById("edit-division-order-button").classList.add("hidden");
+
+    this.loginBtn.innerHTML = `LOG IN <i class="fa fa-right-from-bracket"></i>`;
+
+    document.getElementById("search-contacts").focus();
+    this.notificationsComponent.render(200, "Successfully signed out");
+    console.log("Successfully signed out.");
   }
 
   // inputHandler(event) {
