@@ -56,3 +56,12 @@ exportPdf.render();
 catalog.setComponents(login, notifications, userManagement);
 login.setComponents(catalog, userManagement, notifications);
 userManagement.setComponents(catalog, login, notifications);
+
+document.addEventListener("DOMContentLoaded", async () => {
+  document.getElementById("version").innerHTML = process.env.VERSION;
+
+  const response = await fetch("/latest-timestamp");
+  const data = await response.json();
+
+  document.getElementById("updated-at").innerHTML = data;
+});

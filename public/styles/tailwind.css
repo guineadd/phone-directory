@@ -661,6 +661,10 @@ video {
   margin-left: auto;
 }
 
+.mr-8 {
+  margin-right: 2rem;
+}
+
 .mt-4 {
   margin-top: 1rem;
 }
@@ -705,12 +709,12 @@ video {
   height: 100%;
 }
 
-.h-\[1450px\] {
-  height: 1450px;
+.h-\[1300px\] {
+  height: 1300px;
 }
 
-.h-\[1550px\] {
-  height: 1550px;
+.h-\[1400px\] {
+  height: 1400px;
 }
 
 .h-\[48px\] {
@@ -886,6 +890,10 @@ video {
 
 .items-center {
   align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
 }
 
 .justify-end {
@@ -1142,10 +1150,6 @@ video {
 
 .text-center {
   text-align: center;
-}
-
-.align-middle {
-  vertical-align: middle;
 }
 
 .text-2xl {

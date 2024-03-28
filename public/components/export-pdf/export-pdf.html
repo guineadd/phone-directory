@@ -1,5 +1,5 @@
-<div id="preview-container" class="absolute top-[-9999px] left-[-9999px]" style="font-family: Arial;">
-  <!-- <div class="h-[1550px] w-[1000px] mb-[10px] flex flex-col bg-white items-center text-black">
+<div id="preview-container" class="absolute top-[-9999px] left-[-9999px]" style="font-family: Arial">
+  <!-- <div class="h-[1400px] w-[1000px] mb-[10px] flex flex-col bg-white items-center text-black">
     <div class="w-[90%] h-[60px] flex justify-between pb-4">
       <div>
         <img src="../../../assets/images/olylogo.png" width="110" height="60">
@@ -9,7 +9,7 @@
         <span class="font-semibold text-sm">Ενημερώθηκε 02/02/2024</span>
       </div>
     </div>
-    <div id="pdf-divisions-1" class="h-[1450px] flex flex-wrap flex-col">
+    <div id="pdf-divisions-1" class="h-[1300px] flex flex-wrap flex-col">
       <div class="w-[500px] flex flex-col">
         <div>
           <div
@@ -47,9 +47,11 @@
 
 <div id="division-selection-modal-container" class="hidden fixed inset-0 z-50 outline-none">
   <div
-    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50">
+    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50"
+  >
     <div
-      class="flex flex-col relative justify-between bg-login-background shadow-custom rounded-[10px] text-stone-600 p-8 w-[1200px] h-[900px]">
+      class="flex flex-col relative justify-between bg-login-background shadow-custom rounded-[10px] text-stone-600 p-8 w-[1200px] h-[900px]"
+    >
       <button id="close-select-button" class="absolute top-0 right-0 m-4 text-xl cursor-pointer focus:outline-none">
         <i class="fa-solid fa-xmark"></i>
       </button>
@@ -58,7 +60,7 @@
       </div>
       <div class="flex text-center justify-end items-center text-xl">
         <label for="select-all" class="font-semibold cursor-pointer pr-1">Select all</label>
-        <input id="select-all" type="checkbox" class="h-6 w-6 cursor-pointer rounded-lg">
+        <input id="select-all" type="checkbox" class="h-6 w-6 cursor-pointer rounded-lg" />
       </div>
       <div id="division-selection-area" class="flex flex-col flex-wrap text-white font-semibold justify-evenly h-[85%]">
         <!-- <div class="flex flex-row rounded-[10px] p-2 m-2 w-[350px] justify-between bg-general-background hover:bg-general-details cursor-pointer">
@@ -67,7 +69,8 @@
       </div>
       <div class="flex justify-end">
         <button id="export-pdf" class="bg-login-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white">
-          Export pdf <i class="fa-solid fa-file-pdf"></i></button>
+          Export pdf <i class="fa-solid fa-file-pdf"></i>
+        </button>
       </div>
     </div>
   </div>

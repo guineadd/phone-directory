@@ -23,7 +23,45 @@ app.get("/", (req, res) => {
 });
 
 const { Contact, Division, Telephone, ContactTelephone, UserType, User } = db;
-const { sequelize } = db.sequelize;
+const { sequelize } = db;
+
+app.get("/latest-timestamp", async (req, res) => {
+  try {
+    const models = Object.keys(sequelize.models);
+
+    // const latestTimestamp = {};
+    let latestTimestamp;
+
+    await Promise.all(
+      models.map(async modelName => {
+        const model = db[modelName];
+        const latestRecord = await model.findOne({
+          order: [["updatedAt", "DESC"]],
+        });
+
+        const formatDate = timestamp => {
+          const date = new Date(timestamp);
+          const day = String(date.getDate()).padStart(2, "0");
+          const month = String(date.getMonth() + 1).padStart(2, "0");
+          const year = date.getFullYear();
+          return `${day}/${month}/${year}`;
+        };
+
+        if (latestRecord) {
+          const latestUpdatedAt = new Date(latestRecord.updatedAt).getTime();
+
+          if (!latestTimestamp || latestUpdatedAt > latestTimestamp) {
+            latestTimestamp = formatDate(latestUpdatedAt);
+          }
+        }
+      }),
+    );
+
+    res.json(latestTimestamp);
+  } catch (error) {
+    res.status(500).json(`Error fetching latest timestamp: ${error}`);
+  }
+});
 
 app.post("/login", async (req, res) => {
   try {
