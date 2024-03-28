@@ -169,6 +169,8 @@ export default class Catalog {
 
   editDivisionOrder() {
     const draggables = document.querySelectorAll(".division-list-item");
+    this.divisionContainer.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
+    this.divisionContainer.style.boxShadow = "0 0 10px 3px rgba(255, 255, 255)";
 
     draggables.forEach(draggable => {
       draggable.style.cursor = "grab";
@@ -222,6 +224,8 @@ export default class Catalog {
 
       draggable.removeEventListener("dragstart", this.dragStartListener);
       draggable.removeEventListener("dragend", this.dragEndListener);
+      this.divisionContainer.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+      this.divisionContainer.style.boxShadow = "none";
     });
 
     this.divisionContainer.removeEventListener("dragover", this.dragOverListener);

@@ -3,17 +3,35 @@ import html2canvas from "html2canvas";
 
 export default class ExportPdf {
   constructor() {
-    this.exportPdfBtn = null;
+    this.showDivSelectionModalBtn = null;
     this.fetchPdfData = this.fetchPdfData.bind(this);
+    this.closeSelectionModalBtn = null;
+    this.closeSelectionModal = this.closeSelectionModal.bind(this);
+    this.exportPdfBtn = null;
+    this.exportPdf = this.exportPdf.bind(this);
+    this.selectAllChecksBtn = null;
+    this.selectAllChecks = this.selectAllChecks.bind(this);
     this.pageIndex = null;
     this.pdfData = null;
   }
 
   render() {
-    this.exportPdfBtn = document.getElementById("export-button");
+    this.showDivSelectionModalBtn = document.getElementById("show-division-selection-modal");
+    this.closeSelectionModalBtn = document.getElementById("close-select-button");
+    this.exportPdfBtn = document.getElementById("export-pdf");
+    this.selectAllChecksBtn = document.getElementById("select-all");
 
-    this.exportPdfBtn.removeEventListener("click", this.fetchPdfData);
-    this.exportPdfBtn.addEventListener("click", this.fetchPdfData);
+    this.showDivSelectionModalBtn.removeEventListener("click", this.fetchPdfData);
+    this.showDivSelectionModalBtn.addEventListener("click", this.fetchPdfData);
+
+    this.closeSelectionModalBtn.removeEventListener("click", this.closeSelectionModal);
+    this.closeSelectionModalBtn.addEventListener("click", this.closeSelectionModal);
+
+    this.exportPdfBtn.removeEventListener("click", this.exportPdf);
+    this.exportPdfBtn.addEventListener("click", this.exportPdf);
+
+    this.selectAllChecksBtn.removeEventListener("click", this.selectAllChecks);
+    this.selectAllChecksBtn.addEventListener("click", this.selectAllChecks);
   }
 
   async fetchPdfData() {
@@ -27,26 +45,82 @@ export default class ExportPdf {
     const data = await response.json();
     const filteredData = data.filter(item => item.name !== "ΧΩΡΙΣ ΚΑΤΗΓΟΡΙΑ");
 
-    console.log("data", filteredData);
-    document.getElementById("preview-container").innerHTML = "";
+    const modal = document.getElementById("division-selection-modal-container");
+    modal.classList.remove("hidden");
+    const divisionSelectionArea = document.getElementById("division-selection-area");
+    divisionSelectionArea.innerHTML = "";
+
+    for (const division of filteredData) {
+      const divisionSelectItem = document.createElement("div");
+      divisionSelectItem.classList.add(
+        "flex",
+        "flex-row",
+        "bg-general-background",
+        "rounded-[10px]",
+        "p-2",
+        "m-2",
+        "w-[350px]",
+        "justify-between",
+      );
+
+      divisionSelectItem.innerHTML = `
+        <div>${division.name}</div>
+        <input id="selected-division-${division.id}" type="checkbox" class="division-checkbox h-6 w-6 cursor-pointer rounded-lg">
+      `;
+
+      divisionSelectionArea.appendChild(divisionSelectItem);
+    }
+
     this.pdfData = filteredData;
+  }
+
+  selectAllChecks() {
+    const checkboxes = document.querySelectorAll(".division-checkbox");
+
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = this.selectAllChecksBtn.checked;
+    });
+  }
+
+  exportPdf() {
+    const divisionSelectionArea = document.getElementById("division-selection-area");
+    const inputsSelected = divisionSelectionArea.querySelectorAll("input[type='checkbox']:checked");
+    const modal = document.getElementById("division-selection-modal-container");
+    const selectedInputIds = [];
+
+    inputsSelected.forEach(input => {
+      const idString = input.id.split("-");
+      const idNumber = idString[2].trim();
+      selectedInputIds.push(idNumber);
+    });
+
+    const filteredPdfData = this.pdfData.filter(item => selectedInputIds.includes(item.id.toString()));
+
+    this.selectAllChecksBtn.checked = false;
+    modal.classList.add("hidden");
+    document.getElementById("preview-container").innerHTML = "";
     this.pageIndex = 1;
     this.createPdfPage();
-    this.insertDivisions();
+    this.insertDivisions(filteredPdfData);
+  }
+
+  closeSelectionModal() {
+    this.selectAllChecksBtn.checked = false;
+    const modal = document.getElementById("division-selection-modal-container");
+    modal.classList.add("hidden");
   }
 
   createPdfPage() {
     const div = document.createElement("div");
-    div.classList.add("h-[1550px]", "mb-[10px]", "flex", "flex-col", "bg-white", "items-center", "text-black");
+    div.classList.add("h-[1550px]", "w-[1000px]", "mb-[10px]", "flex", "flex-col", "bg-white", "items-center", "text-black");
     div.setAttribute("id", `pdf-container-${this.pageIndex}`);
     div.innerHTML = `
       <div class="w-[90%] h-[60px] flex justify-between pb-4">
         <div>
           <img src="../../../assets/images/olylogo.png" width="110" height="60">
         </div>
-        <div class="flex flex-col items-end pr-[20px]">
+        <div class="flex flex-col justify-center items-end">
           <span class="font-semibold text-base">ΚΑΤΑΛΟΓΟΣ ΕΣΩΤΕΡΙΚΩΝ ΤΗΛΕΦΩΝΩΝ</span>
-          <span class="font-semibold text-sm">Ενημερώθηκε 02/02/2024</span>
         </div>
       </div>
       <div id="pdf-divisions-${this.pageIndex}" class="h-[1450px] flex flex-wrap flex-col"></div>
@@ -54,11 +128,11 @@ export default class ExportPdf {
     document.getElementById("preview-container").appendChild(div);
   }
 
-  insertDivisions() {
+  insertDivisions(data) {
     let totalHeight = 0;
     let secondColHeight = 0;
 
-    this.pdfData.forEach(division => {
+    data.forEach(division => {
       const divisionDiv = document.createElement("div");
       divisionDiv.classList.add("w-[500px]", "flex", "flex-col");
       divisionDiv.innerHTML = `
@@ -96,6 +170,7 @@ export default class ExportPdf {
 
       if (totalHeight > 1450) {
         secondColHeight += divisionDiv.clientHeight;
+        document.getElementById(`pdf-container-1`).classList.remove("w-[1000px]");
       }
 
       if (secondColHeight > 1450 && divisionContainer.clientWidth === 1000) {

@@ -25,7 +25,7 @@ notificationsElement.innerHTML = notificationsTemplate;
 const userManagementElement = document.getElementById("user-management-container");
 userManagementElement.innerHTML = userManagementTemplate;
 
-const exportElement = document.getElementById("preview-container");
+const exportElement = document.getElementById("export-pdf-container");
 exportElement.innerHTML = exportTemplate;
 
 const login = new Login();
