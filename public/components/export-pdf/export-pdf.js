@@ -165,21 +165,28 @@ export default class ExportPdf {
         </div>
       `;
 
+      if (division.id === 2) {
+        division.Contacts.sort((a, b) => a.id - b.id);
+      } else {
+        division.Contacts.sort((a, b) => a.lastName.localeCompare(b.lastName));
+      }
+
       const tableBody = divisionDiv.querySelector(`#tab-body-${division.id}`);
 
-      division.Contacts.forEach((contact, index) => {
+      for (const [index, contact] of division.Contacts.entries()) {
         const rowDiv = document.createElement("tr");
         rowDiv.innerHTML = `
             <td class="border-collapse border-y-[1px] border-l-[1px] border-r-[0px] border-black pl-1">${contact.lastName} ${contact.firstName}</td>
             <td class="border-collapse border-y-[1px] border-x-0 border-black ">${contact.comment.length > 0 ? "(" + contact.comment + ")" : ""}</td>
-            <td class="border-collapse border border-black text-center font-bold w-[70px]">
+            <td class="border-collapse border border-black text-center font-bold w-[80px]">
             ${contact.Telephones[0].tel}
             ${contact.Telephones.length > 1 ? "/" + contact.Telephones[1].tel : ""}
             </td>
           `;
         rowDiv.classList.add(index % 2 === 0 ? "bg-general-zebraOdd" : "bg-general-zebraEven");
         tableBody.appendChild(rowDiv);
-      });
+      }
+
       const divisionContainer = document.getElementById(`pdf-divisions-${this.pageIndex}`);
       divisionContainer.appendChild(divisionDiv);
       totalHeight += divisionDiv.clientHeight;

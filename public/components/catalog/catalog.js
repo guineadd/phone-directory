@@ -468,7 +468,7 @@ export default class Catalog {
     const firstDivision = document.querySelectorAll(".division-list-item")[0];
     const firstId = firstDivision.id.split("-")[1];
 
-    this.buildContacts(firstId);
+    this.buildContacts(Number(firstId));
   }
 
   async addDivision() {
@@ -671,6 +671,12 @@ export default class Catalog {
     const contactInfoContainer = document.createElement("div");
     contactInfoContainer.classList.add("contact-info-container", "overflow-auto");
 
+    if (divisionId === 2) {
+      data.contacts.sort((a, b) => a.id - b.id);
+    } else {
+      data.contacts.sort((a, b) => a.lastName.localeCompare(b.lastName));
+    }
+
     for (const [index, contact] of data.contacts.entries()) {
       const contactInfo = document.createElement("div");
       contactInfo.id = `contact-${contact.id}`;
@@ -689,8 +695,8 @@ export default class Catalog {
 
       const name = document.createElement("p");
       name.textContent = contact.comment
-        ? `${contact.firstName} ${contact.lastName} (${contact.comment})`
-        : `${contact.firstName} ${contact.lastName}`;
+        ? `${contact.lastName} ${contact.firstName} (${contact.comment})`
+        : `${contact.lastName} ${contact.firstName}`;
 
       const tel = document.createElement("p");
       tel.textContent =
@@ -757,7 +763,7 @@ export default class Catalog {
     if (query.length === 0) {
       const selectedDivision = document.querySelector(".division-list-item.selected");
       const divisionId = selectedDivision.id.split("-")[1];
-      this.buildContacts(divisionId);
+      this.buildContacts(Number(divisionId));
       return;
     }
 
@@ -828,6 +834,8 @@ export default class Catalog {
     const contactInfoContainer = document.createElement("div");
     contactInfoContainer.classList.add("contact-info-container", "overflow-auto");
 
+    data.sort((a, b) => a.lastName.localeCompare(b.lastName));
+
     for (const [index, contact] of data.entries()) {
       const contactInfo = document.createElement("div");
       contactInfo.id = `contact-${contact.id}`;
@@ -850,8 +858,8 @@ export default class Catalog {
       const name = document.createElement("p");
       name.style = "text-align: left; width: 40%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;";
       name.textContent = contact.comment
-        ? `${contact.firstName} ${contact.lastName} (${contact.comment})`
-        : `${contact.firstName} ${contact.lastName}`;
+        ? `${contact.lastName} ${contact.firstName} (${contact.comment})`
+        : `${contact.lastName} ${contact.firstName}`;
 
       const division = document.createElement("p");
       division.id = `search-division-${contact.Division.id}`;
@@ -943,7 +951,7 @@ export default class Catalog {
     const data = await response.text();
     console.log(data);
 
-    this.buildContacts(divisionId);
+    this.buildContacts(Number(divisionId));
 
     document.getElementById("contact-first-name").value = "";
     document.getElementById("contact-last-name").value = "";
@@ -971,7 +979,7 @@ export default class Catalog {
     const selectedDivision = document.querySelector(".division-list-item.selected");
     const divisionId = selectedDivision.id.split("-")[1];
 
-    this.buildContacts(divisionId);
+    this.buildContacts(Number(divisionId));
 
     this.hideModal("confirmation-modal-container");
     this.notificationsComponent.render(200, "The contact has been deleted");
@@ -1025,7 +1033,7 @@ export default class Catalog {
     const saveData = await saveResponse.text();
     console.log(saveData);
 
-    this.buildContacts(selectedDivisionId);
+    this.buildContacts(Number(selectedDivisionId));
 
     this.hideModal("contact-edit-modal-container");
     this.notificationsComponent.render(200, "The contact has been updated");

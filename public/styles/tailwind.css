@@ -834,12 +834,12 @@ video {
   width: 500px;
 }
 
-.w-\[70px\] {
-  width: 70px;
-}
-
 .w-\[800px\] {
   width: 800px;
+}
+
+.w-\[80px\] {
+  width: 80px;
 }
 
 .w-\[90\%\] {

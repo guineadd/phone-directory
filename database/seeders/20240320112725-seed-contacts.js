@@ -886,8 +886,8 @@ module.exports = {
       },
       {
         divisionId: 23,
-        firstName: "ΣΥΣΤΗΜΑΤΑ",
-        lastName: "",
+        firstName: "",
+        lastName: "ΣΥΣΤΗΜΑΤΑ",
         comment: "",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -934,8 +934,8 @@ module.exports = {
       },
       {
         divisionId: 23,
-        firstName: "ΤΟΥΝΕΛ",
-        lastName: "",
+        firstName: "",
+        lastName: "ΤΟΥΝΕΛ",
         comment: "",
         createdAt: new Date(),
         updatedAt: new Date(),
