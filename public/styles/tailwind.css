@@ -584,10 +584,6 @@ video {
   left: -9999px;
 }
 
-.left-\[50px\] {
-  left: 50px;
-}
-
 .right-0 {
   right: 0px;
 }
@@ -606,10 +602,6 @@ video {
 
 .top-\[-9999px\] {
   top: -9999px;
-}
-
-.top-\[25px\] {
-  top: 25px;
 }
 
 .z-40 {

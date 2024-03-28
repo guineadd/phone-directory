@@ -61,12 +61,24 @@ export default class ExportPdf {
         "m-2",
         "w-[350px]",
         "justify-between",
+        "hover:bg-general-details",
+        "cursor-pointer",
       );
 
       divisionSelectItem.innerHTML = `
         <div>${division.name}</div>
         <input id="selected-division-${division.id}" type="checkbox" class="division-checkbox h-6 w-6 cursor-pointer rounded-lg">
       `;
+
+      const checkbox = divisionSelectItem.querySelector(`#selected-division-${division.id}`);
+
+      divisionSelectItem.addEventListener("click", () => {
+        checkbox.checked = !checkbox.checked;
+      });
+
+      checkbox.addEventListener("click", event => {
+        event.stopPropagation();
+      });
 
       divisionSelectionArea.appendChild(divisionSelectItem);
     }

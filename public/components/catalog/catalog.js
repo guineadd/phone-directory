@@ -229,6 +229,7 @@ export default class Catalog {
     });
 
     this.divisionContainer.removeEventListener("dragover", this.dragOverListener);
+    this.notificationsComponent.render(200, "Successfully updated divisions' order.");
   }
 
   getDrafAfterElement(container, y) {
