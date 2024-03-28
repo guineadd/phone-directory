@@ -13,14 +13,17 @@
     "test": "jest",
     "pretest": "eslint ."
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "author": "A. Kalogeras, D. Kyprianou",
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.0",
+    "argon2": "^0.40.1",
+    "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "jspdf": "^2.5.1",
+    "sequelize": "^6.37.1",
+    "sqlite3": "^5.0.0",
     "tailwindcss": "^3.3.5"
   },
   "devDependencies": {
@@ -41,6 +44,7 @@
     "npm-run-all": "^4.1.5",
     "postcss-cli": "^10.1.0",
     "prettier": "^3.1.0",
+    "sequelize-cli": "^6.6.2",
     "style-loader": "^3.3.3",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",

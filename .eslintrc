@@ -4,10 +4,10 @@
   "env": {
     "jest": true,
     "node": true,
-    "browser": true
+    "browser": true,
   },
   "rules": {
-    "max-len": ["error", { "code": 130 }],
+    "max-len": ["error", { "code": 150 }],
     "capitalized-comments": "off",
     "max-params": ["error", 6],
     "new-cap": "off",
@@ -16,7 +16,7 @@
     "no-else-return": "warn",
     "function-paren-newline": "off",
     "function-call-argument-newline": ["error", "consistent"],
-    "multiline-comment-style": "off"
+    "multiline-comment-style": "off",
   },
-  "plugins": ["prettier"]
+  "plugins": ["prettier"],
 }
