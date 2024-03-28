@@ -110,6 +110,17 @@ export default class Catalog {
       this.hideModal("division-add-modal-container");
     });
 
+    this.removeClickListener(this.closeAddBtn, () => {
+      divisionName.value = "";
+      this.addDivisionBtn.classList.add("disabled");
+      this.hideModal("division-add-modal-container");
+    });
+    this.addClickListener(this.closeAddBtn, () => {
+      divisionName.value = "";
+      this.addDivisionBtn.classList.add("disabled");
+      this.hideModal("division-add-modal-container");
+    });
+
     this.editingDivisionOrder = true;
     this.rearrangeDivisionBtn.addEventListener("click", () => {
       if (this.editingDivisionOrder) {
