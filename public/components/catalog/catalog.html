@@ -1,27 +1,30 @@
 <div class="flex flex-col w-2/6">
   <div class="rounded-tl-lg rounded-tr-lg bg-general-tabs">
     <div
-      class="flex flex-row justify-evenly h-[48px] rounded-tl-lg rounded-tr-lg font-semibold text-center p-2 w-full bg-general-tabs"
-    >
-      <button id="add-division-modal-button" class="hidden w-1/3 p-1 bg-login-submit hover:opacity-50 rounded-lg cursor-pointer">
+      class="flex flex-row justify-evenly h-[48px] rounded-tl-lg rounded-tr-lg font-semibold text-center p-2 w-full bg-general-tabs">
+      <button id="add-division-modal-button"
+        class="hidden w-1/3 p-1 bg-buttons-submit hover:opacity-50 rounded-lg cursor-pointer">
         Add division
       </button>
-      <button id="edit-division-order-button" class="hidden w-1/3 p-1 bg-login-submit hover:opacity-50 rounded-lg cursor-pointer">
+      <button id="edit-division-order-button"
+        class="hidden w-1/3 p-1 bg-buttons-submit hover:opacity-50 rounded-lg cursor-pointer">
         Edit order
       </button>
     </div>
   </div>
-  <div
-    id="catalog-divisions"
-    class="bg-general-tabs flex flex-col rounded-bl-lg rounded-br-lg py-[5px] h-[100%] items-center overflow-auto"
-  ></div>
+  <div id="catalog-divisions"
+    class="bg-general-tabs flex flex-col rounded-bl-lg rounded-br-lg py-[5px] h-[100%] items-center overflow-auto">
+    <!-- <div id="catalog-divisions-head" class="w-[100%] flex flex-col items-center"></div>
+    <div id="catalog-divisions-body" class="w-[100%] flex flex-col items-center"></div>
+    <div id="catalog-divisions-foot" class="w-[100%] flex flex-col items-center"></div> -->
+  </div>
 </div>
 
 <div id="catalog-contacts" class="w-4/6 pl-8 flex flex-wrap">
   <!-- <div class="flex w-full">
     <div class="card relative rounded-lg shadow-custom flex flex-col bg-general-tabs mx-auto w-11/12 h-4/6">
       <div class="rounded-lg font-semibold text-center h-fit p-3 w-full bg-general-tabs">ΔΙΕΥΘΥΝΣΗ</div>
-      <button class="absolute top-2 right-2"><i class="hover:text-login-submit fa-solid fa-edit text-2xl"></i></button>
+      <button class="absolute top-2 right-2"><i class="hover:text-buttons-submit fa-solid fa-edit text-2xl"></i></button>
       <div class="flex flex-row justify-between p-3">
         <p class="underline font-semibold">ΟΝΟΜΑΤΕΠΩΝΥΜΟ</p>
         <p class="underline font-semibold">ΤΗΛΕΦΩΝΟ</p>
@@ -50,11 +53,9 @@
 
 <div id="division-add-modal-container" class="hidden fixed inset-0 z-50 outline-none">
   <div
-    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50"
-  >
+    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-modal-backdrop bg-opacity-50">
     <div
-      class="add-division relative form-before bg-login-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[450px]"
-    >
+      class="add-division relative form-before bg-modal-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[450px]">
       <button id="close-add-button" class="absolute top-0 right-0 m-4 text-xl cursor-pointer focus:outline-none">
         <i class="fa-solid fa-xmark"></i>
       </button>
@@ -63,18 +64,12 @@
       </div>
       <div class="division-details flex flex-col">
         <label for="division-name" class="font-semibold hover:cursor-pointer">Division Name</label>
-        <input
-          id="add-division-name"
-          type="text"
+        <input id="add-division-name" type="text"
           class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
-          placeholder="Division name..."
-          autocomplete="off"
-        />
+          placeholder="Division name..." autocomplete="off" />
         <div class="my-4 flex flex-row justify-between">
-          <button
-            class="disabled bg-login-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white"
-            id="add-division-button"
-          >
+          <button class="disabled bg-buttons-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white"
+            id="add-division-button">
             Add division&nbsp;<i class="fa-regular fa-circle-check"></i>
           </button>
           <button class="bg-gray-500 hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" id="cancel-add-button">
@@ -88,11 +83,9 @@
 
 <div id="division-edit-modal-container" class="hidden fixed inset-0 z-50 outline-none">
   <div
-    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50"
-  >
+    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-modal-backdrop bg-opacity-50">
     <div
-      class="edit-division relative form-before bg-login-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[450px]"
-    >
+      class="edit-division relative form-before bg-modal-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[450px]">
       <button id="close-edit-button" class="absolute top-0 right-0 m-4 text-xl cursor-pointer focus:outline-none">
         <i class="fa-solid fa-xmark"></i>
       </button>
@@ -101,17 +94,16 @@
       </div>
       <div class="division-details flex flex-col">
         <label for="division-name" class="font-semibold hover:cursor-pointer">Division Name</label>
-        <input
-          id="division-name"
-          type="text"
+        <input id="division-name" type="text"
           class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
-          autocomplete="off"
-        />
+          autocomplete="off" />
         <div class="my-4 flex flex-row justify-between">
-          <button class="bg-login-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" id="save-division-button">
+          <button class="bg-buttons-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white"
+            id="save-division-button">
             Save changes&nbsp;<i class="fa-regular fa-circle-check"></i>
           </button>
-          <button class="bg-red-700 hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" id="delete-division-button">
+          <button class="bg-buttons-delete hover:opacity-50 p-2 rounded-lg cursor-pointer text-white"
+            id="delete-division-button">
             Delete division&nbsp;<i class="fa-solid fa-trash-can"></i>
           </button>
         </div>
@@ -120,41 +112,25 @@
         </div>
         <div class="flex flex-col">
           <label for="contact-first-name" class="font-semibold hover:cursor-pointer">First name</label>
-          <input
-            id="contact-first-name"
-            type="text"
+          <input id="contact-first-name" type="text"
             class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
-            autocomplete="off"
-          />
+            autocomplete="off" />
           <label for="contact-last-name" class="font-semibold hover:cursor-pointer">Last name</label>
-          <input
-            id="contact-last-name"
-            type="text"
+          <input id="contact-last-name" type="text"
             class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
-            autocomplete="off"
-          />
+            autocomplete="off" />
           <label for="contact-comment" class="font-semibold hover:cursor-pointer">Comment</label>
-          <input
-            id="contact-comment"
-            type="text"
+          <input id="contact-comment" type="text"
             class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
-            autocomplete="off"
-            placeholder="Optional comment..."
-          />
+            autocomplete="off" placeholder="Optional comment..." />
           <label for="contact-tel" class="font-semibold hover:cursor-pointer">Telephone numbers</label>
-          <input
-            id="contact-tel"
-            type="text"
+          <input id="contact-tel" type="text"
             class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
-            autocomplete="off"
-            placeholder="Separate different numbers with a comma..."
-          />
+            autocomplete="off" placeholder="Separate different numbers with a comma..." />
         </div>
         <div class="flex flex-row justify-center">
-          <button
-            class="disabled mt-4 bg-login-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white"
-            id="add-contact-button"
-          >
+          <button class="disabled mt-4 bg-buttons-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white"
+            id="add-contact-button">
             Add contact&nbsp;<i class="fa-solid fa-user-plus"></i>
           </button>
         </div>
@@ -165,11 +141,9 @@
 
 <div id="contact-edit-modal-container" class="hidden fixed inset-0 z-50 outline-none">
   <div
-    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50"
-  >
+    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-modal-backdrop bg-opacity-50">
     <div
-      class="edit-contact relative form-before bg-login-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[450px]"
-    >
+      class="edit-contact relative form-before bg-modal-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[450px]">
       <button id="close-contact-button" class="absolute top-0 right-0 m-4 text-xl cursor-pointer focus:outline-none">
         <i class="fa-solid fa-xmark"></i>
       </button>
@@ -178,52 +152,35 @@
       </div>
       <div class="contact-details flex flex-col">
         <label for="selected-contact-id" class="disabled font-semibold hover:cursor-pointer">ID</label>
-        <input
-          id="selected-contact-id"
-          type="text"
-          class="disabled border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
-        />
+        <input id="selected-contact-id" type="text"
+          class="disabled border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none" />
         <label for="selected-contact-first-name" class="font-semibold hover:cursor-pointer">First name</label>
-        <input
-          id="selected-contact-first-name"
-          type="text"
+        <input id="selected-contact-first-name" type="text"
           class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
-          autocomplete="off"
-        />
+          autocomplete="off" />
         <label for="selected-contact-last-name" class="font-semibold hover:cursor-pointer">Last name</label>
-        <input
-          id="selected-contact-last-name"
-          type="text"
+        <input id="selected-contact-last-name" type="text"
           class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
-          autocomplete="off"
-        />
+          autocomplete="off" />
         <label for="selected-contact-comment" class="font-semibold hover:cursor-pointer">Comment</label>
-        <input
-          id="selected-contact-comment"
-          type="text"
+        <input id="selected-contact-comment" type="text"
           class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
-          autocomplete="off"
-          placeholder="Optional comment..."
-        />
+          autocomplete="off" placeholder="Optional comment..." />
         <label for="selected-contact-tel" class="font-semibold hover:cursor-pointer">Telephone numbers</label>
-        <input
-          id="selected-contact-tel"
-          type="text"
+        <input id="selected-contact-tel" type="text"
           class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none"
-          autocomplete="off"
-          placeholder="Separate different numbers with a comma..."
-        />
+          autocomplete="off" placeholder="Separate different numbers with a comma..." />
         <label for="selected-contact-division" class="font-semibold hover:cursor-pointer">Division</label>
-        <select
-          id="selected-contact-division"
+        <select id="selected-contact-division"
           class="border border-stone-600 rounded-md font-semibold w-full p-1 text-lg mb-4 text-stone-600 outline-none hover:cursor-pointer"
-          autocomplete="off"
-        ></select>
+          autocomplete="off"></select>
         <div class="my-4 flex flex-row justify-between">
-          <button class="bg-login-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" id="save-contact-button">
+          <button class="bg-buttons-submit hover:opacity-50 p-2 rounded-lg cursor-pointer text-white"
+            id="save-contact-button">
             Save changes&nbsp;<i class="fa-regular fa-circle-check"></i>
           </button>
-          <button class="bg-red-700 hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" id="delete-contact-button">
+          <button class="bg-buttons-delete hover:opacity-50 p-2 rounded-lg cursor-pointer text-white"
+            id="delete-contact-button">
             Delete contact&nbsp;<i class="fa-solid fa-trash-can"></i>
           </button>
         </div>
@@ -234,9 +191,9 @@
 
 <div id="confirmation-modal-container" class="hidden fixed inset-0 z-50 outline-none">
   <div
-    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-login-backdrop bg-opacity-50"
-  >
-    <div class="relative form-before bg-login-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[450px]">
+    class="fixed top-0 left-0 z-40 w-screen h-screen flex justify-center items-center backdrop-opacity-10 bg-modal-backdrop bg-opacity-50">
+    <div
+      class="relative form-before bg-modal-background shadow-custom rounded-[10px] text-stone-600 grid p-8 h-auto w-[450px]">
       <button id="close-confirm-button" class="absolute top-0 right-0 m-4 text-xl cursor-pointer focus:outline-none">
         <i class="fa-solid fa-xmark"></i>
       </button>
@@ -246,7 +203,8 @@
         </div>
       </div>
       <div class="flex flex-row justify-evenly">
-        <button class="bg-red-700 hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" id="confirm-delete-button">
+        <button class="bg-buttons-delete hover:opacity-50 p-2 rounded-lg cursor-pointer text-white"
+          id="confirm-delete-button">
           Confirm&nbsp;<i class="fa-solid fa-trash-can"></i>
         </button>
         <button class="bg-gray-500 hover:opacity-50 p-2 rounded-lg cursor-pointer text-white" id="cancel-delete-button">

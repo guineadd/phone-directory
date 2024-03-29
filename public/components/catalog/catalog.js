@@ -24,6 +24,7 @@ export default class Catalog {
     this.dragEndListener = null;
     this.dragOverListener = null;
     this.divisionContainer = null;
+    this.divisionContainerBody = null;
   }
 
   render() {
@@ -146,12 +147,12 @@ export default class Catalog {
 
     this.dragOverListener = event => {
       event.preventDefault();
-      const afterElement = this.getDrafAfterElement(this.divisionContainer, event.clientY);
+      const afterElement = this.getDrafAfterElement(this.divisionContainerBody, event.clientY);
       const draggable = document.querySelector(".dragging");
       if (afterElement === null) {
-        this.divisionContainer.appendChild(draggable);
+        this.divisionContainerBody.appendChild(draggable);
       } else {
-        this.divisionContainer.insertBefore(draggable, afterElement);
+        this.divisionContainerBody.insertBefore(draggable, afterElement);
       }
     };
 
@@ -345,7 +346,7 @@ export default class Catalog {
   }
 
   editDivisionOrder() {
-    const draggables = document.querySelectorAll(".division-list-item");
+    const draggables = document.querySelectorAll(".division-list-item-draggable");
     this.divisionContainer.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
     this.divisionContainer.style.boxShadow = "0 0 10px 3px rgba(255, 255, 255)";
 
@@ -359,11 +360,11 @@ export default class Catalog {
       draggable.addEventListener("dragend", this.dragEndListener);
     });
 
-    this.divisionContainer.addEventListener("dragover", this.dragOverListener);
+    this.divisionContainerBody.addEventListener("dragover", this.dragOverListener);
   }
 
   async saveDivisionOrder() {
-    const divisionList = document.querySelectorAll(".division-list-item");
+    const divisionList = document.querySelectorAll(".division-list-item-draggable");
     const divisionObjectsArray = [];
 
     divisionList.forEach((division, index) => {
@@ -372,11 +373,11 @@ export default class Catalog {
       const divId = division.getAttribute("id").split("-");
       const idNumber = divId[1].trim();
 
-      if (buttonText.trim() !== "ΧΩΡΙΣ ΚΑΤΗΓΟΡΙΑ") {
+      if (buttonText.trim() !== "ΧΩΡΙΣ ΚΑΤΗΓΟΡΙΑ" && buttonText.trim() !== "ΔΙΕΥΘΥΝΣΗ") {
         const divisionObject = {
           id: idNumber,
           name: buttonText,
-          order: index + 1,
+          order: index + 2,
         };
         divisionObjectsArray.push(divisionObject);
       }
@@ -390,7 +391,7 @@ export default class Catalog {
       body: JSON.stringify(divisionObjectsArray),
     });
 
-    const draggables = document.querySelectorAll(".division-list-item");
+    const draggables = document.querySelectorAll(".division-list-item-draggable");
 
     draggables.forEach(draggable => {
       draggable.style.cursor = "pointer";
@@ -410,7 +411,7 @@ export default class Catalog {
   }
 
   getDrafAfterElement(container, y) {
-    const draggableElements = [...container.querySelectorAll(".division-list-item:not(.dragging)")];
+    const draggableElements = [...container.querySelectorAll(".division-list-item-draggable:not(.dragging)")];
 
     return draggableElements.reduce(
       (closest, child) => {
@@ -433,19 +434,34 @@ export default class Catalog {
     const uncategorized = data.shift();
     data.push(uncategorized);
 
-    this.divisionContainer.innerHTML = "";
+    this.divisionContainer.innerHTML = `
+      <div id="catalog-divisions-head" class="w-[100%] flex flex-col items-center"></div>
+      <div id="catalog-divisions-body" class="w-[100%] flex flex-col items-center"></div>
+      <div id="catalog-divisions-foot" class="w-[100%] flex flex-col items-center"></div>
+    `;
+    this.divisionContainerBody = document.getElementById("catalog-divisions-body");
 
     for (const division of data) {
       const divisionListItem = document.createElement("div");
       divisionListItem.classList.add("division-list-item");
-      divisionListItem.setAttribute("draggable", true);
+      if (division.id !== 1 && division.id !== 2) {
+        divisionListItem.classList.add("division-list-item-draggable");
+        divisionListItem.setAttribute("draggable", true);
+      }
+
       divisionListItem.id = `division-${division.id}`;
 
       const button = document.createElement("button");
       button.textContent = division.name;
-
       divisionListItem.appendChild(button);
-      this.divisionContainer.appendChild(divisionListItem);
+
+      if (division.order === 1) {
+        document.getElementById("catalog-divisions-head").appendChild(divisionListItem);
+      } else if (division.order === -1) {
+        document.getElementById("catalog-divisions-foot").appendChild(divisionListItem);
+      } else {
+        document.getElementById("catalog-divisions-body").appendChild(divisionListItem);
+      }
 
       divisionListItem.addEventListener("click", () => {
         if (divisionListItem.classList.contains("selected")) {
@@ -619,7 +635,7 @@ export default class Catalog {
     editButton.classList.add("absolute", "top-2", "right-2");
 
     const editIcon = document.createElement("i");
-    editIcon.classList.add("hover:text-login-submit", "fa-solid", "fa-edit", "text-2xl");
+    editIcon.classList.add("hover:text-buttons-submit", "fa-solid", "fa-edit", "text-2xl");
     editIcon.addEventListener("click", async () => {
       const divisionResponse = await fetch(`/get-division/${divisionId}`, {
         method: "POST",

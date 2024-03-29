@@ -1,73 +1,67 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Directory containing internal telephone numbers" />
-    <title>Phone Directory</title>
-  </head>
 
-  <body class="font-electrolize">
-    <div class="container flex flex-col">
-      <div class="header h-16 px-2 flex justify-between items-center text-white bg-general-bars">
-        <div class="w-[300px] font-semibold text-2xl">
-          <span>Telephone Catalog</span>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Directory containing internal telephone numbers" />
+  <title>Phone Directory</title>
+</head>
+
+<body class="font-electrolize">
+  <div class="container flex flex-col">
+    <div class="header h-16 px-2 flex justify-between items-center text-white bg-general-header">
+      <div class="w-[300px] font-semibold text-2xl">
+        <span>Telephone Catalog</span>
+      </div>
+      <div id="header-buttons" class="flex w-[950px] justify-evenly items-center">
+        <div id="header-users" class="hidden w-[140px]">
+          <button class="bg-buttons-primary hover:bg-general-hover w-full rounded-lg text-xl font-bold py-1 px-2">
+            USERS <i class="fa-solid fa-user"></i>
+          </button>
         </div>
-        <div id="header-buttons" class="flex w-[950px] justify-evenly items-center">
-          <div id="header-users" class="hidden w-[140px]">
-            <button class="bg-buttons-primary hover:bg-general-details w-full rounded-lg text-xl font-bold py-1 px-2">
-              USERS <i class="fa-solid fa-user"></i>
-            </button>
-          </div>
-          <div class="w-[460px] bg-buttons-primary rounded-lg p-1 flex justify-between items-center">
-            <input
-              id="search-contacts"
-              autofocus
-              type="text"
-              class="w-full bg-transparent rounded-lg px-2 text-xl focus:outline-none hover:bg-general-details"
-            />
-            <!-- <button id="search-button"> -->
-            <i class="fa-solid fa-magnifying-glass rounded-lg text-xl py-1 px-2"></i>
-            <!-- </button> -->
-          </div>
-          <div class="w-[140px]">
-            <button
-              id="show-division-selection-modal"
-              class="bg-buttons-primary hover:bg-general-details text-xl font-bold w-full rounded-lg py-1 px-2"
-            >
-              EXPORT <i class="fa-solid fa-file-pdf"></i>
-            </button>
-          </div>
-          <div class="w-[140px]">
-            <button
-              id="login-button"
-              class="bg-buttons-primary hover:bg-general-details text-xl font-bold w-full rounded-lg py-1 px-2"
-            >
-              LOG IN <i class="fa fa-right-from-bracket"></i>
-            </button>
-          </div>
+        <div class="w-[460px] bg-buttons-primary rounded-lg p-1 flex justify-between items-center">
+          <input id="search-contacts" autofocus type="text"
+            class="w-full bg-transparent rounded-lg px-2 text-xl focus:outline-none hover:bg-general-hover" />
+          <!-- <button id="search-button"> -->
+          <i class="fa-solid fa-magnifying-glass rounded-lg text-xl py-1 px-2"></i>
+          <!-- </button> -->
         </div>
-      </div>
-      <div id="main-container" class="main-container">
-        <div id="catalog-container" class="p-8 w-full h-full flex flex-row justify-evenly"></div>
-      </div>
-      <div class="footer text-sm bottom-0 w-[100%] flex fixed items-center h-9 text-white px-2 justify-start">
-        <span class="flex flex-row">
-          <div class="mr-8"><span>Version:&nbsp;</span><span id="version"></span></div>
-          <div><span>Last updated at:&nbsp;</span><span id="updated-at"></span></div>
-        </span>
-      </div>
-      <div class="footer text-sm bottom-0 w-[100%] flex fixed items-center h-9 text-white px-2 justify-end">
-        <span>&copy;&nbsp;<span id="year">2024</span>&nbsp;Copyright&nbsp;|&nbsp;</span>
-        <a class="hover:underline hover:text-bars-hover" target="_blank" href="https://www.olympia-electronics.com/el">
-          Olympia Electronics
-        </a>
+        <div class="w-[140px]">
+          <button id="show-division-selection-modal"
+            class="bg-buttons-primary hover:bg-general-hover text-xl font-bold w-full rounded-lg py-1 px-2">
+            EXPORT <i class="fa-solid fa-file-pdf"></i>
+          </button>
+        </div>
+        <div class="w-[140px]">
+          <button id="login-button"
+            class="bg-buttons-primary hover:bg-general-hover text-xl font-bold w-full rounded-lg py-1 px-2">
+            LOG IN <i class="fa fa-right-from-bracket"></i>
+          </button>
+        </div>
       </div>
     </div>
-    <div id="login-container"></div>
-    <div id="user-management-container"></div>
-    <div id="export-pdf-container"></div>
-    <div id="notification-bar" class="flex justify-center pointer-events-none"></div>
-    <script type="text/javascript" src="dist/bundle.js"></script>
-  </body>
+    <div id="main-container" class="main-container">
+      <div id="catalog-container" class="p-8 w-full h-full flex flex-row justify-evenly"></div>
+    </div>
+    <div class="footer text-sm bottom-0 w-[100%] flex fixed items-center h-9 text-white px-2 justify-start">
+      <span class="flex flex-row">
+        <div class="mr-8"><span>Version:&nbsp;</span><span id="version"></span></div>
+        <div><span>Last updated at:&nbsp;</span><span id="updated-at"></span></div>
+      </span>
+    </div>
+    <div class="footer text-sm bottom-0 w-[100%] flex fixed items-center h-9 text-white px-2 justify-end">
+      <span>&copy;&nbsp;<span id="year">2024</span>&nbsp;Copyright&nbsp;|&nbsp;</span>
+      <a class="hover:underline hover:text-bars-hover" target="_blank" href="https://www.olympia-electronics.com/el">
+        Olympia Electronics
+      </a>
+    </div>
+  </div>
+  <div id="login-container"></div>
+  <div id="user-management-container"></div>
+  <div id="export-pdf-container"></div>
+  <div id="notification-bar" class="flex justify-center pointer-events-none"></div>
+  <script type="text/javascript" src="dist/bundle.js"></script>
+</body>
+
 </html>

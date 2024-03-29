@@ -80,7 +80,7 @@ export default class UserManagement {
       deleteButton.classList.add(
         "px-3",
         "bg-white",
-        "hover:bg-red-700",
+        "hover:bg-buttons-delete",
         "hover:text-white",
         "rounded-lg",
         "cursor-pointer",

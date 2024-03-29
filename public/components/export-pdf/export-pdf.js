@@ -57,13 +57,13 @@ export default class ExportPdf {
       divisionSelectItem.classList.add(
         "flex",
         "flex-row",
-        "bg-general-background",
+        "bg-general-barsPrimary",
         "rounded-[10px]",
         "p-2",
         "m-2",
         "w-[350px]",
         "justify-between",
-        "hover:bg-general-details",
+        "hover:bg-general-hover",
         "cursor-pointer",
       );
 
@@ -113,6 +113,7 @@ export default class ExportPdf {
     this.selectAllChecksBtn.checked = false;
     modal.classList.add("hidden");
     document.getElementById("preview-container").innerHTML = "";
+    document.getElementById("off-screen-container").innerHTML = "";
     this.pageIndex = 1;
     this.createPdfPage();
     this.insertDivisions(filteredPdfData);
@@ -138,15 +139,20 @@ export default class ExportPdf {
           <span class="font-semibold text-base">ΚΑΤΑΛΟΓΟΣ ΕΣΩΤΕΡΙΚΩΝ ΤΗΛΕΦΩΝΩΝ</span>
         </div>
       </div>
-      <div id="pdf-divisions-${this.pageIndex}" class="h-[1300px] flex flex-wrap flex-col"></div>
+      <div id="pdf-divisions-${this.pageIndex}" class="h-[1300px] w-[100%] flex flex-row">
+        <div id="page-${this.pageIndex}-first-column" class="h-[100%] w-[50%] flex flex-col"></div>
+        <div id="page-${this.pageIndex}-second-column" class="h-[100%] w-[50%] flex flex-col"></div>
+      </div>
     `;
 
     document.getElementById("preview-container").appendChild(div);
   }
 
   insertDivisions(data) {
-    let totalHeight = 0;
+    const offScreenContainer = document.getElementById("off-screen-container");
+    let firstColHeight = 0;
     let secondColHeight = 0;
+    const COLUMN_MAX_HEIGHT = 1250;
 
     data.forEach(division => {
       const divisionDiv = document.createElement("div");
@@ -154,7 +160,7 @@ export default class ExportPdf {
       divisionDiv.innerHTML = `
         <div>
           <div
-            class="flex justify-center bg-red-700 text-white font-semibold text-base border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            class="flex justify-center bg-buttons-delete text-white font-semibold text-base border-x-[1px] border-t-[1px] border-b-[0px] border-black">
             ${division.name}
           </div>
           <div class="flex flex-col">
@@ -176,29 +182,31 @@ export default class ExportPdf {
       for (const [index, contact] of division.Contacts.entries()) {
         const rowDiv = document.createElement("tr");
         rowDiv.innerHTML = `
-            <td class="border-collapse border-y-[1px] border-l-[1px] border-r-[0px] border-black pl-1">${contact.lastName} ${contact.firstName}</td>
-            <td class="border-collapse border-y-[1px] border-x-0 border-black ">${contact.comment.length > 0 ? "(" + contact.comment + ")" : ""}</td>
-            <td class="border-collapse border border-black text-center font-bold w-[80px]">
-            ${contact.Telephones[0].tel}
-            ${contact.Telephones.length > 1 ? "/" + contact.Telephones[1].tel : ""}
-            </td>
-          `;
+          <td class="border-collapse border-y-[1px] border-l-[1px] border-r-[0px] border-black pl-1">${contact.lastName} ${contact.firstName}</td>
+          <td class="border-collapse border-y-[1px] border-x-0 border-black ">${contact.comment.length > 0 ? "(" + contact.comment + ")" : ""}</td>
+          <td class="border-collapse border border-black text-center text-base font-bold w-[80px]">
+          ${contact.Telephones.map(telephone => telephone.tel).join("/")}</td>
+        `;
         rowDiv.classList.add(index % 2 === 0 ? "bg-general-zebraOdd" : "bg-general-zebraEven");
         tableBody.appendChild(rowDiv);
       }
 
-      const divisionContainer = document.getElementById(`pdf-divisions-${this.pageIndex}`);
-      divisionContainer.appendChild(divisionDiv);
-      totalHeight += divisionDiv.clientHeight;
+      offScreenContainer.appendChild(divisionDiv);
+      const divisionHeight = divisionDiv.offsetHeight;
+      firstColHeight += divisionHeight;
 
-      if (totalHeight > 1200) {
-        secondColHeight += divisionDiv.clientHeight;
-        document.getElementById(`pdf-container-1`).classList.remove("w-[1000px]");
-      }
-
-      if (secondColHeight > 1200 && divisionContainer.clientWidth === 1000) {
-        this.pageIndex++;
-        this.createPdfPage();
+      if (firstColHeight < COLUMN_MAX_HEIGHT) {
+        document.getElementById(`page-${this.pageIndex}-first-column`).appendChild(divisionDiv);
+      } else if (firstColHeight >= COLUMN_MAX_HEIGHT) {
+        secondColHeight += divisionHeight;
+        if (secondColHeight >= COLUMN_MAX_HEIGHT) {
+          firstColHeight = 0;
+          secondColHeight = 0;
+          this.pageIndex++;
+          this.createPdfPage();
+        } else {
+          document.getElementById(`page-${this.pageIndex}-second-column`).appendChild(divisionDiv);
+        }
       }
     });
 
