@@ -9,15 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // Contact.belongsTo(models.Division, { foreignKey: "divisionId", targetKey: "id" });
-      Contact.belongsTo(models.Division, { foreignKey: "divisionId" });
+      // Contact.belongsTo(models.Department, { foreignKey: "departmentId", targetKey: "id" });
+      Contact.belongsTo(models.Department, { foreignKey: "departmentId" });
       Contact.belongsToMany(models.Telephone, { through: "ContactTelephone" });
     }
   }
   Contact.init(
     {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-      divisionId: { type: DataTypes.INTEGER, allowNull: false, references: { model: "Division", key: "id" } },
+      departmentId: { type: DataTypes.INTEGER, allowNull: false, references: { model: "Department", key: "id" } },
       firstName: { type: DataTypes.STRING, allowNull: false, defaultValue: "" },
       lastName: { type: DataTypes.STRING, allowNull: false, defaultValue: "" },
       comment: { type: DataTypes.STRING, allowNull: false, defaultValue: "" },

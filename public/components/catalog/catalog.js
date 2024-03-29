@@ -1,17 +1,17 @@
 export default class Catalog {
   constructor() {
     this.loginBtn = null;
-    this.cancelDivisionModalBtn = null;
+    this.cancelDepartmentModalBtn = null;
     this.cancelContactModalBtn = null;
     this.cancelModalBtn = null;
     this.closeAddBtn = null;
     this.closeConfirmBtn = null;
-    this.addDivisionModalBtn = null;
-    this.addDivisionBtn = null;
-    this.saveDivisionBtn = null;
-    this.rearrangeDivisionBtn = null;
-    this.editingDivisionOrder = null;
-    this.deleteDivisionBtn = null;
+    this.addDepartmentModalBtn = null;
+    this.addDepartmentBtn = null;
+    this.saveDepartmentBtn = null;
+    this.rearrangeDepartmentBtn = null;
+    this.editingDepartmentOrder = null;
+    this.deleteDepartmentBtn = null;
     this.confirmDeleteBtn = null;
     this.cancelAddBtn = null;
     this.cancelDeleteBtn = null;
@@ -23,31 +23,31 @@ export default class Catalog {
     this.dragStartListener = null;
     this.dragEndListener = null;
     this.dragOverListener = null;
-    this.divisionContainer = null;
-    this.divisionContainerBody = null;
+    this.departmentContainer = null;
+    this.departmentContainerBody = null;
   }
 
   render() {
     this.loginBtn = document.getElementById("login-button");
     this.createPdfBtn = document.getElementById("export-button");
-    this.addDivisionModalBtn = document.getElementById("add-division-modal-button");
-    this.addDivisionBtn = document.getElementById("add-division-button");
-    this.saveDivisionBtn = document.getElementById("save-division-button");
-    this.deleteDivisionBtn = document.getElementById("delete-division-button");
-    this.rearrangeDivisionBtn = document.getElementById("edit-division-order-button");
+    this.addDepartmentModalBtn = document.getElementById("add-department-modal-button");
+    this.addDepartmentBtn = document.getElementById("add-department-button");
+    this.saveDepartmentBtn = document.getElementById("save-department-button");
+    this.deleteDepartmentBtn = document.getElementById("delete-department-button");
+    this.rearrangeDepartmentBtn = document.getElementById("edit-department-order-button");
     this.confirmDeleteBtn = document.getElementById("confirm-delete-button");
     this.cancelAddBtn = document.getElementById("cancel-add-button");
     this.cancelDeleteBtn = document.getElementById("cancel-delete-button");
     this.searchContactsInput = document.getElementById("search-contacts");
-    this.cancelDivisionModalBtn = document.getElementById("close-edit-button");
+    this.cancelDepartmentModalBtn = document.getElementById("close-edit-button");
     this.cancelContactModalBtn = document.getElementById("close-contact-button");
     this.closeAddBtn = document.getElementById("close-add-button");
     this.closeConfirmBtn = document.getElementById("close-confirm-button");
     this.addContactBtn = document.getElementById("add-contact-button");
     this.saveContactBtn = document.getElementById("save-contact-button");
     this.deleteContactBtn = document.getElementById("delete-contact-button");
-    this.divisionContainer = document.getElementById("catalog-divisions");
-    this.buildDivisions();
+    this.departmentContainer = document.getElementById("catalog-departments");
+    this.buildDepartments();
 
     this.searchContactsInput.removeEventListener("input", () => this.searchContacts());
     this.searchContactsInput.addEventListener("input", () => this.searchContacts());
@@ -72,7 +72,7 @@ export default class Catalog {
       this.validateContactDetails();
     };
 
-    const divisionName = document.getElementById("add-division-name");
+    const departmentName = document.getElementById("add-department-name");
 
     const contactTel = document.getElementById("contact-tel");
     const selectedContactTel = document.getElementById("selected-contact-tel");
@@ -81,8 +81,8 @@ export default class Catalog {
     const contactLastName = document.getElementById("contact-last-name");
     const selectedContactLastName = document.getElementById("selected-contact-last-name");
 
-    divisionName.addEventListener("input", () => this.validateDivisionDetails());
-    // divisionOrder.addEventListener("input", () => this.validateDivisionDetails());
+    departmentName.addEventListener("input", () => this.validateDepartmentDetails());
+    // departmentOrder.addEventListener("input", () => this.validateDepartmentDetails());
 
     contactTel.addEventListener("input", event => telInputHandler(event));
     selectedContactTel.addEventListener("input", event => telInputHandler(event));
@@ -91,48 +91,48 @@ export default class Catalog {
     contactLastName.addEventListener("input", () => this.validateContactDetails());
     selectedContactLastName.addEventListener("input", () => this.validateContactDetails());
 
-    this.removeClickListener(this.addDivisionModalBtn, () => {
-      this.activeModal = "addDivisionModal";
-      this.showModal("division-add-modal-container", "", "addDivisionModal");
+    this.removeClickListener(this.addDepartmentModalBtn, () => {
+      this.activeModal = "addDepartmentModal";
+      this.showModal("department-add-modal-container", "", "addDepartmentModal");
     });
-    this.addClickListener(this.addDivisionModalBtn, () => {
-      this.activeModal = "addDivisionModal";
-      this.showModal("division-add-modal-container", "", "addDivisionModal");
+    this.addClickListener(this.addDepartmentModalBtn, () => {
+      this.activeModal = "addDepartmentModal";
+      this.showModal("department-add-modal-container", "", "addDepartmentModal");
     });
 
     this.removeClickListener(this.cancelAddBtn, () => {
-      divisionName.value = "";
-      this.addDivisionBtn.classList.add("disabled");
-      this.hideModal("division-add-modal-container");
+      departmentName.value = "";
+      this.addDepartmentBtn.classList.add("disabled");
+      this.hideModal("department-add-modal-container");
     });
     this.addClickListener(this.cancelAddBtn, () => {
-      divisionName.value = "";
-      this.addDivisionBtn.classList.add("disabled");
-      this.hideModal("division-add-modal-container");
+      departmentName.value = "";
+      this.addDepartmentBtn.classList.add("disabled");
+      this.hideModal("department-add-modal-container");
     });
 
     this.removeClickListener(this.closeAddBtn, () => {
-      divisionName.value = "";
-      this.addDivisionBtn.classList.add("disabled");
-      this.hideModal("division-add-modal-container");
+      departmentName.value = "";
+      this.addDepartmentBtn.classList.add("disabled");
+      this.hideModal("department-add-modal-container");
     });
     this.addClickListener(this.closeAddBtn, () => {
-      divisionName.value = "";
-      this.addDivisionBtn.classList.add("disabled");
-      this.hideModal("division-add-modal-container");
+      departmentName.value = "";
+      this.addDepartmentBtn.classList.add("disabled");
+      this.hideModal("department-add-modal-container");
     });
 
-    this.editingDivisionOrder = true;
-    this.rearrangeDivisionBtn.addEventListener("click", () => {
-      if (this.editingDivisionOrder) {
-        this.editDivisionOrder();
-        this.rearrangeDivisionBtn.textContent = "Save order";
+    this.editingDepartmentOrder = true;
+    this.rearrangeDepartmentBtn.addEventListener("click", () => {
+      if (this.editingDepartmentOrder) {
+        this.editDepartmentOrder();
+        this.rearrangeDepartmentBtn.textContent = "Save order";
       } else {
-        this.saveDivisionOrder();
-        this.rearrangeDivisionBtn.textContent = "Edit order";
+        this.saveDepartmentOrder();
+        this.rearrangeDepartmentBtn.textContent = "Edit order";
       }
 
-      this.editingDivisionOrder = !this.editingDivisionOrder;
+      this.editingDepartmentOrder = !this.editingDepartmentOrder;
     });
 
     this.dragStartListener = event => {
@@ -147,31 +147,31 @@ export default class Catalog {
 
     this.dragOverListener = event => {
       event.preventDefault();
-      const afterElement = this.getDrafAfterElement(this.divisionContainerBody, event.clientY);
+      const afterElement = this.getDrafAfterElement(this.departmentContainerBody, event.clientY);
       const draggable = document.querySelector(".dragging");
       if (afterElement === null) {
-        this.divisionContainerBody.appendChild(draggable);
+        this.departmentContainerBody.appendChild(draggable);
       } else {
-        this.divisionContainerBody.insertBefore(draggable, afterElement);
+        this.departmentContainerBody.insertBefore(draggable, afterElement);
       }
     };
 
-    this.removeClickListener(this.closeAddBtn, () => {
-      divisionName.value = "";
-      this.addDivisionBtn.classList.add("disabled");
-      this.hideModal("division-add-modal-container");
-    });
-    this.addClickListener(this.closeAddBtn, () => {
-      divisionName.value = "";
-      this.addDivisionBtn.classList.add("disabled");
-      this.hideModal("division-add-modal-container");
-    });
+    // this.removeClickListener(this.closeAddBtn, () => {
+    //   departmentName.value = "";
+    //   this.addDepartmentBtn.classList.add("disabled");
+    //   this.hideModal("department-add-modal-container");
+    // });
+    // this.addClickListener(this.closeAddBtn, () => {
+    //   departmentName.value = "";
+    //   this.addDepartmentBtn.classList.add("disabled");
+    //   this.hideModal("department-add-modal-container");
+    // });
 
-    this.removeClickListener(this.deleteDivisionBtn, () =>
-      this.showModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
+    this.removeClickListener(this.deleteDepartmentBtn, () =>
+      this.showModal("confirmation-modal-container", "department-edit-modal-container", "editDepartmentModal"),
     );
-    this.addClickListener(this.deleteDivisionBtn, () =>
-      this.showModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
+    this.addClickListener(this.deleteDepartmentBtn, () =>
+      this.showModal("confirmation-modal-container", "department-edit-modal-container", "editDepartmentModal"),
     );
     this.removeClickListener(this.deleteContactBtn, () =>
       this.showModal("confirmation-modal-container", "contact-edit-modal-container", "editContactModal"),
@@ -180,10 +180,10 @@ export default class Catalog {
       this.showModal("confirmation-modal-container", "contact-edit-modal-container", "editContactModal"),
     );
     this.removeClickListener(this.closeConfirmBtn, () =>
-      this.hideModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
+      this.hideModal("confirmation-modal-container", "department-edit-modal-container", "editDepartmentModal"),
     );
     this.addClickListener(this.closeConfirmBtn, () =>
-      this.hideModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
+      this.hideModal("confirmation-modal-container", "department-edit-modal-container", "editDepartmentModal"),
     );
 
     this.removeClickListener(this.closeConfirmBtn, () =>
@@ -201,10 +201,10 @@ export default class Catalog {
     );
 
     this.removeClickListener(this.cancelDeleteBtn, () =>
-      this.hideModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
+      this.hideModal("confirmation-modal-container", "department-edit-modal-container", "editDepartmentModal"),
     );
     this.addClickListener(this.cancelDeleteBtn, () =>
-      this.hideModal("confirmation-modal-container", "division-edit-modal-container", "editDivisionModal"),
+      this.hideModal("confirmation-modal-container", "department-edit-modal-container", "editDepartmentModal"),
     );
 
     this.removeClickListener(this.cancelDeleteBtn, () =>
@@ -214,8 +214,8 @@ export default class Catalog {
       this.hideModal("confirmation-modal-container", "user-management-modal-container", "userManagementModal"),
     );
 
-    this.removeClickListener(this.cancelAddBtn, () => this.hideModal("division-add-modal-container"));
-    this.addClickListener(this.cancelAddBtn, () => this.hideModal("division-add-modal-container"));
+    // this.removeClickListener(this.cancelAddBtn, () => this.hideModal("department-add-modal-container"));
+    // this.addClickListener(this.cancelAddBtn, () => this.hideModal("department-add-modal-container"));
 
     this.removeClickListener(this.cancelDeleteBtn, () =>
       this.hideModal("confirmation-modal-container", "contact-edit-modal-container", "editContactModal"),
@@ -224,35 +224,35 @@ export default class Catalog {
       this.hideModal("confirmation-modal-container", "contact-edit-modal-container", "editContactModal"),
     );
 
-    this.removeClickListener(this.cancelDivisionModalBtn, () => {
+    this.removeClickListener(this.cancelDepartmentModalBtn, () => {
       document.getElementById("contact-first-name").value = "";
       document.getElementById("contact-last-name").value = "";
       document.getElementById("contact-comment").value = "";
       document.getElementById("contact-tel").value = "";
 
-      this.hideModal("division-edit-modal-container");
+      this.hideModal("department-edit-modal-container");
     });
-    this.addClickListener(this.cancelDivisionModalBtn, () => {
+    this.addClickListener(this.cancelDepartmentModalBtn, () => {
       document.getElementById("contact-first-name").value = "";
       document.getElementById("contact-last-name").value = "";
       document.getElementById("contact-comment").value = "";
       document.getElementById("contact-tel").value = "";
 
-      this.hideModal("division-edit-modal-container");
+      this.hideModal("department-edit-modal-container");
     });
 
     this.removeClickListener(this.cancelContactModalBtn, () => this.hideModal("contact-edit-modal-container"));
     this.addClickListener(this.cancelContactModalBtn, () => this.hideModal("contact-edit-modal-container"));
 
-    this.removeClickListener(this.addDivisionBtn, () => this.addDivision());
-    this.addClickListener(this.addDivisionBtn, () => this.addDivision());
+    this.removeClickListener(this.addDepartmentBtn, () => this.addDepartment());
+    this.addClickListener(this.addDepartmentBtn, () => this.addDepartment());
 
-    this.removeClickListener(this.saveDivisionBtn, () => this.saveDivision());
-    this.addClickListener(this.saveDivisionBtn, () => this.saveDivision());
+    this.removeClickListener(this.saveDepartmentBtn, () => this.saveDepartment());
+    this.addClickListener(this.saveDepartmentBtn, () => this.saveDepartment());
 
     this.removeClickListener(this.confirmDeleteBtn, () => {
-      if (this.activeModal === "editDivisionModal") {
-        this.deleteDivision();
+      if (this.activeModal === "editDepartmentModal") {
+        this.deleteDepartment();
       } else if (this.activeModal === "editContactModal") {
         this.deleteContact();
       } else {
@@ -260,8 +260,8 @@ export default class Catalog {
       }
     });
     this.addClickListener(this.confirmDeleteBtn, () => {
-      if (this.activeModal === "editDivisionModal") {
-        this.deleteDivision();
+      if (this.activeModal === "editDepartmentModal") {
+        this.deleteDepartment();
       } else if (this.activeModal === "editContactModal") {
         this.deleteContact();
       } else {
@@ -291,19 +291,31 @@ export default class Catalog {
         return;
       }
 
+      if (modal1Id === "department-edit-modal-container") {
+        const selectedDepartment = document.querySelector(".department-list-item.selected");
+        const selectedDepartmentId = selectedDepartment.id.split("-")[1];
+
+        if (selectedDepartmentId === "2") {
+          document.getElementById("delete-department-button").classList.add("disabled");
+        } else {
+          document.getElementById("delete-department-button").classList.remove("disabled");
+        }
+      }
+
       modal1.classList.remove("hidden");
 
       if (modal1Id === "login-modal-container") {
         const username = document.getElementById("username");
         username.focus();
-      } else if (modal1Id === "division-add-modal-container") {
-        const divisionName = document.getElementById("add-division-name");
-        divisionName.focus();
+      } else if (modal1Id === "department-add-modal-container") {
+        const departmentName = document.getElementById("add-department-name");
+        departmentName.focus();
       }
 
       const message = document.getElementById("confirmation-message");
-      if (activeModal === "editDivisionModal") {
-        message.textContent = "Are you sure you want to delete this division? All contacts will be moved to the last division.";
+      if (activeModal === "editDepartmentModal") {
+        message.textContent =
+          "Are you sure you want to delete this department? All contacts will be moved to the last department.";
       } else if (activeModal === "editContactModal") {
         message.textContent = "Are you sure you want to delete this contact? This action cannot be undone.";
       } else if (activeModal === "userManagementModal") {
@@ -345,10 +357,10 @@ export default class Catalog {
     }
   }
 
-  editDivisionOrder() {
-    const draggables = document.querySelectorAll(".division-list-item-draggable");
-    this.divisionContainer.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
-    this.divisionContainer.style.boxShadow = "0 0 10px 3px rgba(255, 255, 255)";
+  editDepartmentOrder() {
+    const draggables = document.querySelectorAll(".department-list-item-draggable");
+    this.departmentContainer.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
+    this.departmentContainer.style.boxShadow = "0 0 10px 3px rgba(255, 255, 255)";
 
     draggables.forEach(draggable => {
       draggable.style.cursor = "grab";
@@ -360,38 +372,38 @@ export default class Catalog {
       draggable.addEventListener("dragend", this.dragEndListener);
     });
 
-    this.divisionContainerBody.addEventListener("dragover", this.dragOverListener);
+    this.departmentContainerBody.addEventListener("dragover", this.dragOverListener);
   }
 
-  async saveDivisionOrder() {
-    const divisionList = document.querySelectorAll(".division-list-item-draggable");
-    const divisionObjectsArray = [];
+  async saveDepartmentOrder() {
+    const departmentList = document.querySelectorAll(".department-list-item-draggable");
+    const departmentObjectsArray = [];
 
-    divisionList.forEach((division, index) => {
-      const button = division.querySelector("button");
+    departmentList.forEach((department, index) => {
+      const button = department.querySelector("button");
       const buttonText = button.textContent;
-      const divId = division.getAttribute("id").split("-");
+      const divId = department.getAttribute("id").split("-");
       const idNumber = divId[1].trim();
 
       if (buttonText.trim() !== "ΧΩΡΙΣ ΚΑΤΗΓΟΡΙΑ" && buttonText.trim() !== "ΔΙΕΥΘΥΝΣΗ") {
-        const divisionObject = {
+        const departmentObject = {
           id: idNumber,
           name: buttonText,
           order: index + 2,
         };
-        divisionObjectsArray.push(divisionObject);
+        departmentObjectsArray.push(departmentObject);
       }
     });
 
-    await fetch("/update-division-order", {
+    await fetch("/update-department-order", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(divisionObjectsArray),
+      body: JSON.stringify(departmentObjectsArray),
     });
 
-    const draggables = document.querySelectorAll(".division-list-item-draggable");
+    const draggables = document.querySelectorAll(".department-list-item-draggable");
 
     draggables.forEach(draggable => {
       draggable.style.cursor = "pointer";
@@ -402,16 +414,18 @@ export default class Catalog {
 
       draggable.removeEventListener("dragstart", this.dragStartListener);
       draggable.removeEventListener("dragend", this.dragEndListener);
-      this.divisionContainer.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-      this.divisionContainer.style.boxShadow = "none";
+      this.departmentContainer.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+      this.departmentContainer.style.boxShadow = "none";
     });
 
-    this.divisionContainer.removeEventListener("dragover", this.dragOverListener);
-    this.notificationsComponent.render(200, "Successfully updated divisions' order.");
+    await this.addLog("UPDATE DEPARTMENT ORDER", "The order of the departments has been updated");
+
+    this.departmentContainer.removeEventListener("dragover", this.dragOverListener);
+    this.notificationsComponent.render(200, "Successfully updated departments' order.");
   }
 
   getDrafAfterElement(container, y) {
-    const draggableElements = [...container.querySelectorAll(".division-list-item-draggable:not(.dragging)")];
+    const draggableElements = [...container.querySelectorAll(".department-list-item-draggable:not(.dragging)")];
 
     return draggableElements.reduce(
       (closest, child) => {
@@ -427,93 +441,100 @@ export default class Catalog {
     ).element;
   }
 
-  async buildDivisions() {
-    const response = await fetch("/get-divisions");
+  async buildDepartments() {
+    const response = await fetch("/get-departments");
     const data = await response.json();
     data.sort((a, b) => a.order - b.order);
     const uncategorized = data.shift();
     data.push(uncategorized);
 
-    this.divisionContainer.innerHTML = `
-      <div id="catalog-divisions-head" class="w-[100%] flex flex-col items-center"></div>
-      <div id="catalog-divisions-body" class="w-[100%] flex flex-col items-center"></div>
-      <div id="catalog-divisions-foot" class="w-[100%] flex flex-col items-center"></div>
+    this.departmentContainer.innerHTML = `
+      <div id="catalog-departments-head" class="w-[100%] flex flex-col items-center"></div>
+      <div id="catalog-departments-body" class="w-[100%] flex flex-col items-center"></div>
+      <div id="catalog-departments-foot" class="w-[100%] flex flex-col items-center"></div>
     `;
-    this.divisionContainerBody = document.getElementById("catalog-divisions-body");
+    this.departmentContainerBody = document.getElementById("catalog-departments-body");
 
-    for (const division of data) {
-      const divisionListItem = document.createElement("div");
-      divisionListItem.classList.add("division-list-item");
-      if (division.id !== 1 && division.id !== 2) {
-        divisionListItem.classList.add("division-list-item-draggable");
-        divisionListItem.setAttribute("draggable", true);
+    for (const department of data) {
+      const departmentListItem = document.createElement("div");
+      departmentListItem.classList.add("department-list-item");
+      if (department.id !== 1 && department.id !== 2) {
+        departmentListItem.classList.add("department-list-item-draggable");
+        departmentListItem.setAttribute("draggable", true);
       }
 
-      divisionListItem.id = `division-${division.id}`;
+      departmentListItem.id = `department-${department.id}`;
 
       const button = document.createElement("button");
-      button.textContent = division.name;
-      divisionListItem.appendChild(button);
+      button.textContent = department.name;
+      departmentListItem.appendChild(button);
 
-      if (division.order === 1) {
-        document.getElementById("catalog-divisions-head").appendChild(divisionListItem);
-      } else if (division.order === -1) {
-        document.getElementById("catalog-divisions-foot").appendChild(divisionListItem);
+      if (department.order === 1) {
+        document.getElementById("catalog-departments-head").appendChild(departmentListItem);
+      } else if (department.order === -1) {
+        document.getElementById("catalog-departments-foot").appendChild(departmentListItem);
       } else {
-        document.getElementById("catalog-divisions-body").appendChild(divisionListItem);
+        document.getElementById("catalog-departments-body").appendChild(departmentListItem);
       }
 
-      divisionListItem.addEventListener("click", () => {
-        if (divisionListItem.classList.contains("selected")) {
-          divisionListItem.classList.remove("selected");
+      departmentListItem.addEventListener("click", () => {
+        if (departmentListItem.classList.contains("selected")) {
+          departmentListItem.classList.remove("selected");
 
           const contacts = document.getElementById("catalog-contacts");
           contacts.innerHTML = "";
         } else {
-          const selectedDivision = document.querySelector(".division-list-item.selected");
+          const selectedDepartment = document.querySelector(".department-list-item.selected");
           // correct
-          if (selectedDivision) {
-            selectedDivision.classList.remove("selected");
+          if (selectedDepartment) {
+            selectedDepartment.classList.remove("selected");
           }
 
-          this.buildContacts(division.id);
+          this.buildContacts(department.id);
         }
       });
     }
 
-    const firstDivision = document.querySelectorAll(".division-list-item")[0];
-    const firstId = firstDivision.id.split("-")[1];
+    const firstDepartment = document.querySelectorAll(".department-list-item")[0];
+    const firstId = firstDepartment.id.split("-")[1];
 
     this.buildContacts(Number(firstId));
   }
 
-  async addDivision() {
-    const divisionName = document.getElementById("add-division-name");
+  async addDepartment() {
+    const departmentName = document.getElementById("add-department-name");
 
-    const response = await fetch("/add-division", {
+    const response = await fetch("/add-department", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name: divisionName.value.toUpperCase() }),
+      body: JSON.stringify({ name: departmentName.value.toUpperCase().trim() }),
     });
+
+    if (response.status !== 200) {
+      departmentName.value = "";
+      departmentName.focus();
+      return this.notificationsComponent.render(500, "Error adding department. The department may already exist");
+    }
 
     const data = await response.text();
     console.log(data);
 
-    this.buildDivisions();
+    this.buildDepartments();
+    await this.addLog("ADD DEPARTMENT", `The department ${departmentName.value.toUpperCase().trim()} has been added`);
 
-    divisionName.value = "";
+    departmentName.value = "";
 
-    this.hideModal("division-add-modal-container");
-    this.notificationsComponent.render(200, "The division has been added");
+    this.hideModal("department-add-modal-container");
+    this.notificationsComponent.render(200, "The department has been added");
   }
 
-  async saveDivision() {
-    const selectedDivision = document.querySelector(".division-list-item.selected");
-    const divisionId = selectedDivision.id.split("-")[1];
+  async saveDepartment() {
+    const selectedDepartment = document.querySelector(".department-list-item.selected");
+    const departmentId = selectedDepartment.id.split("-")[1];
 
-    const response = await fetch(`/get-contacts/${divisionId}`, {
+    const response = await fetch(`/get-contacts/${departmentId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -522,49 +543,51 @@ export default class Catalog {
 
     const data = await response.json();
 
-    const divisionName = document.getElementById("division-name").value.toUpperCase();
+    const departmentName = document.getElementById("department-name").value.toUpperCase().trim();
 
-    if (divisionName === data.division.name) {
+    if (departmentName === data.department.name) {
       document.getElementById("contact-first-name").value = "";
       document.getElementById("contact-last-name").value = "";
       document.getElementById("contact-comment").value = "";
       document.getElementById("contact-tel").value = "";
 
-      this.hideModal("division-edit-modal-container");
+      this.hideModal("department-edit-modal-container");
       return this.notificationsComponent.render(500, "No changes have been made");
     }
 
-    const saveResponse = await fetch("/update-division", {
+    const saveResponse = await fetch("/update-department", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: divisionId, name: divisionName }),
+      body: JSON.stringify({ id: departmentId, name: departmentName }),
     });
 
     const saveData = await saveResponse.text();
     console.log(saveData);
 
-    const division = document.getElementById(`division-${divisionId}`);
-    division.innerHTML = divisionName;
+    const department = document.getElementById(`department-${departmentId}`);
+    department.innerHTML = departmentName;
 
-    const cardDivisionName = document.getElementById("card-division-name");
-    cardDivisionName.textContent = divisionName;
+    const cardDepartmentName = document.getElementById("card-department-name");
+    cardDepartmentName.textContent = departmentName;
+
+    await this.addLog("UPDATE DEPARTMENT NAME", `${data.department.name} has been renamed to ${departmentName}`);
 
     document.getElementById("contact-first-name").value = "";
     document.getElementById("contact-last-name").value = "";
     document.getElementById("contact-comment").value = "";
     document.getElementById("contact-tel").value = "";
 
-    this.hideModal("division-edit-modal-container");
+    this.hideModal("department-edit-modal-container");
     this.notificationsComponent.render(200, "The changes have been saved");
   }
 
-  async deleteDivision() {
-    const selectedDivision = document.querySelector(".division-list-item.selected");
-    const divisionId = selectedDivision.id.split("-")[1];
+  async deleteDepartment() {
+    const selectedDepartment = document.querySelector(".department-list-item.selected");
+    const departmentId = selectedDepartment.id.split("-")[1];
 
-    const response = await fetch(`/delete-division/${divisionId}`, {
+    const response = await fetch(`/delete-department/${departmentId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -574,28 +597,30 @@ export default class Catalog {
     const data = await response.text();
     console.log(data);
 
-    const division = document.getElementById(`division-${divisionId}`);
-    division.remove();
+    const department = document.getElementById(`department-${departmentId}`);
+    department.remove();
 
-    this.buildDivisions();
+    this.buildDepartments();
+
+    await this.addLog("DELETE DEPARTMENT", `The department with ID ${departmentId} has been deleted`);
 
     this.hideModal("confirmation-modal-container");
-    this.notificationsComponent.render(200, "The division has been deleted");
+    this.notificationsComponent.render(200, "The department has been deleted");
   }
 
-  async buildContacts(divisionId) {
-    const response = await fetch(`/get-contacts/${divisionId}`, {
+  async buildContacts(departmentId) {
+    const response = await fetch(`/get-contacts/${departmentId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ divisionId }),
+      body: JSON.stringify({ departmentId }),
     });
 
     const data = await response.json();
 
-    const selectedDivision = document.getElementById(`division-${divisionId}`);
-    selectedDivision.classList.add("selected");
+    const selectedDepartment = document.getElementById(`department-${departmentId}`);
+    selectedDepartment.classList.add("selected");
 
     const contacts = document.getElementById("catalog-contacts");
     contacts.innerHTML = "";
@@ -617,8 +642,8 @@ export default class Catalog {
       "h-4/6",
     );
 
-    const division = document.createElement("div");
-    division.classList.add(
+    const department = document.createElement("div");
+    department.classList.add(
       "rounded-tl-lg",
       "rounded-tr-lg",
       "font-semibold",
@@ -628,8 +653,8 @@ export default class Catalog {
       "w-full",
       "bg-general-tabs",
     );
-    division.id = "card-division-name";
-    division.textContent = data.division.name;
+    department.id = "card-department-name";
+    department.textContent = data.department.name;
 
     const editButton = document.createElement("button");
     editButton.classList.add("absolute", "top-2", "right-2");
@@ -637,22 +662,22 @@ export default class Catalog {
     const editIcon = document.createElement("i");
     editIcon.classList.add("hover:text-buttons-submit", "fa-solid", "fa-edit", "text-2xl");
     editIcon.addEventListener("click", async () => {
-      const divisionResponse = await fetch(`/get-division/${divisionId}`, {
+      const departmentResponse = await fetch(`/get-department/${departmentId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      const divisionData = await divisionResponse.json();
+      const departmentData = await departmentResponse.json();
 
-      const divisionName = document.getElementById("division-name");
-      divisionName.value = divisionData.name;
+      const departmentName = document.getElementById("department-name");
+      departmentName.value = departmentData.name;
 
       document.getElementById("add-contact-button").classList.add("disabled");
 
-      this.activeModal = "editDivisionModal";
-      this.showModal("division-edit-modal-container");
+      this.activeModal = "editDepartmentModal";
+      this.showModal("department-edit-modal-container");
     });
 
     editButton.appendChild(editIcon);
@@ -676,9 +701,9 @@ export default class Catalog {
     contactInfoHeaders.appendChild(nameHeader);
     contactInfoHeaders.appendChild(telHeader);
 
-    card.appendChild(division);
+    card.appendChild(department);
 
-    if (divisionId !== 1) {
+    if (departmentId !== 1) {
       card.appendChild(editButton);
     }
 
@@ -687,7 +712,7 @@ export default class Catalog {
     const contactInfoContainer = document.createElement("div");
     contactInfoContainer.classList.add("contact-info-container", "overflow-auto");
 
-    if (divisionId === 2) {
+    if (departmentId === 2) {
       data.contacts.sort((a, b) => a.id - b.id);
     } else {
       data.contacts.sort((a, b) => a.lastName.localeCompare(b.lastName));
@@ -744,22 +769,22 @@ export default class Catalog {
           const contactEditComment = document.getElementById("selected-contact-comment");
           contactEditComment.value = contact.comment;
 
-          const response = await fetch("/get-divisions");
+          const response = await fetch("/get-departments");
           const data = await response.json();
 
-          const divisionSelection = document.getElementById("selected-contact-division");
-          divisionSelection.innerHTML = "";
+          const departmentSelection = document.getElementById("selected-contact-department");
+          departmentSelection.innerHTML = "";
 
-          for (const division of data) {
+          for (const department of data) {
             const option = document.createElement("option");
-            option.value = division.id;
-            option.textContent = division.name;
+            option.value = department.id;
+            option.textContent = department.name;
 
-            if (Number(divisionId) === division.id) {
+            if (Number(departmentId) === department.id) {
               option.selected = true;
             }
 
-            divisionSelection.appendChild(option);
+            departmentSelection.appendChild(option);
           }
 
           this.activeModal = "editContactModal";
@@ -777,9 +802,9 @@ export default class Catalog {
     const query = this.searchContactsInput.value.toUpperCase();
 
     if (query.length === 0) {
-      const selectedDivision = document.querySelector(".division-list-item.selected");
-      const divisionId = selectedDivision.id.split("-")[1];
-      this.buildContacts(Number(divisionId));
+      const selectedDepartment = document.querySelector(".department-list-item.selected");
+      const departmentId = selectedDepartment.id.split("-")[1];
+      this.buildContacts(Number(departmentId));
       return;
     }
 
@@ -813,9 +838,9 @@ export default class Catalog {
       "h-4/6",
     );
 
-    const division = document.createElement("div");
-    division.classList.add("rounded-lg", "font-semibold", "text-center", "h-fit", "p-3", "w-full", "bg-general-tabs");
-    division.textContent = "ΑΝΑΖΗΤΗΣΗ";
+    const department = document.createElement("div");
+    department.classList.add("rounded-lg", "font-semibold", "text-center", "h-fit", "p-3", "w-full", "bg-general-tabs");
+    department.textContent = "ΑΝΑΖΗΤΗΣΗ";
 
     const contactInfoHeaders = document.createElement("div");
     contactInfoHeaders.classList.add("card-headers", "flex", "flex-row", "justify-between", "p-3");
@@ -828,13 +853,13 @@ export default class Catalog {
     nameHeader.style = "text-align: left; width: 40%;";
     nameHeader.textContent = "ΟΝΟΜΑΤΕΠΩΝΥΜΟ";
 
-    const divisionHeader = document.createElement("p");
-    divisionHeader.classList.add("underline", "font-semibold");
-    divisionHeader.style = "text-align: center; width: 30%;";
-    divisionHeader.textContent = "ΤΜΗΜΑ";
+    const departmentHeader = document.createElement("p");
+    departmentHeader.classList.add("underline", "font-semibold");
+    departmentHeader.style = "text-align: center; width: 30%;";
+    departmentHeader.textContent = "ΤΜΗΜΑ";
 
     detailsHeader.appendChild(nameHeader);
-    detailsHeader.appendChild(divisionHeader);
+    detailsHeader.appendChild(departmentHeader);
 
     const telHeader = document.createElement("p");
     telHeader.classList.add("underline", "font-semibold");
@@ -844,7 +869,7 @@ export default class Catalog {
     contactInfoHeaders.appendChild(detailsHeader);
     contactInfoHeaders.appendChild(telHeader);
 
-    card.appendChild(division);
+    card.appendChild(department);
     card.appendChild(contactInfoHeaders);
 
     const contactInfoContainer = document.createElement("div");
@@ -877,13 +902,13 @@ export default class Catalog {
         ? `${contact.lastName} ${contact.firstName} (${contact.comment})`
         : `${contact.lastName} ${contact.firstName}`;
 
-      const division = document.createElement("p");
-      division.id = `search-division-${contact.Division.id}`;
-      division.style = "text-align: center; width: 30%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;";
-      division.textContent = contact.Division.name;
+      const department = document.createElement("p");
+      department.id = `search-department-${contact.Department.id}`;
+      department.style = "text-align: center; width: 30%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;";
+      department.textContent = contact.Department.name;
 
       detailsInfo.appendChild(name);
-      detailsInfo.appendChild(division);
+      detailsInfo.appendChild(department);
 
       const tel = document.createElement("p");
       tel.style = "width: 30%; text-align: right;";
@@ -916,22 +941,22 @@ export default class Catalog {
           const contactEditComment = document.getElementById("selected-contact-comment");
           contactEditComment.value = contact.comment;
 
-          const response = await fetch("/get-divisions");
+          const response = await fetch("/get-departments");
           const data = await response.json();
 
-          const divisionSelection = document.getElementById("selected-contact-division");
-          divisionSelection.innerHTML = "";
+          const departmentSelection = document.getElementById("selected-contact-department");
+          departmentSelection.innerHTML = "";
 
-          for (const division of data) {
+          for (const department of data) {
             const option = document.createElement("option");
-            option.value = division.id;
-            option.textContent = division.name;
+            option.value = department.id;
+            option.textContent = department.name;
 
-            if (contact.Division.id === division.id) {
+            if (contact.Department.id === department.id) {
               option.selected = true;
             }
 
-            divisionSelection.appendChild(option);
+            departmentSelection.appendChild(option);
           }
 
           this.activeModal = "editContactModal";
@@ -946,11 +971,11 @@ export default class Catalog {
   }
 
   async addContact() {
-    const selectedDivision = document.querySelector(".division-list-item.selected");
-    const divisionId = selectedDivision.id.split("-")[1];
-    const firstName = document.getElementById("contact-first-name").value.toUpperCase();
-    const lastName = document.getElementById("contact-last-name").value.toUpperCase();
-    const comment = document.getElementById("contact-comment").value.toUpperCase();
+    const selectedDepartment = document.querySelector(".department-list-item.selected");
+    const departmentId = selectedDepartment.id.split("-")[1];
+    const firstName = document.getElementById("contact-first-name").value.toUpperCase().trim();
+    const lastName = document.getElementById("contact-last-name").value.toUpperCase().trim();
+    const comment = document.getElementById("contact-comment").value.toUpperCase().trim();
     const telephones = document
       .getElementById("contact-tel")
       .value.split(",")
@@ -961,20 +986,25 @@ export default class Catalog {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ divisionId, firstName, lastName, comment, telephones }),
+      body: JSON.stringify({ departmentId, firstName, lastName, comment, telephones }),
     });
 
     const data = await response.text();
     console.log(data);
 
-    this.buildContacts(Number(divisionId));
+    this.buildContacts(Number(departmentId));
+
+    await this.addLog(
+      "ADD CONTACT",
+      `The contact ${lastName} ${firstName} has been added to the department with ID ${departmentId}`,
+    );
 
     document.getElementById("contact-first-name").value = "";
     document.getElementById("contact-last-name").value = "";
     document.getElementById("contact-comment").value = "";
     document.getElementById("contact-tel").value = "";
 
-    this.hideModal("division-edit-modal-container");
+    this.hideModal("department-edit-modal-container");
     this.notificationsComponent.render(200, "The contact has been added");
   }
 
@@ -992,10 +1022,12 @@ export default class Catalog {
     const data = await response.text();
     console.log(data);
 
-    const selectedDivision = document.querySelector(".division-list-item.selected");
-    const divisionId = selectedDivision.id.split("-")[1];
+    const selectedDepartment = document.querySelector(".department-list-item.selected");
+    const departmentId = selectedDepartment.id.split("-")[1];
 
-    this.buildContacts(Number(divisionId));
+    this.buildContacts(Number(departmentId));
+
+    await this.addLog("DELETE CONTACT", `The contact with ID ${contactId} has been deleted`);
 
     this.hideModal("confirmation-modal-container");
     this.notificationsComponent.render(200, "The contact has been deleted");
@@ -1003,12 +1035,12 @@ export default class Catalog {
 
   async editContact() {
     const contactId = document.getElementById("selected-contact-id").value;
-    const selectedDivision = document.querySelector(".division-list-item.selected");
-    const selectedDivisionId = selectedDivision.id.split("-")[1];
-    const divisionId = document.getElementById("selected-contact-division").value;
-    const firstName = document.getElementById("selected-contact-first-name").value.toUpperCase();
-    const lastName = document.getElementById("selected-contact-last-name").value.toUpperCase();
-    const comment = document.getElementById("selected-contact-comment").value.toUpperCase();
+    const selectedDepartment = document.querySelector(".department-list-item.selected");
+    const selectedDepartmentId = selectedDepartment.id.split("-")[1];
+    const departmentId = document.getElementById("selected-contact-department").value;
+    const firstName = document.getElementById("selected-contact-first-name").value.toUpperCase().trim();
+    const lastName = document.getElementById("selected-contact-last-name").value.toUpperCase().trim();
+    const comment = document.getElementById("selected-contact-comment").value.toUpperCase().trim();
     const telephones = document
       .getElementById("selected-contact-tel")
       .value.split(",")
@@ -1024,14 +1056,14 @@ export default class Catalog {
     const data = await response.json();
     const dataTelephones = data.Telephones.map(item => item.tel);
 
-    const searchDivision = document.getElementById(`search-division-${data.divisionId}`);
-    const searchDivisionId = searchDivision?.id.split("-")[2];
+    const searchDepartment = document.getElementById(`search-department-${data.departmentId}`);
+    const searchDepartmentId = searchDepartment?.id.split("-")[2];
 
     if (
       firstName === data.firstName &&
       lastName === data.lastName &&
       comment === data.comment &&
-      (selectedDivisionId === divisionId || searchDivisionId === divisionId) &&
+      (selectedDepartmentId === departmentId || searchDepartmentId === departmentId) &&
       JSON.stringify(telephones) === JSON.stringify(dataTelephones)
     ) {
       this.hideModal("contact-edit-modal-container");
@@ -1043,25 +1075,27 @@ export default class Catalog {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ contactId, divisionId, firstName, lastName, comment, telephones }),
+      body: JSON.stringify({ contactId, departmentId, firstName, lastName, comment, telephones }),
     });
 
     const saveData = await saveResponse.text();
     console.log(saveData);
 
-    this.buildContacts(Number(selectedDivisionId));
+    this.buildContacts(Number(selectedDepartmentId));
+
+    await this.addLog("UPDATE CONTACT", `The contact ${lastName} ${firstName} has been updated`);
 
     this.hideModal("contact-edit-modal-container");
     this.notificationsComponent.render(200, "The contact has been updated");
   }
 
-  validateDivisionDetails() {
-    const divisionName = document.getElementById("add-division-name").value;
+  validateDepartmentDetails() {
+    const departmentName = document.getElementById("add-department-name").value;
 
-    if (divisionName.trim().length === 0) {
-      this.addDivisionBtn.classList.add("disabled");
+    if (departmentName.trim().length === 0) {
+      this.addDepartmentBtn.classList.add("disabled");
     } else {
-      this.addDivisionBtn.classList.remove("disabled");
+      this.addDepartmentBtn.classList.remove("disabled");
     }
   }
 
@@ -1069,13 +1103,13 @@ export default class Catalog {
     let startingSelector;
     let activeBtn;
 
-    const editDivisionModal = document.getElementById("division-edit-modal-container");
+    const editDepartmentModal = document.getElementById("department-edit-modal-container");
     const editContactModal = document.getElementById("contact-edit-modal-container");
 
-    if (!editDivisionModal.classList.contains("hidden") && editContactModal.classList.contains("hidden")) {
+    if (!editDepartmentModal.classList.contains("hidden") && editContactModal.classList.contains("hidden")) {
       startingSelector = "contact";
       activeBtn = this.addContactBtn;
-    } else if (editDivisionModal.classList.contains("hidden") && !editContactModal.classList.contains("hidden")) {
+    } else if (editDepartmentModal.classList.contains("hidden") && !editContactModal.classList.contains("hidden")) {
       startingSelector = "selected";
       activeBtn = this.saveContactBtn;
     }
@@ -1107,5 +1141,19 @@ export default class Catalog {
     } else {
       activeBtn.classList.add("disabled");
     }
+  }
+
+  async addLog(action, description) {
+    await fetch("/add-log", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: sessionStorage.getItem("loggedUser"),
+        action,
+        description,
+      }),
+    });
   }
 }

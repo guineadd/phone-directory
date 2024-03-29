@@ -737,12 +737,12 @@ video {
   height: 60px;
 }
 
-.h-\[85\%\] {
-  height: 85%;
+.h-\[700px\] {
+  height: 700px;
 }
 
-.h-\[900px\] {
-  height: 900px;
+.h-\[75\%\] {
+  height: 75%;
 }
 
 .h-auto {
@@ -930,6 +930,10 @@ video {
 
 .overflow-auto {
   overflow: auto;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
 }
 
 .rounded-\[10px\] {
@@ -1320,9 +1324,9 @@ body > div:last-child > span + img {
   color: rgb(87 83 78);
 }
 
-/* DIVISION LIST */
+/* DEPARTMENT LIST */
 
-.division-list-item {
+.department-list-item {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1337,7 +1341,7 @@ body > div:last-child > span + img {
   opacity: 0.5;
 }
 
-.division-list-item:hover {
+.department-list-item:hover {
   cursor: pointer;
   background-color: rgba(181, 182, 130, 1);
 }
