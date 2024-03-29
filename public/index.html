@@ -9,13 +9,13 @@
 
   <body class="font-electrolize">
     <div class="container flex flex-col">
-      <div class="header h-16 px-2 flex justify-between items-center text-white bg-general-bars">
+      <div class="header h-16 px-2 flex justify-between items-center text-white bg-general-header">
         <div class="w-[300px] font-semibold text-2xl">
           <span>Telephone Catalog</span>
         </div>
         <div id="header-buttons" class="flex w-[950px] justify-evenly items-center">
           <div id="header-users" class="hidden w-[140px]">
-            <button class="bg-buttons-primary hover:bg-general-details w-full rounded-lg text-xl font-bold py-1 px-2">
+            <button class="bg-buttons-primary hover:bg-general-hover w-full rounded-lg text-xl font-bold py-1 px-2">
               USERS <i class="fa-solid fa-user"></i>
             </button>
           </div>
@@ -24,7 +24,7 @@
               id="search-contacts"
               autofocus
               type="text"
-              class="w-full bg-transparent rounded-lg px-2 text-xl focus:outline-none hover:bg-general-details"
+              class="w-full bg-transparent rounded-lg px-2 text-xl focus:outline-none hover:bg-general-hover"
             />
             <!-- <button id="search-button"> -->
             <i class="fa-solid fa-magnifying-glass rounded-lg text-xl py-1 px-2"></i>
@@ -32,8 +32,8 @@
           </div>
           <div class="w-[140px]">
             <button
-              id="show-division-selection-modal"
-              class="bg-buttons-primary hover:bg-general-details text-xl font-bold w-full rounded-lg py-1 px-2"
+              id="show-department-selection-modal"
+              class="bg-buttons-primary hover:bg-general-hover text-xl font-bold w-full rounded-lg py-1 px-2"
             >
               EXPORT <i class="fa-solid fa-file-pdf"></i>
             </button>
@@ -41,7 +41,7 @@
           <div class="w-[140px]">
             <button
               id="login-button"
-              class="bg-buttons-primary hover:bg-general-details text-xl font-bold w-full rounded-lg py-1 px-2"
+              class="bg-buttons-primary hover:bg-general-hover text-xl font-bold w-full rounded-lg py-1 px-2"
             >
               LOG IN <i class="fa fa-right-from-bracket"></i>
             </button>

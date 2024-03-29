@@ -87,6 +87,8 @@ export default class Login {
     });
 
     const data = await response.json();
+    sessionStorage.setItem("loggedUser", this.username.value);
+
     this.username.value = "";
     this.password.value = "";
 
@@ -104,26 +106,26 @@ export default class Login {
     sessionStorage.setItem("loggedUserType", data.UserType.type);
     this.loginBtn.innerHTML = `LOG OUT <i class="fa fa-right-from-bracket"></i>`;
 
-    await this.catalogComponent.buildDivisions();
+    await this.catalogComponent.buildDepartments();
 
-    document.getElementById("add-division-modal-button").classList.remove("hidden");
-    document.getElementById("edit-division-order-button").classList.remove("hidden");
+    document.getElementById("add-department-modal-button").classList.remove("hidden");
+    document.getElementById("edit-department-order-button").classList.remove("hidden");
 
     this.loginModalContainer.classList.add("hidden");
 
     document.getElementById("search-contacts").focus();
     this.notificationsComponent.render(200, `Successfully signed in as ${data.UserType.type}`);
-    console.log(`Succesfully signed in as ${data.message}.`);
+    console.log(`Succesfully signed in as ${data.UserType.type}.`);
   }
 
   async signOut() {
     this.headerUsers.classList.add("hidden");
 
-    sessionStorage.removeItem("loggedUserType");
-    await this.catalogComponent.buildDivisions();
+    sessionStorage.clear();
+    await this.catalogComponent.buildDepartments();
 
-    document.getElementById("add-division-modal-button").classList.add("hidden");
-    document.getElementById("edit-division-order-button").classList.add("hidden");
+    document.getElementById("add-department-modal-button").classList.add("hidden");
+    document.getElementById("edit-department-order-button").classList.add("hidden");
 
     this.loginBtn.innerHTML = `LOG IN <i class="fa fa-right-from-bracket"></i>`;
 

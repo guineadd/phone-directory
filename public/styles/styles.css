@@ -69,8 +69,8 @@ body > div:last-child > span + img {
   color: rgb(87 83 78);
 }
 
-/* DIVISION LIST */
-.division-list-item {
+/* DEPARTMENT LIST */
+.department-list-item {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,7 +85,7 @@ body > div:last-child > span + img {
   opacity: 0.5;
 }
 
-.division-list-item:hover {
+.department-list-item:hover {
   cursor: pointer;
   background-color: rgba(181, 182, 130, 1);
 }

@@ -584,6 +584,10 @@ video {
   left: -9999px;
 }
 
+.left-\[100px\] {
+  left: 100px;
+}
+
 .right-0 {
   right: 0px;
 }
@@ -602,6 +606,10 @@ video {
 
 .top-\[-9999px\] {
   top: -9999px;
+}
+
+.top-\[25px\] {
+  top: 25px;
 }
 
 .z-40 {
@@ -713,6 +721,10 @@ video {
   height: 1300px;
 }
 
+.h-\[1320px\] {
+  height: 1320px;
+}
+
 .h-\[1400px\] {
   height: 1400px;
 }
@@ -725,12 +737,12 @@ video {
   height: 60px;
 }
 
-.h-\[85\%\] {
-  height: 85%;
+.h-\[700px\] {
+  height: 700px;
 }
 
-.h-\[900px\] {
-  height: 900px;
+.h-\[75\%\] {
+  height: 75%;
 }
 
 .h-auto {
@@ -830,6 +842,10 @@ video {
   width: 460px;
 }
 
+.w-\[50\%\] {
+  width: 50%;
+}
+
 .w-\[500px\] {
   width: 500px;
 }
@@ -914,6 +930,10 @@ video {
 
 .overflow-auto {
   overflow: auto;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
 }
 
 .rounded-\[10px\] {
@@ -1006,16 +1026,16 @@ video {
   border-bottom-color: rgb(87 83 78 / var(--tw-border-opacity));
 }
 
+.bg-buttons-delete {
+  background-color: rgba(185, 28, 28, 1);
+}
+
 .bg-buttons-primary {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.bg-general-background {
-  background-color: rgba(124, 152, 133, 1);
-}
-
-.bg-general-bars {
-  background-color: rgba(40, 102, 110, 1);
+.bg-buttons-submit {
+  background-color: rgba(210, 147, 32, 1);
 }
 
 .bg-general-barsPrimary {
@@ -1026,18 +1046,20 @@ video {
   background-color: rgba(124, 152, 133, 0.7);
 }
 
+.bg-general-header {
+  background-color: rgba(40, 102, 110, 1);
+}
+
 .bg-general-tabs {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
 .bg-general-zebraEven {
-  --tw-bg-opacity: 1;
-  background-color: rgba(244, 222, 222, var(--tw-bg-opacity));
+  background-color: rgba(244, 222, 222, 1);
 }
 
 .bg-general-zebraOdd {
-  --tw-bg-opacity: 1;
-  background-color: rgba(242, 242, 242, var(--tw-bg-opacity));
+  background-color: rgba(242, 242, 242, 1);
 }
 
 .bg-gray-500 {
@@ -1045,22 +1067,12 @@ video {
   background-color: rgb(107 114 128 / var(--tw-bg-opacity));
 }
 
-.bg-login-backdrop {
+.bg-modal-backdrop {
   background-color: rgba(28, 33, 13, 0.5);
 }
 
-.bg-login-background {
-  --tw-bg-opacity: 1;
-  background-color: rgba(245, 248, 221, var(--tw-bg-opacity));
-}
-
-.bg-login-submit {
-  background-color: rgba(210, 147, 32, 1);
-}
-
-.bg-red-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+.bg-modal-background {
+  background-color: rgba(245, 248, 221, 1);
 }
 
 .bg-stone-600 {
@@ -1312,9 +1324,9 @@ body > div:last-child > span + img {
   color: rgb(87 83 78);
 }
 
-/* DIVISION LIST */
+/* DEPARTMENT LIST */
 
-.division-list-item {
+.department-list-item {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1329,7 +1341,7 @@ body > div:last-child > span + img {
   opacity: 0.5;
 }
 
-.division-list-item:hover {
+.department-list-item:hover {
   cursor: pointer;
   background-color: rgba(181, 182, 130, 1);
 }
@@ -1374,17 +1386,15 @@ body > div:last-child > span + img {
   cursor: pointer;
 }
 
-.hover\:bg-general-details:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(181, 182, 130, var(--tw-bg-opacity));
+.hover\:bg-buttons-delete:hover {
+  background-color: rgba(185, 28, 28, 1);
 }
 
-.hover\:bg-red-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+.hover\:bg-general-hover:hover {
+  background-color: rgba(181, 182, 130, 1);
 }
 
-.hover\:text-login-submit:hover {
+.hover\:text-buttons-submit:hover {
   color: rgba(210, 147, 32, 1);
 }
 

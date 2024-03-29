@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface) {
     return queryInterface.bulkInsert(
-      "Divisions",
+      "Departments",
       [
         { name: "ΧΩΡΙΣ ΚΑΤΗΓΟΡΙΑ", order: -1, createdAt: new Date(), updatedAt: new Date() },
         { name: "ΔΙΕΥΘΥΝΣΗ", order: 1, createdAt: new Date(), updatedAt: new Date() },
@@ -44,6 +44,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    return queryInterface.bulkDelete("Divisions", null, {});
+    return queryInterface.bulkDelete("Departments", null, {});
   },
 };

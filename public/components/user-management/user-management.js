@@ -80,7 +80,7 @@ export default class UserManagement {
       deleteButton.classList.add(
         "px-3",
         "bg-white",
-        "hover:bg-red-700",
+        "hover:bg-buttons-delete",
         "hover:text-white",
         "rounded-lg",
         "cursor-pointer",
@@ -100,8 +100,8 @@ export default class UserManagement {
   }
 
   async addUser() {
-    const username = this.username.value;
-    const password = this.password.value;
+    const username = this.username.value.trim();
+    const password = this.password.value.trim();
     const userTypeId = this.userTypeId.value;
 
     const response = await fetch("/add-user", {
@@ -116,6 +116,13 @@ export default class UserManagement {
       }),
     });
 
+    console.log(userTypeId);
+
+    await this.catalogComponent.addLog(
+      "ADD USER",
+      `User ${username} has been added as ${userTypeId === "1" ? "admin" : "editor"}`,
+    );
+
     this.username.value = "";
     this.password.value = "";
     this.userTypeId.value = "";
@@ -124,7 +131,10 @@ export default class UserManagement {
     this.createUserBtn.classList.add("disabled");
 
     if (response.status === 200) {
-      this.notificationsComponent.render(200, `User ${username} added successfully as ${userTypeId === 1 ? "admin" : "editor"}`);
+      this.notificationsComponent.render(
+        200,
+        `User ${username} added successfully as ${userTypeId === "1" ? "admin" : "editor"}`,
+      );
       await this.buildUsers();
     } else {
       this.notificationsComponent.render(500, "Error adding user. The user may already exist");
@@ -140,6 +150,8 @@ export default class UserManagement {
       this.notificationsComponent.render(200, "User deleted successfully");
       this.catalogComponent.hideModal("confirmation-modal-container", "user-management-modal-container", "userManagementModal");
       this.buildUsers();
+
+      await this.catalogComponent.addLog("DELETE USER", `User with ID ${userId} has been deleted`);
     } else {
       this.notificationsComponent.render(500, "Error deleting user");
     }

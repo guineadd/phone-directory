@@ -5,30 +5,27 @@ export default {
     extend: {
       colors: {
         general: {
-          background: "rgba(124, 152, 133, 1)",
-          bars: "rgba(40, 102, 110, 1)",
           barsPrimary: "rgba(124, 152, 133, 1)",
           barsSecondary: "rgba(124, 152, 133, 0.7)",
+          header: "rgba(40, 102, 110, 1)",
+          hover: "rgba(181, 182, 130, 1)",
           tabs: "rgba(0, 0, 0, 0.5)",
-          headerTabs: "rgba(0, 0, 0, 0.8)",
-          hoverTabs: "rgba(0, 0, 0, 0.35)",
-          details: "rgba(181, 182, 130)",
-          zebraEven: "rgba(244, 222, 222)",
-          zebraOdd: "rgba(242, 242, 242)",
+          zebraEven: "rgba(244, 222, 222, 1)",
+          zebraOdd: "rgba(242, 242, 242, 1)",
         },
-        login: {
+        modal: {
           backdrop: "rgba(28, 33, 13, 0.5)",
-          background: "rgba(245, 248, 221)",
-          submit: "rgba(210, 147, 32, 1)",
+          background: "rgba(245, 248, 221, 1)",
         },
         bars: {
-          notification: "rgba(217, 185, 155, .6)",
-          success: "rgba(75, 181, 67, .6)",
-          error: "rgba(232, 49, 85, .6)",
+          notification: "rgba(217, 185, 155, 0.6)",
+          success: "rgba(75, 181, 67, 0.6)",
+          error: "rgba(232, 49, 85, 0.6)",
         },
         buttons: {
           primary: "rgba(0, 0, 0, 0.5)",
-          logout: "rgba(210, 147, 32, 1)",
+          submit: "rgba(210, 147, 32, 1)",
+          delete: "rgba(185, 28, 28, 1)",
         },
       },
       fontFamily: {

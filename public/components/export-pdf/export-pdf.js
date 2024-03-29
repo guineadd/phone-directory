@@ -16,7 +16,7 @@ export default class ExportPdf {
   }
 
   render() {
-    this.showDivSelectionModalBtn = document.getElementById("show-division-selection-modal");
+    this.showDivSelectionModalBtn = document.getElementById("show-department-selection-modal");
     this.closeSelectionModalBtn = document.getElementById("close-select-button");
     this.exportPdfBtn = document.getElementById("export-pdf");
     this.selectAllChecksBtn = document.getElementById("select-all");
@@ -47,34 +47,34 @@ export default class ExportPdf {
 
     const filteredData = data.filter(item => item.name !== "ΧΩΡΙΣ ΚΑΤΗΓΟΡΙΑ");
 
-    const modal = document.getElementById("division-selection-modal-container");
+    const modal = document.getElementById("department-selection-modal-container");
     modal.classList.remove("hidden");
-    const divisionSelectionArea = document.getElementById("division-selection-area");
-    divisionSelectionArea.innerHTML = "";
+    const departmentSelectionArea = document.getElementById("department-selection-area");
+    departmentSelectionArea.innerHTML = "";
 
-    for (const division of filteredData) {
-      const divisionSelectItem = document.createElement("div");
-      divisionSelectItem.classList.add(
+    for (const department of filteredData) {
+      const departmentSelectItem = document.createElement("div");
+      departmentSelectItem.classList.add(
         "flex",
         "flex-row",
-        "bg-general-background",
+        "bg-general-barsPrimary",
         "rounded-[10px]",
         "p-2",
         "m-2",
         "w-[350px]",
         "justify-between",
-        "hover:bg-general-details",
+        "hover:bg-general-hover",
         "cursor-pointer",
       );
 
-      divisionSelectItem.innerHTML = `
-        <div>${division.name}</div>
-        <input id="selected-division-${division.id}" type="checkbox" class="division-checkbox h-6 w-6 cursor-pointer rounded-lg">
+      departmentSelectItem.innerHTML = `
+        <div>${department.name}</div>
+        <input id="selected-department-${department.id}" type="checkbox" class="department-checkbox h-6 w-6 cursor-pointer rounded-lg">
       `;
 
-      const checkbox = divisionSelectItem.querySelector(`#selected-division-${division.id}`);
+      const checkbox = departmentSelectItem.querySelector(`#selected-department-${department.id}`);
 
-      divisionSelectItem.addEventListener("click", () => {
+      departmentSelectItem.addEventListener("click", () => {
         checkbox.checked = !checkbox.checked;
       });
 
@@ -82,14 +82,14 @@ export default class ExportPdf {
         event.stopPropagation();
       });
 
-      divisionSelectionArea.appendChild(divisionSelectItem);
+      departmentSelectionArea.appendChild(departmentSelectItem);
     }
 
     this.pdfData = filteredData;
   }
 
   selectAllChecks() {
-    const checkboxes = document.querySelectorAll(".division-checkbox");
+    const checkboxes = document.querySelectorAll(".department-checkbox");
 
     checkboxes.forEach(checkbox => {
       checkbox.checked = this.selectAllChecksBtn.checked;
@@ -97,9 +97,9 @@ export default class ExportPdf {
   }
 
   exportPdf() {
-    const divisionSelectionArea = document.getElementById("division-selection-area");
-    const inputsSelected = divisionSelectionArea.querySelectorAll("input[type='checkbox']:checked");
-    const modal = document.getElementById("division-selection-modal-container");
+    const departmentSelectionArea = document.getElementById("department-selection-area");
+    const inputsSelected = departmentSelectionArea.querySelectorAll("input[type='checkbox']:checked");
+    const modal = document.getElementById("department-selection-modal-container");
     const selectedInputIds = [];
 
     inputsSelected.forEach(input => {
@@ -113,14 +113,15 @@ export default class ExportPdf {
     this.selectAllChecksBtn.checked = false;
     modal.classList.add("hidden");
     document.getElementById("preview-container").innerHTML = "";
+    document.getElementById("off-screen-container").innerHTML = "";
     this.pageIndex = 1;
     this.createPdfPage();
-    this.insertDivisions(filteredPdfData);
+    this.insertDepartments(filteredPdfData);
   }
 
   closeSelectionModal() {
     this.selectAllChecksBtn.checked = false;
-    const modal = document.getElementById("division-selection-modal-container");
+    const modal = document.getElementById("department-selection-modal-container");
     modal.classList.add("hidden");
   }
 
@@ -138,67 +139,74 @@ export default class ExportPdf {
           <span class="font-semibold text-base">ΚΑΤΑΛΟΓΟΣ ΕΣΩΤΕΡΙΚΩΝ ΤΗΛΕΦΩΝΩΝ</span>
         </div>
       </div>
-      <div id="pdf-divisions-${this.pageIndex}" class="h-[1300px] flex flex-wrap flex-col"></div>
+      <div id="pdf-departments-${this.pageIndex}" class="h-[1300px] w-[100%] flex flex-row">
+        <div id="page-${this.pageIndex}-first-column" class="h-[100%] w-[50%] flex flex-col"></div>
+        <div id="page-${this.pageIndex}-second-column" class="h-[100%] w-[50%] flex flex-col"></div>
+      </div>
     `;
 
     document.getElementById("preview-container").appendChild(div);
   }
 
-  insertDivisions(data) {
-    let totalHeight = 0;
+  insertDepartments(data) {
+    const offScreenContainer = document.getElementById("off-screen-container");
+    let firstColHeight = 0;
     let secondColHeight = 0;
+    const COLUMN_MAX_HEIGHT = 1250;
 
-    data.forEach(division => {
-      const divisionDiv = document.createElement("div");
-      divisionDiv.classList.add("w-[500px]", "flex", "flex-col");
-      divisionDiv.innerHTML = `
+    data.forEach(department => {
+      const departmentDiv = document.createElement("div");
+      departmentDiv.classList.add("w-[500px]", "flex", "flex-col");
+      departmentDiv.innerHTML = `
         <div>
           <div
-            class="flex justify-center bg-red-700 text-white font-semibold text-base border-x-[1px] border-t-[1px] border-b-[0px] border-black">
-            ${division.name}
+            class="flex justify-center bg-buttons-delete text-white font-semibold text-base border-x-[1px] border-t-[1px] border-b-[0px] border-black">
+            ${department.name}
           </div>
           <div class="flex flex-col">
-            <table id="tab-table-${division.id}" class="w-full border border-collapse text-sm">
-              <tbody id="tab-body-${division.id}"></tbody>
+            <table id="tab-table-${department.id}" class="w-full border border-collapse text-sm">
+              <tbody id="tab-body-${department.id}"></tbody>
             </table>
           </div>
         </div>
       `;
 
-      if (division.id === 2) {
-        division.Contacts.sort((a, b) => a.id - b.id);
+      if (department.id === 2) {
+        department.Contacts.sort((a, b) => a.id - b.id);
       } else {
-        division.Contacts.sort((a, b) => a.lastName.localeCompare(b.lastName));
+        department.Contacts.sort((a, b) => a.lastName.localeCompare(b.lastName));
       }
 
-      const tableBody = divisionDiv.querySelector(`#tab-body-${division.id}`);
+      const tableBody = departmentDiv.querySelector(`#tab-body-${department.id}`);
 
-      for (const [index, contact] of division.Contacts.entries()) {
+      for (const [index, contact] of department.Contacts.entries()) {
         const rowDiv = document.createElement("tr");
         rowDiv.innerHTML = `
-            <td class="border-collapse border-y-[1px] border-l-[1px] border-r-[0px] border-black pl-1">${contact.lastName} ${contact.firstName}</td>
-            <td class="border-collapse border-y-[1px] border-x-0 border-black ">${contact.comment.length > 0 ? "(" + contact.comment + ")" : ""}</td>
-            <td class="border-collapse border border-black text-center font-bold w-[80px]">
-            ${contact.Telephones[0].tel}
-            ${contact.Telephones.length > 1 ? "/" + contact.Telephones[1].tel : ""}
-            </td>
-          `;
+          <td class="border-collapse border-y-[1px] border-l-[1px] border-r-[0px] border-black pl-1">${contact.lastName} ${contact.firstName}</td>
+          <td class="border-collapse border-y-[1px] border-x-0 border-black ">${contact.comment.length > 0 ? "(" + contact.comment + ")" : ""}</td>
+          <td class="border-collapse border border-black text-center text-base font-bold w-[80px]">
+          ${contact.Telephones.map(telephone => telephone.tel).join("/")}</td>
+        `;
         rowDiv.classList.add(index % 2 === 0 ? "bg-general-zebraOdd" : "bg-general-zebraEven");
         tableBody.appendChild(rowDiv);
       }
 
-      const divisionContainer = document.getElementById(`pdf-divisions-${this.pageIndex}`);
-      divisionContainer.appendChild(divisionDiv);
-      totalHeight += divisionDiv.clientHeight;
+      offScreenContainer.appendChild(departmentDiv);
+      const departmentHeight = departmentDiv.offsetHeight;
+      firstColHeight += departmentHeight;
 
-      if (totalHeight > 1200) {
-        secondColHeight += divisionDiv.clientHeight;
-        document.getElementById(`pdf-container-1`).classList.remove("w-[1000px]");
-      }
-
-      if (secondColHeight > 1200 && divisionContainer.clientWidth === 1000) {
-        this.pageIndex++;
-        this.createPdfPage();
+      if (firstColHeight < COLUMN_MAX_HEIGHT) {
+        document.getElementById(`page-${this.pageIndex}-first-column`).appendChild(departmentDiv);
+      } else if (firstColHeight >= COLUMN_MAX_HEIGHT) {
+        secondColHeight += departmentHeight;
+        if (secondColHeight >= COLUMN_MAX_HEIGHT) {
+          firstColHeight = 0;
+          secondColHeight = 0;
+          this.pageIndex++;
+          this.createPdfPage();
+        } else {
+          document.getElementById(`page-${this.pageIndex}-second-column`).appendChild(departmentDiv);
+        }
       }
     });
 
