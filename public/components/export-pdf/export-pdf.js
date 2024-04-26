@@ -34,6 +34,10 @@ export default class ExportPdf {
     this.selectAllChecksBtn.addEventListener("click", this.selectAllChecks);
   }
 
+  setComponents(notifications) {
+    this.notificationsComponent = notifications;
+  }
+
   async fetchPdfData() {
     const response = await fetch(`/get-all-contacts`, {
       method: "GET",
@@ -110,6 +114,11 @@ export default class ExportPdf {
 
     const filteredPdfData = this.pdfData.filter(item => selectedInputIds.includes(item.id.toString()));
 
+    if (filteredPdfData.length === 0) {
+      this.notificationsComponent.render(500, "Choose at least one department to continue");
+      return;
+    }
+
     this.selectAllChecksBtn.checked = false;
     modal.classList.add("hidden");
     document.getElementById("preview-container").innerHTML = "";
@@ -152,7 +161,7 @@ export default class ExportPdf {
     const offScreenContainer = document.getElementById("off-screen-container");
     let firstColHeight = 0;
     let secondColHeight = 0;
-    const COLUMN_MAX_HEIGHT = 1250;
+    const COLUMN_MAX_HEIGHT = 1300;
 
     data.forEach(department => {
       const departmentDiv = document.createElement("div");
@@ -160,8 +169,8 @@ export default class ExportPdf {
       departmentDiv.innerHTML = `
         <div>
           <div
-            class="flex justify-center bg-buttons-delete text-white font-semibold text-base border-x-[1px] border-t-[1px] border-b-[0px] border-black">
-            ${department.name}
+            class="flex justify-center bg-buttons-delete text-white font-semibold text-base border-x-[1px]
+            border-t-[1px] border-b-[0px] border-black">${department.name}
           </div>
           <div class="flex flex-col">
             <table id="tab-table-${department.id}" class="w-full border border-collapse text-sm">
@@ -204,6 +213,7 @@ export default class ExportPdf {
           secondColHeight = 0;
           this.pageIndex++;
           this.createPdfPage();
+          document.getElementById(`page-${this.pageIndex}-first-column`).appendChild(departmentDiv);
         } else {
           document.getElementById(`page-${this.pageIndex}-second-column`).appendChild(departmentDiv);
         }

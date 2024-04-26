@@ -4,7 +4,7 @@ import Login from "./components/login/login.js";
 import Catalog from "./components/catalog/catalog.js";
 import Notifications from "./components/notifications/notifications.js";
 import UserManagement from "./components/user-management/user-management.js";
-import ΕxportPdf from "./components/export-pdf/export-pdf.js";
+import ExportPdf from "./components/export-pdf/export-pdf.js";
 
 import loginTemplate from "./components/login/login.html";
 import catalogTemplate from "./components/catalog/catalog.html";
@@ -32,6 +32,7 @@ const login = new Login();
 const catalog = new Catalog();
 const notifications = new Notifications();
 const userManagement = new UserManagement();
+const exportPdf = new ExportPdf();
 
 if (sessionStorage.getItem("loggedUserType")) {
   const headerUsers = document.getElementById("header-users");
@@ -46,8 +47,6 @@ if (sessionStorage.getItem("loggedUserType")) {
   }
 }
 
-const exportPdf = new ΕxportPdf();
-
 catalog.render();
 login.render();
 userManagement.render();
@@ -56,6 +55,7 @@ exportPdf.render();
 catalog.setComponents(login, notifications, userManagement);
 login.setComponents(catalog, userManagement, notifications);
 userManagement.setComponents(catalog, login, notifications);
+exportPdf.setComponents(notifications);
 
 document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("version").innerHTML = process.env.VERSION;
