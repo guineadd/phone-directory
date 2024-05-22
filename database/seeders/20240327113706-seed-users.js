@@ -5,7 +5,15 @@ const argon2 = require("argon2");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface) {
-    const users = [{ userTypeId: 1, username: "akalogeras", password: "admin" }];
+    const users = [
+      // * preset users
+      // ! the first user is the admin user and should automatically be seeded into the database
+      // ! the password is hashed using argon2
+      // ! it is recommended to create a new user and delete this one after deployment
+      // ! the admin user is granted all permissions within the app's logic
+      { userTypeId: 1, username: "admin", password: "admin" },
+      // add more users here
+    ];
 
     await Promise.all(
       users.map(async user => {
