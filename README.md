@@ -6,15 +6,19 @@ To make it easy for you to get started with GitLab, here's a list of recommended
 
 ```
 npm install
-// # whenever there is a change in the tailwind classes being used (usually within .html files), re-run this command to see the changes
-// # multiple executions will result in a bloated tailwind.css file,
-// so make sure that you regularly delete and save its empty contents, before re-running this command
+
+# whenever there is a change in the tailwind classes being used (usually within .html files), re-run this command to see the changes
+# multiple executions will result in a bloated tailwind.css file,
+# so make sure that you regularly delete and save its empty contents, before re-running this command
 npm run tailwind
-// # before migrating make sure to create the database file 'catalog.sqlite'
-// # both sequelize-cli commands can be reverted by adding ':undo' at the end of each command
+
+# before migrating make sure to create the database file 'catalog.sqlite'
+# both sequelize-cli commands can be reverted by adding ':undo' at the end of each command
 npx sequelize-cli db:migrate
-// make sure to replace the contents of the seeder files before running this command to populate the database with the desired data
+
+# make sure to replace the contents of the seeder files before running this command to populate the database with the desired data
 npx sequelize-cli db:seel:all
+
 npm start
 ```
 
